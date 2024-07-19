@@ -46,6 +46,7 @@
 
 -   `msw`: MSW 목업
 -   `mui/material`: MUI 디자인 시스템
+-   `mui/icons-material`: MUI 디자인 시스템 - 아이콘
 -   `emotion/styled`: MUI CSS-in-JS
 -   `vite-plugin-mkcert`: 로컬 개발용 SSL
 -   `zustand`: 상태관리
