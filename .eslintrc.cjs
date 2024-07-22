@@ -18,5 +18,35 @@ module.exports = {
         'react/react-in-jsx-scope': 'off',
         'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
         'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+        'import/order': [
+            'error',
+            {
+                groups: [
+                    ['builtin', 'external'],
+                    'internal',
+                    ['parent', 'sibling', 'index'],
+                    'object',
+                    'type',
+                ],
+                pathGroups: [
+                    {
+                        pattern: 'react',
+                        group: 'external',
+                        position: 'before',
+                    },
+                    {
+                        pattern: '**/*.+(css|scss|sass|less)',
+                        group: 'type',
+                        position: 'after',
+                    },
+                ],
+                pathGroupsExcludedImportTypes: ['react'],
+                'newlines-between': 'always',
+                alphabetize: {
+                    order: 'asc',
+                    caseInsensitive: true,
+                },
+            },
+        ],
     },
 };

@@ -53,6 +53,7 @@
 -   `react-cookie`: 쿠키관리
 -   `react-query`: 패칭
 -   `isomorphic-dompurify`: XSS보안
+-   `eslint-plugin-import`: eslint import 관리(순서)
 -   `lodash`: 유틸리티
 -   `rsn-react-ui`: 커스텀 UI(자체 제작한 UI로 추후에 추가)
 
