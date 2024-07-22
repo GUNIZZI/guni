@@ -1,6 +1,13 @@
 module.exports = {
     root: true,
     env: { browser: true, es2020: true },
+    settings: {
+        'import/resolver': {
+            node: {
+                extensions: ['.js', '.jsx', '.ts', '.tsx'],
+            },
+        },
+    },
     extends: [
         'airbnb',
         'prettier',
@@ -56,6 +63,16 @@ module.exports = {
                     order: 'asc',
                     caseInsensitive: true,
                 },
+            },
+        ],
+        'import/extensions': [
+            'error',
+            'ignorePackages',
+            {
+                js: 'never',
+                jsx: 'never',
+                ts: 'never',
+                tsx: 'never',
             },
         ],
     },
