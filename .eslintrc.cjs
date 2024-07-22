@@ -35,6 +35,16 @@ module.exports = {
                         position: 'before',
                     },
                     {
+                        pattern: '{.,..}/**/*',
+                        group: 'parent',
+                        position: 'before',
+                    },
+                    {
+                        pattern: '@mui/**',
+                        group: 'type',
+                        position: 'after',
+                    },
+                    {
                         pattern: '**/*.+(css|scss|sass|less)',
                         group: 'type',
                         position: 'after',
