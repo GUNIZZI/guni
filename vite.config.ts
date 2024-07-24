@@ -23,8 +23,7 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
             target: 'esnext',
         },
         server: {
-            host: 'fe.cocacola.devel.com',
-            port: 8701,
+            host: 'guni.devel.com',
             open: true,
         },
     };
