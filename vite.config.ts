@@ -1,5 +1,5 @@
-import { defineConfig, UserConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { defineConfig, UserConfig } from 'vite';
 import mkcert from 'vite-plugin-mkcert';
 
 export default defineConfig(async ({ mode }): Promise<UserConfig> => {

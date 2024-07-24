@@ -3,6 +3,9 @@
     "private": true,
     "version": "0.0.1",
     "type": "module",
+    "publishConfig": {
+        "registry": "https://dev.realsn.com/api/v4/projects/428/packages/npm/"
+    },
     "scripts": {
         "dev": "vite",
         "dev:prod": "vite --mode production",
@@ -17,6 +20,7 @@
         "@emotion/styled": "^11.11.5",
         "@mui/icons-material": "^5.16.4",
         "@mui/material": "^5.16.4",
+        "@pass_fekit/fekit": "^1.0.0",
         "@tanstack/react-query": "^5.49.2",
         "@tanstack/react-query-devtools": "^5.49.2",
         "@types/react-transition-group": "^4.4.10",
@@ -43,6 +47,7 @@
         "eslint": "^8.57.0",
         "eslint-config-airbnb": "^19.0.4",
         "eslint-config-prettier": "^9.1.0",
+        "eslint-import-resolver-alias": "^1.1.2",
         "eslint-import-resolver-typescript": "^3.6.1",
         "eslint-plugin-html": "^8.0.0",
         "eslint-plugin-import": "^2.29.1",
