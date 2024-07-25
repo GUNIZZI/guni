@@ -11,6 +11,7 @@ const containerStyle = (theme: Theme) => css`
         right: 0;
         padding: 0 2em;
         transform: translateY(-50%);
+        z-index: 2;
 
         ul {
             display: flex;
@@ -68,6 +69,10 @@ const containerStyle = (theme: Theme) => css`
                 }
             }
         }
+    }
+
+    > .page {
+        position: relative;
     }
 `;
 

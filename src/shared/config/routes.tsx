@@ -6,23 +6,23 @@ const routes = {
     children: [
         {
             index: true,
-            element: <div>home</div>,
+            element: <div style={{ minHeight: '100vh', background: 'red' }}>home</div>,
         },
         {
             path: 'about',
-            element: <div>about</div>,
+            element: <div style={{ minHeight: '100vh', background: 'yellow' }}>about</div>,
         },
         {
             path: 'blog',
-            element: <div>blog</div>,
+            element: <div style={{ minHeight: '100vh', background: 'green' }}>blog</div>,
         },
         {
             path: 'tech',
-            element: <div>tech</div>,
+            element: <div style={{ minHeight: '100vh', background: 'blue' }}>tech</div>,
         },
         {
             path: 'pf',
-            element: <div>pf</div>,
+            element: <div style={{ minHeight: '100vh', background: 'orange' }}>pf</div>,
         },
     ],
 };
