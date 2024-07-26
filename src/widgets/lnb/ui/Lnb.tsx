@@ -1,25 +1,16 @@
+import { useLnbMove } from '@/features/lnb/model/useLnbMove';
+import { navItems } from '@/shared/config/navPath';
+import { theme } from '@/shared/config/theme';
+
+import { lnbStyle } from './Lnb.css';
 import { NavItem } from './NavItem';
 
-import {
-    AccessTimeFilled,
-    Home,
-    PersonSearch,
-    TipsAndUpdates,
-    WorkspacePremium,
-} from '@mui/icons-material';
-
-// 메뉴 아이템
-const navItems = [
-    { path: '/', name: 'Home', icon: Home },
-    { path: '/about', name: 'About G', icon: PersonSearch },
-    { path: '/tech', name: 'Tech Blog', icon: TipsAndUpdates },
-    { path: '/blog', name: 'Life Blog', icon: AccessTimeFilled },
-    { path: '/pf', name: 'Portfolio', icon: WorkspacePremium },
-];
-
 const Lnb = () => {
+    const { selIdx } = useLnbMove();
+
     return (
-        <div className="lnb">
+        <div css={lnbStyle(theme)}>
+            {selIdx}
             <div>
                 <ul>
                     {navItems.map(item => (
