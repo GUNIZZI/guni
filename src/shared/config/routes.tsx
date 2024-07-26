@@ -45,6 +45,27 @@ const routes = {
                 componentName: 'PageAbout',
             }),
         },
+        {
+            path: 'tech',
+            element: LazyLoad({
+                importFunction: import('@/pages/tech'),
+                componentName: 'PageTech',
+            }),
+        },
+        {
+            path: 'blog',
+            element: LazyLoad({
+                importFunction: import('@/pages/blog'),
+                componentName: 'PageBlog',
+            }),
+        },
+        {
+            path: 'pf',
+            element: LazyLoad({
+                importFunction: import('@/pages/pf'),
+                componentName: 'PagePf',
+            }),
+        },
     ],
 };
 
