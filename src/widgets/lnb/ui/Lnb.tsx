@@ -6,11 +6,11 @@ import { lnbStyle } from './Lnb.css';
 import { NavItem } from './NavItem';
 
 const Lnb = () => {
-    const { selIdx } = useLnbMove();
+    // const { selIdx } = useLnbMove();
 
     return (
         <div css={lnbStyle(theme)}>
-            {selIdx}
+            {/* {selIdx} */}
             <div>
                 <ul>
                     {navItems.map(item => (

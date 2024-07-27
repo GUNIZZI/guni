@@ -6,8 +6,9 @@ const containerStyle = () => css`
     overflow: hidden;
 
     .page {
+        position: absolute;
         width: 100vw;
-        height: 100vh;
+        height: 20vh;
     }
 `;
 

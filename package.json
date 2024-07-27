@@ -21,6 +21,7 @@
         "@tanstack/react-query-devtools": "^5.49.2",
         "@types/react-transition-group": "^4.4.10",
         "axios": "^1.6.8",
+        "framer-motion": "^11.3.18",
         "isomorphic-dompurify": "^2.4.0",
         "lodash": "^4.17.21",
         "node-sass": "^9.0.0",

@@ -1,5 +1,4 @@
 .fade-enter {
-    position: absolute;
     opacity: 0;
 }
 .fade-enter-active {
@@ -7,7 +6,6 @@
     transition: opacity 800ms ease-in-out;
 }
 .fade-exit {
-    position: absolute;
     opacity: 1;
 }
 .fade-exit-active {

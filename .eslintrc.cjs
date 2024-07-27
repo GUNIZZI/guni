@@ -106,5 +106,13 @@ module.exports = {
                 tsx: 'never',
             },
         ],
+        // HTML요소에 대한 propspreading은 금지, 커스텀 컴포넌트 대해서는 허용 {...props}
+        'react/jsx-props-no-spreading': [
+            'error',
+            {
+                html: 'enforce',
+                custom: 'ignore',
+            },
+        ],
     },
 };

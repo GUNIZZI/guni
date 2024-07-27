@@ -1,16 +1,54 @@
-import { LayoutDefault } from '@/shared/ui/layout/Default';
-import { LazyLoad } from '@/shared/util/LazyLoad';
+import { Suspense } from 'react';
 
-// const Home = lazy(() => import('@/pages/home').then(module => ({ default: module.PageHome })));
-// const About = lazy(() => import('@/pages/about').then(module => ({ default: module.PageAbout })));
-// const Tech = lazy(() => import('@/pages/tech').then(module => ({ default: module.PageTech })));
-// const Blog = lazy(() => import('@/pages/blog').then(module => ({ default: module.PageBlog })));
-// const Portfolio = lazy(() => import('@/pages/pf').then(module => ({ default: module.PagePf })));
+import { LayoutDefault } from '@/shared/ui/layout/Default';
+
+import { LazyHome, LazyAbout, LazyTech, LazyBlog, LazyPortfolio } from './lazyComponents';
+import { LazyLoad } from '../util/LazyLoad';
 
 const routes = {
     path: '/',
     element: <LayoutDefault />,
     children: [
+        {
+            index: true,
+            element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                    <LazyHome />
+                </Suspense>
+            ),
+        },
+        {
+            path: 'about',
+            element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                    <LazyAbout />
+                </Suspense>
+            ),
+        },
+        {
+            path: 'blog',
+            element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                    <LazyBlog />
+                </Suspense>
+            ),
+        },
+        {
+            path: 'tech',
+            element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                    <LazyTech />
+                </Suspense>
+            ),
+        },
+        {
+            path: 'pf',
+            element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                    <LazyPortfolio />
+                </Suspense>
+            ),
+        },
         // {
         //     index: true,
         //     element: LazyLoad(() => import('@/pages/home'), 'PageHome', 'LazyPageHome'),
@@ -31,41 +69,41 @@ const routes = {
         //     path: 'pf',
         //     element: LazyLoad(() => import('@/pages/pf'), 'PagePf', 'LazyPagePortfolio'),
         // },
-        {
-            index: true,
-            element: LazyLoad({
-                importFunction: import('@/pages/home'),
-                componentName: 'PageHome',
-            }),
-        },
-        {
-            path: 'about',
-            element: LazyLoad({
-                importFunction: import('@/pages/about'),
-                componentName: 'PageAbout',
-            }),
-        },
-        {
-            path: 'tech',
-            element: LazyLoad({
-                importFunction: import('@/pages/tech'),
-                componentName: 'PageTech',
-            }),
-        },
-        {
-            path: 'blog',
-            element: LazyLoad({
-                importFunction: import('@/pages/blog'),
-                componentName: 'PageBlog',
-            }),
-        },
-        {
-            path: 'pf',
-            element: LazyLoad({
-                importFunction: import('@/pages/pf'),
-                componentName: 'PagePf',
-            }),
-        },
+        // {
+        //     index: true,
+        //     element: LazyLoad({
+        //         importFunction: import('@/pages/home'),
+        //         componentName: 'PageHome',
+        //     }),
+        // },
+        // {
+        //     path: 'about',
+        //     element: LazyLoad({
+        //         importFunction: import('@/pages/about'),
+        //         componentName: 'PageAbout',
+        //     }),
+        // },
+        // {
+        //     path: 'tech',
+        //     element: LazyLoad({
+        //         importFunction: import('@/pages/tech'),
+        //         componentName: 'PageTech',
+        //     }),
+        // },
+        // {
+        //     path: 'blog',
+        //     element: LazyLoad({
+        //         importFunction: import('@/pages/blog'),
+        //         componentName: 'PageBlog',
+        //     }),
+        // },
+        // {
+        //     path: 'pf',
+        //     element: LazyLoad({
+        //         importFunction: import('@/pages/pf'),
+        //         componentName: 'PagePf',
+        //     }),
+        // },
     ],
 };
 

@@ -1,49 +1,75 @@
-// // LazyLoad.tsx
-// import React, { lazy, Suspense, ComponentType } from 'react';
+// import { ComponentType, lazy, Suspense } from 'react';
 
-import { ComponentType, lazy, Suspense } from 'react';
+// interface OwnProps<T = unknown> {
+//     importFunction: () => Promise<{ [key: string]: ComponentType<T> }>;
+//     componentName: string;
+// }
 
-import { ReactJSXElement } from 'node_modules/@emotion/react/types/jsx-namespace';
-
-// type LazyComponentType = { [key: string]: ComponentType<unknown> };
-
-// export const LazyLoad = <K extends string>(
-//     importFunc: () => Promise<LazyComponentType>,
-//     componentName: K,
-//     displayName: string,
-// ): React.ComponentProps<LazyComponentType[K]> => {
-//     const LazyComponent = lazy(async () => {
-//         const module = await importFunc();
-//         return { default: module[componentName] };
+// const delay = (ms: number) =>
+//     new Promise<void>(resolve => {
+//         setTimeout(resolve, ms);
 //     });
 
-//     const LazyLoadComponent: React.FC<React.ComponentProps<LazyComponentType[K]>> = props => (
-//         <Suspense fallback={<div>Loading...</div>}>
-//             <LazyComponent {...props} />
-//         </Suspense>
+// const LazyLoad = ({ importFunction, componentName }: OwnProps) => {
+//     const LazyComponent = lazy(() =>
+//         importFunction()
+//             .then(module => delay(2000).then(() => module))
+//             .then(module => {
+//                 const Component = module[componentName as keyof typeof module];
+//                 return { default: Component };
+//             }),
 //     );
 
-//     LazyLoadComponent.displayName = displayName;
-//     return LazyLoadComponent;
+//     return (
+//         <Suspense fallback={<div>Loding</div>}>
+//             <LazyComponent />
+//         </Suspense>
+//     );
 // };
 
-interface OwnProps {
-    importFunction: Promise<{ [key: string]: ComponentType<unknown> }>;
+// export { LazyLoad };
+
+import { ComponentType, lazy, Suspense, useState, useEffect } from 'react';
+
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
+interface OwnProps<T = unknown> {
+    importFunction: () => Promise<{ [key: string]: ComponentType<T> }>;
     componentName: string;
 }
 
+const delay = (ms: number) =>
+    new Promise<void>(resolve => {
+        setTimeout(resolve, ms);
+    });
+
 const LazyLoad = ({ importFunction, componentName }: OwnProps) => {
+    const [isLoaded, setIsLoaded] = useState(false);
+
     const LazyComponent = lazy(() =>
-        importFunction.then(module => {
-            const Component = module[componentName as keyof typeof module];
-            return { default: Component };
-        }),
+        importFunction()
+            .then(module => delay(2000).then(() => module))
+            .then(module => {
+                const Component = module[componentName];
+                if (!Component) {
+                    throw new Error(`Component ${componentName} not found in the module`);
+                }
+                return { default: Component };
+            }),
     );
 
+    useEffect(() => {
+        setIsLoaded(true);
+    }, []);
+
     return (
-        <Suspense fallback={<div>Loding</div>}>
-            <LazyComponent />
-        </Suspense>
+        <TransitionGroup>
+            <CSSTransition in={isLoaded} timeout={600} classNames="fade" unmountOnExit>
+                <Suspense fallback={<div className="loading-fallback">Loading</div>}>
+                    <LazyComponent />
+                </Suspense>
+            </CSSTransition>
+        </TransitionGroup>
     );
 };
 
