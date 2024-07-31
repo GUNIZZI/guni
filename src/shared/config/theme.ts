@@ -7,10 +7,10 @@ export const theme = createTheme({
     palette: {
         mode: 'dark',
         primary: {
-            main: '#ceff00',
+            main: '#ffffff',
         },
         secondary: {
-            main: '#dc004e',
+            main: '#999999',
         },
     },
     // 여기에 추가적인 테마 커스터마이징을 할 수 있습니다.

@@ -3,13 +3,13 @@ import { useEffect, useMemo, useState } from 'react';
 import { throttle } from 'lodash';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { navItems } from '@/shared/config/navPath';
+import { NAV_PATH } from '@/shared/config/navPath';
 
-const useLnbMove = () => {
+const useNavMove = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [selIdx, setSelIdx] = useState(() => {
-        return navItems.find(item => item.path === location.pathname)?.seq || 0;
+        return NAV_PATH.find(item => item.path === location.pathname)?.seq || 0;
     });
     const [isFirst, setIsFirst] = useState(true);
 
@@ -19,7 +19,7 @@ const useLnbMove = () => {
                 (delta: string) => {
                     if (delta === 'dn') {
                         setSelIdx(prev =>
-                            prev < navItems.length - 1 ? prev + 1 : navItems.length - 1,
+                            prev < NAV_PATH.length - 1 ? prev + 1 : NAV_PATH.length - 1,
                         );
                     } else {
                         setSelIdx(prev => (prev > 0 ? prev - 1 : 0));
@@ -34,13 +34,13 @@ const useLnbMove = () => {
     useEffect(() => {
         const handleScroll = (e: WheelEvent) => {
             const dir = e.deltaY > 0 ? 'dn' : 'up';
-            if ((selIdx > 0 && dir === 'up') || (selIdx < navItems.length - 1 && dir === 'dn'))
+            if ((selIdx > 0 && dir === 'up') || (selIdx < NAV_PATH.length - 1 && dir === 'dn'))
                 throttledSetSelIdx(dir);
         };
         window.addEventListener('wheel', handleScroll);
 
         if (!isFirst) {
-            const path = navItems.find(item => item.seq === selIdx)?.path || '/';
+            const path = NAV_PATH.find(item => item.seq === selIdx)?.path || '/';
             navigate(path);
         }
         setIsFirst(false);
@@ -51,10 +51,10 @@ const useLnbMove = () => {
     }, [selIdx, isFirst, navigate, throttledSetSelIdx]);
 
     useEffect(() => {
-        setSelIdx(() => navItems.find(item => item.path === location.pathname)?.seq || 0);
+        setSelIdx(() => NAV_PATH.find(item => item.path === location.pathname)?.seq || 0);
     }, [location]);
 
     return { selIdx };
 };
 
-export { useLnbMove };
+export { useNavMove };

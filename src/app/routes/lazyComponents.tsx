@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-const delay = (ms: number = 2000) =>
+const delay = (ms: number = 1000) =>
     new Promise<void>(resolve => {
         setTimeout(resolve, ms);
     });

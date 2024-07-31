@@ -1,13 +1,9 @@
 import { css } from '@emotion/react';
 
-// import { Theme } from '@mui/material';
-import { Theme as MuiTheme } from '@mui/material';
-
-const style = (theme: MuiTheme) => css`
+const style = () => css`
     position: fixed;
     top: 50%;
-    right: 0;
-    padding: 0 2em;
+    right: 2em;
     transform: translateY(-50%);
 
     ul {
@@ -32,18 +28,18 @@ const style = (theme: MuiTheme) => css`
                 transition: all 0.18s ease-in-out;
 
                 &:hover {
-                    background: ${theme.palette.primary.main};
+                    background: var(--color);
 
                     color: #000;
 
                     > span {
                         padding: 10px 50px 10px 30px;
-                        background: ${theme.palette.primary.main};
+                        background: var(--color);
                         opacity: 1;
                     }
                 }
                 &.active {
-                    background: ${theme.palette.primary.main};
+                    background: var(--color);
                     color: #000;
                 }
 
@@ -70,4 +66,4 @@ const style = (theme: MuiTheme) => css`
     }
 `;
 
-export { style as lnbStyle };
+export { style as navStyle };

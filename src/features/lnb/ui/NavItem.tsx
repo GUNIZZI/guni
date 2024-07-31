@@ -7,12 +7,13 @@ interface OwnProps {
         path: string;
         icon: SvgIconComponent;
         name: string;
+        color: string;
     };
 }
 
-const NavItem = ({ item: { path, icon: Icon, name } }: OwnProps) => {
+const NavItem = ({ item: { path, icon: Icon, name, color } }: OwnProps) => {
     return (
-        <NavLink to={path}>
+        <NavLink to={path} style={{ '--color': color } as React.CSSProperties}>
             <span className="title">{name}</span>
             <Icon className="icon" fontSize="small" />
         </NavLink>
