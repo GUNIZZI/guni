@@ -1,49 +1,31 @@
-import { ReactNode, useDeferredValue, useEffect, useRef, useState } from 'react';
+import { ReactNode } from 'react';
 
-import { useLocation } from 'react-router-dom';
-import { SwitchTransition, CSSTransition } from 'react-transition-group';
-
-import './transition.css';
+import { motion } from 'framer-motion';
 
 interface OwnProps {
     children: ReactNode;
 }
 
-const useSuspenseStatus = () => {
-    const [isPending, setIsPending] = useState(false);
-    const deferredIsPending = useDeferredValue(isPending);
-
-    useEffect(() => {
-        if (isPending !== deferredIsPending) {
-            setIsPending(true);
-        } else {
-            setIsPending(false);
-        }
-    }, [isPending, deferredIsPending]);
-
-    return isPending;
+const pageAni = {
+    init: {
+        opacity: 0,
+        transition: { type: 'spring', duration: 0 },
+    },
+    ani: {
+        opacity: 1,
+        transition: { type: 'spring', duration: 0.6 },
+    },
+    exit: {
+        opacity: 0,
+        transition: { type: 'spring', duration: 0.6 },
+    },
 };
 
 const TransitionPage = ({ children }: OwnProps) => {
-    const location = useLocation();
-    const nodeRef = useRef(null);
-    const isSuspensePendding = useSuspenseStatus();
-
-    console.log('isSuspensePendding >>  ', isSuspensePendding);
-
     return (
-        <SwitchTransition>
-            <CSSTransition
-                key={location.pathname}
-                classNames="fade"
-                timeout={600}
-                nodeRef={nodeRef}
-            >
-                <div ref={nodeRef} className="page">
-                    {children}
-                </div>
-            </CSSTransition>
-        </SwitchTransition>
+        <motion.div className="page" variants={pageAni} initial="init" animate="ani" exit="exit">
+            {children}
+        </motion.div>
     );
 };
 

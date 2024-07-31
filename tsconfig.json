@@ -28,6 +28,5 @@
         "noFallthroughCasesInSwitch": true
     },
     "include": ["src"],
-    "references": [{ "path": "./tsconfig.node.json" }],
-    "files": ["node_modules/gsap/types/index.d.ts"]
+    "references": [{ "path": "./tsconfig.node.json" }]
 }
