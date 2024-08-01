@@ -21,6 +21,10 @@ const GradientButton = styled(Button, {
         color: '#fff',
         wordSpacing: '2em',
     },
+    '&:disabled': {
+        opacity: 0.6,
+        textDecoration: 'line-through',
+    },
 }));
 
 export { GradientButton };

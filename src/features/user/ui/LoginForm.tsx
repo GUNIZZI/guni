@@ -1,18 +1,20 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { fbAuth } from '@/shared/api/firebase';
+import { UserLoginCredential } from '@/entities/user/model/User';
+import { setGlobalErrorHandler } from '@/shared/error/errorMiddleware';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
+import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
 
 import { CustomDialog } from './LoginForm.css';
 import { LoginContext } from './LoginFormProvider';
+import { useLogin } from '../hook/useLogin';
 
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import {
     DialogTitle,
     DialogContent,
-    TextField,
     DialogActions,
     Button,
     Typography,
@@ -21,21 +23,46 @@ import {
 } from '@mui/material';
 
 const LoginForm = () => {
-    const [email, setEmail] = useState('');
-    const [pw, setPw] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const { loginFormActive, setLoginFormActive } = useContext(LoginContext);
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isValid, isDirty },
+    } = useForm<UserLoginCredential>({
+        mode: 'onChange',
+    });
+    const { login } = useLogin();
 
-    const handleLogin = () => {
-        signInWithEmailAndPassword(fbAuth, email, pw)
-            .then(user => {
-                console.log(user);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-            .finally(() => {});
+    const onSubmit: SubmitHandler<UserLoginCredential> = data => {
+        login(data);
+
+        // 여기에 로그인 로직을 구현하세요
+        // setLoginFormActive(false);
     };
+
+    const handleGuestLogin = async () => {
+        login({
+            id: import.meta.env.VITE_FB_GUEST_ID,
+            pw: import.meta.env.VITE_FB_GUEST_PW,
+        });
+    };
+
+    useEffect(() => {
+        setGlobalErrorHandler(error => {
+            console.log(error.code);
+            if (error.code === 'auth/invalid-credential') {
+                console.log('ID가 없거나, 비밀번호가 틀렸습니다.', { variant: 'error' });
+            }
+            // } else if (error.code === 'auth/user-not-found') {
+            //     enqueueSnackbar('사용자를 찾을 수 없습니다.', { variant: 'error' });
+            // } else {
+            //     enqueueSnackbar('로그인 중 오류가 발생했습니다.', { variant: 'error' });
+            // }
+        });
+
+        return () => setGlobalErrorHandler(null); // 컴포넌트 언마운트 시 핸들러 제거
+    }, []);
 
     return (
         <CustomDialog
@@ -43,40 +70,40 @@ const LoginForm = () => {
             onClose={() => setLoginFormActive(false)}
             PaperProps={{
                 component: 'form',
-                onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-                    event.preventDefault();
-                    handleLogin();
-                    // const formData = new FormData(event.currentTarget);
-                    // const formJson = Object.fromEntries((formData as any).entries());
-                    // const { email } = formJson;
-                    // console.log(email);
-                    // handleClose();
-                    console.log('asdasdasd');
-                },
+                onSubmit: handleSubmit(onSubmit),
             }}
         >
-            <DialogTitle>Login</DialogTitle>
+            <DialogTitle sx={{ margin: '1.4em 0 1em', fontSize: '2.2em' }}>Login</DialogTitle>
             <DialogContent>
-                <TextField
+                <CustomTextField<UserLoginCredential>
                     autoFocus
-                    margin="dense"
-                    id="email"
-                    label="Email"
+                    id="id"
+                    label="ID"
                     type="email"
                     fullWidth
                     variant="filled"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    register={register}
+                    error={errors.id}
+                    rules={{
+                        required: 'ID는 필수입니다',
+                        pattern: {
+                            value: /\S+@\S+\.\S+/,
+                            message: 'ID는 이메일 형태이며, 입력한 아이디가 유효하지 않습니다.',
+                        },
+                    }}
                 />
-                <TextField
-                    margin="dense"
-                    id="Password"
-                    label="password"
+                <CustomTextField<UserLoginCredential>
+                    margin="normal"
+                    id="pw"
+                    label="PW"
                     type={showPassword ? 'text' : 'password'}
                     fullWidth
                     variant="filled"
-                    value={pw}
-                    onChange={e => setPw(e.target.value)}
+                    register={register}
+                    error={errors.pw}
+                    rules={{
+                        required: '비밀번호는 필수입니다',
+                    }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -96,10 +123,15 @@ const LoginForm = () => {
                 </Typography>
             </DialogContent>
             <DialogActions sx={{ flexDirection: 'column' }}>
-                <GradientButton type="submit" variant="contained" size="large">
+                <GradientButton
+                    type="submit"
+                    variant="contained"
+                    size="large"
+                    disabled={!isValid || !isDirty}
+                >
                     Admin Login
                 </GradientButton>
-                <Button size="small" sx={{ mt: 2 }} /* onClick={() => setLoginFormActive(false)} */>
+                <Button size="small" sx={{ mt: 2 }} onClick={handleGuestLogin}>
                     Guest Login
                 </Button>
             </DialogActions>

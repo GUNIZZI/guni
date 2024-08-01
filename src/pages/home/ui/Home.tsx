@@ -1,5 +1,7 @@
 import { motion, MotionProps } from 'framer-motion';
 
+import './Home.scss';
+
 interface BoxMotionProps extends MotionProps {
     whileHover: { scale: number };
     whileTap: { scale: number };
@@ -25,6 +27,7 @@ const Home = () => {
                     background: 'red',
                 }}
             />
+            <div className="loader" />
         </div>
     );
 };

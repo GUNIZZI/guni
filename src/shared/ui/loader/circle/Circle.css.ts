@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 import { NAV_PATH } from '@/shared/config/navPath';
+import { theme } from '@/shared/config/theme';
 
 const getColor = () => {
     return NAV_PATH.find(item => item.path === window.location.pathname)?.color || '#fff';
@@ -66,4 +67,43 @@ const loaderStyle = () => {
     `;
 };
 
-export { loaderStyle };
+const loaderStyle2 = () => {
+    const rndColor = getColor();
+
+    return css`
+        display: inline-block;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 8em;
+        height: 8em;
+        margin: -4em 0 0 -4em;
+        border-radius: 50%;
+        background: linear-gradient(0deg, ${rndColor}0D 3%, ${rndColor}40 75%, ${rndColor} 100%);
+        box-sizing: border-box;
+        animation: rotation 1.6s linear infinite;
+
+        &:after {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(8em - 3px);
+            height: calc(8em - 3px);
+            border-radius: 50%;
+            background: ${theme.palette.background.default};
+        }
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    `;
+};
+
+export { loaderStyle, loaderStyle2 };

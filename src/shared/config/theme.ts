@@ -95,5 +95,16 @@ export const theme = createTheme({
                 variant: 'outlined',
             },
         },
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    '&.isError': {
+                        // border: '1px solid red',
+                        // background: '#fff',
+                        // color: 'red',
+                    },
+                },
+            },
+        },
     },
 });
