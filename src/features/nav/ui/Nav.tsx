@@ -1,8 +1,8 @@
-import { useNavMove } from '@/features/lnb/model/useNavMove';
 import { NAV_PATH } from '@/shared/config/navPath';
 
 import { navStyle } from './Nav.css';
 import { NavItem } from './NavItem';
+import { useNavMove } from '../model/useNavMove';
 
 const Nav = () => {
     useNavMove();

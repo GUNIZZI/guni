@@ -1,4 +1,4 @@
-import Nav from '@/features/lnb/ui/Nav';
+import Nav from '@/features/nav/ui/Nav';
 import { FeatureLogin } from '@/features/user';
 
 const Lnb = () => {

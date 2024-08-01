@@ -1,4 +1,16 @@
+import { NAV_PATH } from './navPath';
+
 import { createTheme } from '@mui/material/styles';
+
+// 커스텀 컬러 적용을 위한 타입 확장
+declare module '@mui/material/styles' {
+    interface Palette {
+        colors: string[];
+    }
+    interface PaletteOptions {
+        colors?: string[];
+    }
+}
 
 export const theme = createTheme({
     typography: {
@@ -12,6 +24,7 @@ export const theme = createTheme({
         secondary: {
             main: '#999999',
         },
+        colors: NAV_PATH.map(item => item.color),
     },
     // 여기에 추가적인 테마 커스터마이징을 할 수 있습니다.
     components: {
@@ -21,6 +34,24 @@ export const theme = createTheme({
                     background: '#111',
                     backgroundAttachment: 'fixed',
                     minHeight: '100vh',
+                    '*': {
+                        '&::-webkit-scrollbar': {
+                            width: '8px',
+                            height: '8px',
+                        },
+                        '&::-webkit-scrollbar-track': {
+                            background: 'transparent',
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            background: 'rgba(155, 155, 155, 0.5)',
+                            borderRadius: '10px',
+                        },
+                        '&::-webkit-scrollbar-thumb:hover': {
+                            background: 'rgba(155, 155, 155, 0.7)',
+                        },
+                        scrollbarWidth: 'thin',
+                        scrollbarColor: 'rgba(155, 155, 155, 0.5) transparent',
+                    },
                 },
                 ul: {
                     listStyle: 'none',
@@ -35,6 +66,33 @@ export const theme = createTheme({
                     maxWidth: '100% !important',
                     padding: '0 !important',
                 },
+            },
+        },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    '& .MuiFilledInput-underline:before': {
+                        borderBottom: 'none !important', // 기본 밑줄 제거
+                    },
+                    '& .MuiFilledInput-underline:after': {
+                        borderBottom: 'none', // 포커스 시 밑줄 제거
+                    },
+                    '& .MuiFilledInput-underline:hover:before': {
+                        borderBottom: 'none', // 호버 시 밑줄 제거
+                    },
+                    '& .MuiFilledInput-root': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.06)', // filled 배경색 설정
+                        '&:hover': {
+                            backgroundColor: 'rgba(255, 255, 255, 0.09)', // 호버 시 배경색
+                        },
+                        '&.Mui-focused': {
+                            backgroundColor: 'rgba(255, 255, 255, 0.12)', // 포커스 시 배경색
+                        },
+                    },
+                },
+            },
+            defaultProps: {
+                variant: 'outlined',
             },
         },
     },
