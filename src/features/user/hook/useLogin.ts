@@ -1,6 +1,6 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-import { UserLoginCredential } from '@/entities/user/model/User';
+import { UserLoginCredential } from '@/entities/user';
 import { fbAuth } from '@/shared/api/firebase';
 import { handleError } from '@/shared/error/errorMiddleware';
 

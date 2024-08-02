@@ -12,25 +12,27 @@ interface OwnProps {
     children: ReactNode;
 }
 
-type LoginContextType = {
+type UserContextType = {
     loginFormActive: boolean;
     setLoginFormActive: Dispatch<SetStateAction<boolean>>;
     handleLoginForm: () => void;
 };
 
-const LoginContext = createContext<LoginContextType>({
+const UserContext = createContext<UserContextType>({
     loginFormActive: false,
     setLoginFormActive: () => {},
     handleLoginForm: () => {},
 });
 
-const LoginProvider = ({ children }: OwnProps) => {
+const UserProvider = ({ children }: OwnProps) => {
     const [loginFormActive, setLoginFormActive] = useState(false);
+
     const handleLoginForm = useCallback(() => {
         setLoginFormActive(prev => !prev);
     }, []);
+
     const value = useMemo(
-        (): LoginContextType => ({
+        (): UserContextType => ({
             loginFormActive,
             setLoginFormActive,
             handleLoginForm,
@@ -38,7 +40,7 @@ const LoginProvider = ({ children }: OwnProps) => {
         [loginFormActive, setLoginFormActive, handleLoginForm],
     );
 
-    return <LoginContext.Provider value={value}>{children}</LoginContext.Provider>;
+    return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
-export { LoginContext, LoginProvider };
+export { UserContext, UserProvider };

@@ -2,16 +2,17 @@ import { useContext, useEffect, useState } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { UserLoginCredential } from '@/entities/user/model/User';
+import { login } from '@/entities/auth';
 import { setGlobalErrorHandler } from '@/shared/error/errorMiddleware';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
 
 import { CustomDialog } from './LoginForm.css';
-import { LoginContext } from './LoginFormProvider';
-import { useLogin } from '../hook/useLogin';
+import { UserContext } from './UserProvider';
 
-import { VisibilityOff, Visibility } from '@mui/icons-material';
+import type { UserLoginCredential } from '@/entities/user';
+
+import { VisibilityOff, Visibility, Close } from '@mui/icons-material';
 import {
     DialogTitle,
     DialogContent,
@@ -20,11 +21,13 @@ import {
     Typography,
     IconButton,
     InputAdornment,
+    Snackbar,
+    Alert,
 } from '@mui/material';
 
 const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { loginFormActive, setLoginFormActive } = useContext(LoginContext);
+    const { loginFormActive, setLoginFormActive } = useContext(UserContext);
     const {
         register,
         handleSubmit,
@@ -32,29 +35,39 @@ const LoginForm = () => {
     } = useForm<UserLoginCredential>({
         mode: 'onChange',
     });
-    const { login } = useLogin();
+    const [isSnackbarMsg, setIsSnackbarMsg] = useState<string | null>(null);
 
-    const onSubmit: SubmitHandler<UserLoginCredential> = data => {
-        login(data);
-
-        // 여기에 로그인 로직을 구현하세요
-        // setLoginFormActive(false);
+    const onSubmit: SubmitHandler<UserLoginCredential> = async data => {
+        try {
+            await login(data);
+            setLoginFormActive(false);
+        } catch (e) {
+            // 비지니스(login)에서 처리
+        }
     };
 
     const handleGuestLogin = async () => {
-        login({
-            id: import.meta.env.VITE_FB_GUEST_ID,
-            pw: import.meta.env.VITE_FB_GUEST_PW,
-        });
+        try {
+            await login({
+                id: import.meta.env.VITE_FB_GUEST_ID,
+                pw: import.meta.env.VITE_FB_GUEST_PW,
+            });
+            setLoginFormActive(false);
+        } catch (e) {
+            // 비지니스(login)에서 처리
+        }
     };
 
     useEffect(() => {
         setGlobalErrorHandler(error => {
             console.log(error.code);
             if (error.code === 'auth/invalid-credential') {
-                console.log('ID가 없거나, 비밀번호가 틀렸습니다.', { variant: 'error' });
+                setIsSnackbarMsg('ID가 없거나, 비밀번호가 틀렸습니다.');
+            } else if (error.code === 'auth/too-many-requests') {
+                setIsSnackbarMsg(
+                    '로그인 시도가 많아 계정이 잠시 잠겼습니다. 잠시 후 다시 로그인 하세요.',
+                );
             }
-            // } else if (error.code === 'auth/user-not-found') {
             //     enqueueSnackbar('사용자를 찾을 수 없습니다.', { variant: 'error' });
             // } else {
             //     enqueueSnackbar('로그인 중 오류가 발생했습니다.', { variant: 'error' });
@@ -65,77 +78,107 @@ const LoginForm = () => {
     }, []);
 
     return (
-        <CustomDialog
-            open={loginFormActive}
-            onClose={() => setLoginFormActive(false)}
-            PaperProps={{
-                component: 'form',
-                onSubmit: handleSubmit(onSubmit),
-            }}
-        >
-            <DialogTitle sx={{ margin: '1.4em 0 1em', fontSize: '2.2em' }}>Login</DialogTitle>
-            <DialogContent>
-                <CustomTextField<UserLoginCredential>
-                    autoFocus
-                    id="id"
-                    label="ID"
-                    type="email"
-                    fullWidth
-                    variant="filled"
-                    register={register}
-                    error={errors.id}
-                    rules={{
-                        required: 'ID는 필수입니다',
-                        pattern: {
-                            value: /\S+@\S+\.\S+/,
-                            message: 'ID는 이메일 형태이며, 입력한 아이디가 유효하지 않습니다.',
+        <>
+            <CustomDialog
+                open={loginFormActive}
+                onClose={() => setLoginFormActive(false)}
+                PaperProps={{
+                    component: 'form',
+                    onSubmit: handleSubmit(onSubmit),
+                }}
+            >
+                <DialogTitle sx={{ margin: '1.4em 0 1em', fontSize: '2.2em' }}>Login</DialogTitle>
+                <DialogContent>
+                    <CustomTextField<UserLoginCredential>
+                        autoFocus
+                        id="id"
+                        label="ID"
+                        type="email"
+                        fullWidth
+                        variant="filled"
+                        register={register}
+                        error={errors.id}
+                        rules={{
+                            required: 'ID는 필수입니다',
+                            pattern: {
+                                value: /\S+@\S+\.\S+/,
+                                message: 'ID는 이메일 형태이며, 입력한 아이디가 유효하지 않습니다.',
+                            },
+                        }}
+                    />
+                    <CustomTextField<UserLoginCredential>
+                        margin="normal"
+                        id="pw"
+                        label="PW"
+                        type={showPassword ? 'text' : 'password'}
+                        fullWidth
+                        variant="filled"
+                        register={register}
+                        error={errors.pw}
+                        rules={{
+                            required: '비밀번호는 필수입니다',
+                        }}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={() => setShowPassword(prev => !prev)}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <Typography variant="caption" display="block" color="secondary" sx={{ my: 2 }}>
+                        Guest는 GuestLogin을 이용하세요.
+                    </Typography>
+                </DialogContent>
+                <DialogActions sx={{ flexDirection: 'column' }}>
+                    <GradientButton
+                        type="submit"
+                        variant="contained"
+                        size="large"
+                        disabled={!isValid || !isDirty}
+                    >
+                        Admin Login
+                    </GradientButton>
+                    <Button size="small" sx={{ mt: 2 }} onClick={handleGuestLogin}>
+                        Guest Login
+                    </Button>
+                </DialogActions>
+            </CustomDialog>
+            {/* <Snackbar
+                open={!!isSnackbarMsg}
+                autoHideDuration={3000}
+                onClose={() => setIsSnackbarMsg(null)}
+                message={isSnackbarMsg}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                sx={{ color: 'red' }}
+                // action={action}
+            > */}
+            <Snackbar
+                open={!!isSnackbarMsg}
+                autoHideDuration={6000}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                onClose={() => setIsSnackbarMsg(null)}
+            >
+                <Alert
+                    // onClose={handleCloseSnackbar}
+                    // severity={snackbar.severity}
+                    sx={{
+                        width: '100%',
+                        '& .MuiAlert-message': {
+                            color: 'red',
                         },
                     }}
-                />
-                <CustomTextField<UserLoginCredential>
-                    margin="normal"
-                    id="pw"
-                    label="PW"
-                    type={showPassword ? 'text' : 'password'}
-                    fullWidth
-                    variant="filled"
-                    register={register}
-                    error={errors.pw}
-                    rules={{
-                        required: '비밀번호는 필수입니다',
-                    }}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={() => setShowPassword(prev => !prev)}
-                                    edge="end"
-                                >
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <Typography variant="caption" display="block" color="secondary" sx={{ my: 2 }}>
-                    Guest는 GuestLogin을 이용하세요.
-                </Typography>
-            </DialogContent>
-            <DialogActions sx={{ flexDirection: 'column' }}>
-                <GradientButton
-                    type="submit"
-                    variant="contained"
-                    size="large"
-                    disabled={!isValid || !isDirty}
                 >
-                    Admin Login
-                </GradientButton>
-                <Button size="small" sx={{ mt: 2 }} onClick={handleGuestLogin}>
-                    Guest Login
-                </Button>
-            </DialogActions>
-        </CustomDialog>
+                    {isSnackbarMsg}
+                </Alert>
+            </Snackbar>
+        </>
     );
 };
 

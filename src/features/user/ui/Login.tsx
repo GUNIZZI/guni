@@ -1,13 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 
-import { delay } from 'lodash';
-
-import LoginBtn from './LoginBtn';
+import { LogedBtn } from './LogedBtn';
 import { LoginForm } from './LoginForm';
-import { LoginContext, LoginProvider } from './LoginFormProvider';
+import { UserContext, UserProvider } from './UserProvider';
 
-const LoginContent = () => {
-    const { loginFormActive } = useContext(LoginContext);
+const UserArea = () => {
+    const { loginFormActive } = useContext(UserContext);
     const [isLoginActive, setIsLoginActive] = useState(false);
 
     useEffect(() => {
@@ -22,7 +20,7 @@ const LoginContent = () => {
 
     return (
         <>
-            <LoginBtn />
+            <LogedBtn />
             {isLoginActive && <LoginForm />}
         </>
     );
@@ -30,9 +28,9 @@ const LoginContent = () => {
 
 const Login = () => {
     return (
-        <LoginProvider>
-            <LoginContent />
-        </LoginProvider>
+        <UserProvider>
+            <UserArea />
+        </UserProvider>
     );
 };
 
