@@ -37,7 +37,7 @@
                 <mxCell id="41" value="UI &amp;gt; LoginForm" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#B09500;fillColor=#33FF33;fontColor=#000000;" vertex="1" parent="16">
                     <mxGeometry x="20" y="80" width="220" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="Entities" style="swimlane;whiteSpace=wrap;html=1;strokeColor=#5C5C5C;" vertex="1" parent="1">
+                <mxCell id="7" value="entitie" style="swimlane;whiteSpace=wrap;html=1;strokeColor=#5C5C5C;" vertex="1" parent="1">
                     <mxGeometry x="680" y="160" width="280" height="350" as="geometry"/>
                 </mxCell>
                 <mxCell id="19" value="User" style="swimlane;whiteSpace=wrap;html=1;strokeColor=#FFFF00;startSize=23;" vertex="1" parent="7">

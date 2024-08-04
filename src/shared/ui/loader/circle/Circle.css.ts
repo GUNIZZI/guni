@@ -75,9 +75,9 @@ const loaderStyle2 = () => {
         position: fixed;
         top: 50%;
         left: 50%;
-        width: 8em;
-        height: 8em;
-        margin: -4em 0 0 -4em;
+        transform: translateX(-50%) translateY(-50%);
+        width: var(--size, 8em);
+        height: var(--size, 8em);
         border-radius: 50%;
         background: linear-gradient(0deg, ${rndColor}0D 3%, ${rndColor}40 75%, ${rndColor} 100%);
         box-sizing: border-box;
@@ -90,17 +90,17 @@ const loaderStyle2 = () => {
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: calc(8em - 3px);
-            height: calc(8em - 3px);
+            width: calc(var(--size, 8em) - 3px);
+            height: calc(var(--size, 8em) - 3px);
             border-radius: 50%;
-            background: ${theme.palette.background.default};
+            background: var(--color, ${theme.palette.background.default});
         }
         @keyframes rotation {
             0% {
-                transform: rotate(0deg);
+                transform: translateX(-50%) translateY(-50%) rotate(0deg);
             }
             100% {
-                transform: rotate(360deg);
+                transform: translateX(-50%) translateY(-50%) rotate(360deg);
             }
         }
     `;

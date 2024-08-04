@@ -64,7 +64,8 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     maxWidth: '100% !important',
-                    padding: '0 !important',
+                    paddingLeft: '0 !important',
+                    paddingRight: '0 !important',
                 },
             },
         },

@@ -10,7 +10,7 @@ const CustomDialog = styled(Dialog)(({ theme }) => ({
         padding: theme.spacing(2, 3),
         margin: 0,
         background: '#000',
-        boxShadow: '0 0 40px rgba(255,255,255, 0.05)',
+        boxShadow: '0 0 80px rgba(255,255,255, 0.15)',
         overflow: 'visible',
 
         '&::before': {

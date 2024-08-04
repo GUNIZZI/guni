@@ -5,6 +5,7 @@ const style = () => css`
     top: 50%;
     right: 2em;
     transform: translateY(-50%);
+    z-index: 10;
 
     ul {
         display: flex;

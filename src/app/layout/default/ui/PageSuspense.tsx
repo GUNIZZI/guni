@@ -16,7 +16,7 @@ const SuspensePage = ({ children }: OwnProps) => {
                 </TransitionFade>
             }
         >
-            <TransitionFade>{children}</TransitionFade>
+            <TransitionFade className="transitionWrap">{children}</TransitionFade>
         </Suspense>
     );
 };

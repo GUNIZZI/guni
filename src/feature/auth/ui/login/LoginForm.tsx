@@ -2,17 +2,18 @@ import { useContext, useEffect, useState } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { login } from '@/entities/auth';
+import { login } from '@/entitie/auth';
 import { setGlobalErrorHandler } from '@/shared/error/errorMiddleware';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
+import { LoaderCircle } from '@/shared/ui/loader';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
 
 import { CustomDialog } from './LoginForm.css';
-import { UserContext } from './UserProvider';
+import { LoginContext } from './LoginProvider';
 
-import type { UserLoginCredential } from '@/entities/user';
+import type { UserLoginCredential } from '@/entitie/user';
 
-import { VisibilityOff, Visibility, Close } from '@mui/icons-material';
+import { VisibilityOff, Visibility } from '@mui/icons-material';
 import {
     DialogTitle,
     DialogContent,
@@ -23,11 +24,12 @@ import {
     InputAdornment,
     Snackbar,
     Alert,
+    Backdrop,
 } from '@mui/material';
 
 const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { loginFormActive, setLoginFormActive } = useContext(UserContext);
+    const { loginFormActive, setLoginFormActive } = useContext(LoginContext);
     const {
         register,
         handleSubmit,
@@ -36,31 +38,33 @@ const LoginForm = () => {
         mode: 'onChange',
     });
     const [isSnackbarMsg, setIsSnackbarMsg] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const onSubmit: SubmitHandler<UserLoginCredential> = async data => {
+    const handleLogin = async ({ id, pw }: UserLoginCredential) => {
+        setIsLoading(true);
         try {
-            await login(data);
+            await login({ id, pw });
             setLoginFormActive(false);
         } catch (e) {
             // 비지니스(login)에서 처리
+        } finally {
+            setIsLoading(false);
         }
     };
 
+    const onSubmit: SubmitHandler<UserLoginCredential> = data => {
+        handleLogin(data);
+    };
+
     const handleGuestLogin = async () => {
-        try {
-            await login({
-                id: import.meta.env.VITE_FB_GUEST_ID,
-                pw: import.meta.env.VITE_FB_GUEST_PW,
-            });
-            setLoginFormActive(false);
-        } catch (e) {
-            // 비지니스(login)에서 처리
-        }
+        handleLogin({
+            id: import.meta.env.VITE_FB_GUEST_ID,
+            pw: import.meta.env.VITE_FB_GUEST_PW,
+        });
     };
 
     useEffect(() => {
         setGlobalErrorHandler(error => {
-            console.log(error.code);
             if (error.code === 'auth/invalid-credential') {
                 setIsSnackbarMsg('ID가 없거나, 비밀번호가 틀렸습니다.');
             } else if (error.code === 'auth/too-many-requests') {
@@ -149,6 +153,9 @@ const LoginForm = () => {
                         Guest Login
                     </Button>
                 </DialogActions>
+                <Backdrop sx={{ position: 'absolute', color: '#fff', zIndex: 1 }} open={isLoading}>
+                    <LoaderCircle size="3em" color="#000" />
+                </Backdrop>
             </CustomDialog>
             {/* <Snackbar
                 open={!!isSnackbarMsg}
