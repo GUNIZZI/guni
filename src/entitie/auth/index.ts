@@ -1,3 +1,3 @@
-export { useAuth } from './hook/useAuth';
+export { useAuth as entitieAuthUseAuth } from './hook/useAuth';
 
-export { login, logout } from './model/auth';
+export { login as entitieAuthLoginAsync, logout as entitieAuthLogoutAsync } from './model/auth';

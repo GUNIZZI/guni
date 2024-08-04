@@ -2,8 +2,8 @@ import { AnimatePresence } from 'framer-motion';
 import { useLocation, useOutlet } from 'react-router-dom';
 
 import { TransitionFade } from '@/shared/ui/transition';
-import { WidgetHeaderUser } from '@/widgets/headerUser';
-import { WidgetLnb } from '@/widgets/nav';
+import { WidgetHeaderUser } from '@/widget/headerUser';
+import { WidgetLnb } from '@/widget/nav';
 
 import { containerStyle } from './Default.css';
 import { SuspensePage } from './PageSuspense';

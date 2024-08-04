@@ -1,10 +1,10 @@
-import { LayoutDefault } from '@/app/layout';
+import { AppLayoutDefault } from '@/app/layout';
 
 import { LazyHome, LazyAbout, LazyTech, LazyBlog, LazyPortfolio } from './lazyComponents';
 
-const routes = {
+const AppRoutes = {
     path: '/',
-    element: <LayoutDefault />,
+    element: <AppLayoutDefault />,
     children: [
         {
             index: true,
@@ -29,4 +29,4 @@ const routes = {
     ],
 };
 
-export { routes };
+export { AppRoutes };

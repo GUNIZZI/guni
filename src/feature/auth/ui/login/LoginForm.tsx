@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { login } from '@/entitie/auth';
+import { entitieAuthLoginAsync } from '@/entitie/auth';
 import { setGlobalErrorHandler } from '@/shared/error/errorMiddleware';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
 import { LoaderCircle } from '@/shared/ui/loader';
@@ -43,7 +43,7 @@ const LoginForm = () => {
     const handleLogin = async ({ id, pw }: UserLoginCredential) => {
         setIsLoading(true);
         try {
-            await login({ id, pw });
+            await entitieAuthLoginAsync({ id, pw });
             setLoginFormActive(false);
         } catch (e) {
             // 비지니스(login)에서 처리

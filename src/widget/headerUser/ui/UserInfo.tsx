@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { logout, useAuth } from '@/entitie/auth';
+import { entitieAuthLogoutAsync, entitieAuthUseAuth } from '@/entitie/auth';
 import { useUser } from '@/entitie/user/hook/useUser';
 import { FeatureLoginContext } from '@/feature/auth';
 
@@ -19,7 +19,7 @@ const getUserName = (email: string | null): string => {
 };
 
 const UserInfo = () => {
-    const { isLogined } = useAuth();
+    const { isLogined } = entitieAuthUseAuth();
     const { user } = useUser();
     const { handleLoginForm } = useContext(FeatureLoginContext);
 
@@ -27,7 +27,7 @@ const UserInfo = () => {
         <div css={userInfoStyle}>
             <Button
                 color="secondary"
-                onClick={!isLogined ? handleLoginForm : logout}
+                onClick={!isLogined ? handleLoginForm : entitieAuthLogoutAsync}
                 title={!isLogined ? '로그인' : '로그아웃'}
             >
                 {isLogined ? (

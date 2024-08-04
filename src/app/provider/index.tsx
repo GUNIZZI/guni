@@ -1,11 +1,11 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { routes } from '@/app/routes/routes';
+import { AppRoutes } from '@/app/routes/routes';
 import { theme } from '@/shared/config/theme';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-const router = createBrowserRouter([routes]);
+const router = createBrowserRouter([AppRoutes]);
 
 const AppProvider = () => {
     return (
