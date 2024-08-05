@@ -1,5 +1,7 @@
+import { Outlet } from 'react-router-dom';
+
 const Tech = () => {
-    return <div>Tech</div>;
+    return <Outlet />;
 };
 
 export { Tech };

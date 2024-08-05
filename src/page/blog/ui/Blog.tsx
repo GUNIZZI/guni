@@ -1,5 +1,7 @@
+import { Outlet } from 'react-router-dom';
+
 const Blog = () => {
-    return <div>Blog</div>;
+    return <Outlet />;
 };
 
 export { Blog };
