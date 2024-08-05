@@ -8,11 +8,10 @@ import { NAV_PATH } from '@/shared/config/navPath';
 const useNavMove = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const [selIdx, setSelIdx] = useState(() => {
-        return NAV_PATH.find(item => item.path === location.pathname)?.seq || 0;
-    });
+    const [selIdx, setSelIdx] = useState(
+        () => NAV_PATH.find(item => item.path === `/${location.pathname.split('/')[1]}`)?.seq || 0,
+    );
     const [isFirst, setIsFirst] = useState(true);
-
     const throttledSetSelIdx = useMemo(
         () =>
             throttle(
@@ -41,17 +40,21 @@ const useNavMove = () => {
 
         if (!isFirst) {
             const path = NAV_PATH.find(item => item.seq === selIdx)?.path || '/';
-            navigate(path);
+            if (path !== `/${location.pathname.split('/')[1]}`) navigate(path);
         }
         setIsFirst(false);
 
         return () => {
             window.removeEventListener('wheel', handleScroll);
         };
-    }, [selIdx, isFirst, navigate, throttledSetSelIdx]);
+    }, [selIdx, isFirst, throttledSetSelIdx]);
 
     useEffect(() => {
-        setSelIdx(() => NAV_PATH.find(item => item.path === location.pathname)?.seq || 0);
+        setSelIdx(
+            () =>
+                NAV_PATH.find(item => item.path === `/${location.pathname.split('/')[1]}`)?.seq ||
+                0,
+        );
     }, [location]);
 
     return { selIdx };
