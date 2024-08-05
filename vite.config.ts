@@ -25,6 +25,7 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
         server: {
             host: 'guni.devel.com',
             open: true,
+            port: 9999,
         },
     };
 });
