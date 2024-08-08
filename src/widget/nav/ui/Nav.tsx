@@ -5,7 +5,7 @@ import { NavItem } from './NavItem';
 import { useNavMove } from '../hook/useNavMove';
 
 const Nav = () => {
-    useNavMove();
+    // useNavMove();
 
     return (
         <nav css={navStyle}>

@@ -9,6 +9,9 @@ const TechList = lazy(() =>
 const TechView = lazy(() =>
     import('@/page/tech/ui/View').then(module => ({ default: module.View })),
 );
+const TechWrite = lazy(() =>
+    import('@/page/tech/ui/Write').then(module => ({ default: module.Write })),
+);
 const Blog = lazy(() => import('@/page/blog').then(module => ({ default: module.PageBlog })));
 const Portfolio = lazy(() => import('@/page/pf').then(module => ({ default: module.PagePf })));
 
@@ -18,6 +21,7 @@ export {
     Tech as LazyTech,
     TechList as LazyTechList,
     TechView as LazyTechView,
+    TechWrite as LazyTechWrite,
     Blog as LazyBlog,
     Portfolio as LazyPortfolio,
 };

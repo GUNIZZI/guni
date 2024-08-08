@@ -30,9 +30,9 @@ const About = () => {
     return (
         <div className="page" css={aboutStyle as Interpolation<Theme>}>
             <motion.div variants={containerVariants} initial="hidden" animate="visible" exit="exit">
-                <motion.div variants={itemVariants}>진짜 개발자</motion.div>
+                <motion.div variants={itemVariants}>텍스트</motion.div>
                 <motion.h1 variants={itemVariants} className="gradientText">
-                    GUNI
+                    그라디언트 텍스트
                 </motion.h1>
             </motion.div>
         </div>

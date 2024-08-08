@@ -1,1 +1,1 @@
-export type { User, UserLoginCredential } from './model/User';
+export type { User, UserLoginCredential } from './model/type';

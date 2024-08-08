@@ -1,12 +1,7 @@
-import { Link } from 'react-router-dom';
+import { WidgetBlogList } from '@/widget/blog';
 
 const List = () => {
-    return (
-        <>
-            <h2>Tech Blog</h2>
-            <Link to="123">상세</Link>
-        </>
-    );
+    return <WidgetBlogList type="tech" />;
 };
 
 export { List };

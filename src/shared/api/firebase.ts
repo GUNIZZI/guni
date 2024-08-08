@@ -35,5 +35,7 @@ const fbAuth = getAuth(fbApp);
  */
 const fbStore = getFirestore(fbApp);
 
-export { fbApp, fbAuth, fbStore };
+const fbDb = getFirestore(fbApp);
+
+export { fbApp, fbAuth, fbStore, fbDb };
 // export { db, signInWithGoogle };

@@ -4,7 +4,10 @@ import { NAV_PATH } from '@/shared/config/navPath';
 import { theme } from '@/shared/config/theme';
 
 const getColor = () => {
-    return NAV_PATH.find(item => item.path === window.location.pathname)?.color || '#fff';
+    return (
+        NAV_PATH.find(item => item.path === `/${window.location.pathname.split('/')[1]}`)?.color ??
+        '#ffffff'
+    );
 };
 
 const loaderStyle = () => {
@@ -72,7 +75,7 @@ const loaderStyle2 = () => {
 
     return css`
         display: inline-block;
-        position: fixed;
+        position: absolute;
         top: 50%;
         left: 50%;
         transform: translateX(-50%) translateY(-50%);

@@ -1,8 +1,12 @@
 export interface User {
-    name: string;
+    email: string;
 }
 
 export interface UserLoginCredential {
     id: string;
     pw: string;
+}
+
+export interface AuthUser extends User {
+    role?: string;
 }

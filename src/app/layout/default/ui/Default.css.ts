@@ -1,20 +1,20 @@
 import { css } from '@emotion/react';
 
-const containerStyle = () => css`
+import { Theme } from '@mui/material';
+
+const containerStyle = (theme: Theme) => css`
     width: 100vw;
     min-height: 100vh;
 
-    .transitionWrap {
+    .page {
         min-height: 100vh;
+        padding: ${theme.spacing(3)};
         box-sizing: border-box;
 
-        > .page {
-            min-height: 100vh;
-            box-sizing: border-box;
-
-            > .wrap {
-                padding: 5em;
-            }
+        > .wrap {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
         }
     }
 `;

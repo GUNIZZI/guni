@@ -25,6 +25,7 @@ const style = (theme: Theme) => css`
     }
 
     .gradientText {
+        width: auto;
         background: linear-gradient(
             90deg,
             ${NAV_PATH[0].color} 35%,

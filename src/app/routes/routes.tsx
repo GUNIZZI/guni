@@ -1,4 +1,5 @@
 import { AppLayoutDefault } from '@/app/layout';
+import { Error } from '@/page/error';
 
 import {
     LazyHome,
@@ -6,9 +7,11 @@ import {
     LazyTech,
     LazyTechList,
     LazyTechView,
+    LazyTechWrite,
     LazyBlog,
     LazyPortfolio,
 } from './lazyComponents';
+import ProtectedGuard from '../guard/ProtectedGuard';
 
 const AppRoutes = [
     {
@@ -46,6 +49,15 @@ const AppRoutes = [
                         element: <LazyTechList />,
                     },
                     {
+                        element: <ProtectedGuard />,
+                        children: [
+                            {
+                                path: 'write',
+                                element: <LazyTechWrite />,
+                            },
+                        ],
+                    },
+                    {
                         path: ':seq',
                         element: <LazyTechView />,
                     },
@@ -67,9 +79,13 @@ const AppRoutes = [
             },
         ],
     },
+    // {
+    //     path: '*',
+    //     element: <Navigate to="/error/404" />,
+    // },
     {
-        path: '*',
-        element: <div>404</div>,
+        path: '/error/:errorStatus',
+        element: <Error />,
     },
 ];
 

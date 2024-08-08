@@ -58,6 +58,9 @@ export const theme = createTheme({
                     padding: 0,
                     margin: 0,
                 },
+                'h1, h2, h3, h4, h5, h6': {
+                    margin: 0,
+                },
             },
         },
         MuiContainer: {
@@ -66,6 +69,13 @@ export const theme = createTheme({
                     maxWidth: '100% !important',
                     paddingLeft: '0 !important',
                     paddingRight: '0 !important',
+                },
+            },
+        },
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    background: 'transparent !important',
                 },
             },
         },

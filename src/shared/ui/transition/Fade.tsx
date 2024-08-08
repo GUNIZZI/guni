@@ -20,7 +20,7 @@ const aniVariants = {
     },
 };
 
-const Fade = ({ children, className, duration: time = 0.8 }: OwnProps) => (
+const Fade = ({ children, className, duration: time = 0.5 }: OwnProps) => (
     <motion.div
         className={className && className}
         variants={aniVariants}
