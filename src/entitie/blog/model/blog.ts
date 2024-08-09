@@ -1,8 +1,19 @@
 import { format } from 'date-fns';
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import {
+    addDoc,
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    orderBy,
+    query,
+    serverTimestamp,
+} from 'firebase/firestore';
 
 import { BlogContentProps } from '@/entitie/blog';
 import { fbDb } from '@/shared/api/firebase';
+
+import { BlogAddPostProps } from './type';
 
 /**
  * content(본문) 내용내에 img태그중 첫번째 요소의 src주소 반환
@@ -22,7 +33,8 @@ const getImage = (content: string) => {
  */
 const fetchDatas = async (collectionName: string) => {
     const postsCollection = collection(fbDb, collectionName);
-    const datas = await getDocs(postsCollection);
+    const postsQuery = query(postsCollection, orderBy('date', 'desc'));
+    const datas = await getDocs(postsQuery);
 
     return datas.docs.map(item => {
         const data = item.data();
@@ -59,4 +71,19 @@ const fetchDoc = async (collectionName: string, seq: string) => {
     throw new Error('Document not found');
 };
 
-export { fetchDatas, fetchDoc };
+/**
+ * 게시판 컨텐츠 등록
+ * @param collectionName Firebase Collection 이름
+ * @param docData 게시판 등록 내용
+ * @returns
+ */
+const addPost = async (collectionName: string, docData: BlogAddPostProps) => {
+    const postsCollection = collection(fbDb, collectionName);
+    const docRef = await addDoc(postsCollection, {
+        ...docData,
+        date: serverTimestamp(),
+    });
+    return docRef;
+};
+
+export { fetchDatas, fetchDoc, addPost };

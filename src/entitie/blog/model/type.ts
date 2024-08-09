@@ -6,3 +6,9 @@ export interface BlogContentProps {
     content?: string;
     image?: string | null;
 }
+
+export interface BlogAddPostProps {
+    title: string;
+    content: string;
+    type: string;
+}

@@ -9,7 +9,7 @@ const ViewNotContent = () => {
 };
 
 const View = () => {
-    const { data: posts, isLoading, error } = useFetchDocQuery('techBlogView');
+    const { data: posts, isLoading, error } = useFetchDocQuery('tech');
 
     if (error) return <div>없는 컨텐츠 입니다.</div>;
 

@@ -1,8 +1,8 @@
-import { UseQueryResult, useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { UseQueryResult, useMutation, useQuery } from '@tanstack/react-query';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { BlogContentProps } from '@/entitie/blog';
-import { fetchDatas, fetchDoc } from '@/entitie/blog/model/blog';
+import { BlogContentProps, addPost, fetchDatas, fetchDoc } from '@/entitie/blog';
+import { BlogAddPostProps } from '@/entitie/blog/model/type';
 
 /**
  * 게시판 패칭 리액트쿼리
@@ -11,8 +11,8 @@ import { fetchDatas, fetchDoc } from '@/entitie/blog/model/blog';
  */
 const useFetchQuery = (id: string): UseQueryResult<BlogContentProps[], Error> => {
     return useQuery<BlogContentProps[], Error, BlogContentProps[], [string]>({
-        queryKey: [id],
-        queryFn: () => fetchDatas('tech'),
+        queryKey: [`${id}_list`],
+        queryFn: () => fetchDatas(id),
     });
 };
 
@@ -24,9 +24,34 @@ const useFetchQuery = (id: string): UseQueryResult<BlogContentProps[], Error> =>
 const useFetchDocQuery = (id: string): UseQueryResult<BlogContentProps, Error> => {
     const { seq } = useParams() as { seq: string };
     return useQuery<BlogContentProps, Error, BlogContentProps, [string]>({
-        queryKey: [id],
-        queryFn: () => fetchDoc('tech', seq),
+        queryKey: [`${id}_view`],
+        queryFn: () => fetchDoc(id, seq),
     });
 };
 
-export { useFetchQuery, useFetchDocQuery };
+/**
+ * 게시판 글 등록
+ * @returns
+ */
+const useAddDocMutation = () => {
+    const navigate = useNavigate();
+
+    return useMutation({
+        mutationFn: ({
+            collectionName,
+            docData,
+        }: {
+            collectionName: string;
+            docData: BlogAddPostProps;
+        }) => addPost(collectionName, docData),
+        onSuccess: res => {
+            navigate(`../seq=${res.id}`);
+            return res;
+        },
+        onError: error => {
+            throw error;
+        },
+    });
+};
+
+export { useFetchQuery, useFetchDocQuery, useAddDocMutation };

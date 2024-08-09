@@ -17,10 +17,10 @@ export function useAuth() {
                     email: authUser?.email,
                     role: authUser?.uid === import.meta.env.VITE_FB_ADMIN_UID ? 'ADMIN' : 'USER',
                 } as AuthUser);
-                setLoginLoading(false);
             } else {
                 setUser(null);
             }
+            setLoginLoading(false);
         });
 
         return () => unsubscribe();
