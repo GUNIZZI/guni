@@ -34,24 +34,6 @@ export const theme = createTheme({
                     background: '#111',
                     backgroundAttachment: 'fixed',
                     minHeight: '100vh',
-                    '*': {
-                        '&::-webkit-scrollbar': {
-                            width: '8px',
-                            height: '8px',
-                        },
-                        '&::-webkit-scrollbar-track': {
-                            background: 'transparent',
-                        },
-                        '&::-webkit-scrollbar-thumb': {
-                            background: 'rgba(155, 155, 155, 0.5)',
-                            borderRadius: '10px',
-                        },
-                        '&::-webkit-scrollbar-thumb:hover': {
-                            background: 'rgba(155, 155, 155, 0.7)',
-                        },
-                        scrollbarWidth: 'thin',
-                        scrollbarColor: 'rgba(155, 155, 155, 0.5) transparent',
-                    },
                 },
                 ul: {
                     listStyle: 'none',
@@ -75,8 +57,15 @@ export const theme = createTheme({
         MuiPaper: {
             styleOverrides: {
                 root: {
-                    background: 'transparent !important',
+                    backgroundColor: 'transparent', // 배경을 투명하게 설정
+                    boxShadow: 'none', // 그림자 효과 제거
+                    '&.MuiPaper-outlined': {
+                        border: 'none', // outlined 변형의 경우 테두리 제거
+                    },
                 },
+            },
+            defaultProps: {
+                elevation: 0, // 기본 elevation을 0으로 설정하여 그림자 효과 제거
             },
         },
         MuiTextField: {
@@ -104,6 +93,92 @@ export const theme = createTheme({
             },
             defaultProps: {
                 variant: 'outlined',
+            },
+        },
+        MuiSelect: {
+            styleOverrides: {
+                root: {
+                    '&.MuiFilledInput-root': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                        '&:hover': {
+                            backgroundColor: 'rgba(255, 255, 255, 0.09)',
+                        },
+                        '&.Mui-focused': {
+                            backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                        },
+                    },
+                    '&:before': {
+                        borderBottom: 'none !important',
+                    },
+                    '&:after': {
+                        borderBottom: 'none',
+                    },
+                    '&:hover:not(.Mui-disabled):before': {
+                        borderBottom: 'none',
+                    },
+                },
+            },
+        },
+        MuiFilledInput: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                    '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.09)',
+                    },
+                    '&.Mui-focused': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                    },
+                    '&:before': {
+                        borderBottom: 'none !important',
+                    },
+                    '&:after': {
+                        borderBottom: 'none',
+                    },
+                    '&:hover:not(.Mui-disabled):before': {
+                        borderBottom: 'none',
+                    },
+                },
+            },
+        },
+        MuiDialog: {
+            defaultProps: {
+                disableScrollLock: true,
+            },
+        },
+        MuiModal: {
+            defaultProps: {
+                disableScrollLock: true,
+            },
+        },
+        MuiPopover: {
+            defaultProps: {
+                disableScrollLock: true,
+            },
+        },
+        MuiMenu: {
+            styleOverrides: {
+                paper: {
+                    backgroundColor: '#000',
+                },
+            },
+            defaultProps: {
+                disableScrollLock: true,
+            },
+        },
+        MuiMenuItem: {
+            styleOverrides: {
+                root: {
+                    '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.09)',
+                    },
+                    '&.Mui-selected': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                        '&:hover': {
+                            backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                        },
+                    },
+                },
             },
         },
         MuiTooltip: {

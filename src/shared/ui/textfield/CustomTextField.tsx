@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React from 'react';
 
 import {
     UseFormRegister,
@@ -8,7 +8,7 @@ import {
     FieldPath,
 } from 'react-hook-form';
 
-import { Tooltip, TextField, TextFieldProps } from '@mui/material';
+import { TextField, TextFieldProps } from '@mui/material';
 
 interface OwnProps<T extends FieldValues> {
     id: FieldPath<T>;
@@ -29,25 +29,16 @@ const CustomTextField = <T extends FieldValues>({
     type = 'text',
     rules,
     ...rest
-}: ExtendOwnProps<T>): ReactNode => {
+}: ExtendOwnProps<T>): React.ReactElement => {
     return (
-        <Tooltip
-            title={error?.message || ''}
-            open={!!error}
-            arrow
-            placement="right"
-            classes={{
-                tooltip: 'isError', // 툴팁 클래스 적용
-            }}
-        >
-            <TextField
-                {...register(id, rules)}
-                {...rest}
-                label={label}
-                error={!!error}
-                type={type}
-            />
-        </Tooltip>
+        <TextField
+            {...register(id, rules)}
+            {...rest}
+            id={id}
+            label={error?.message || label}
+            error={!!error}
+            type={type}
+        />
     );
 };
 

@@ -1,15 +1,16 @@
 import { AppLayoutDefault } from '@/app/layout';
 import { Error } from '@/page/error';
+import { BOARD_QUERY_KEY } from '@/shared/config/constants';
 
 import {
     LazyHome,
     LazyAbout,
     LazyTech,
-    LazyTechList,
-    LazyTechView,
-    LazyTechWrite,
     LazyBlog,
     LazyPortfolio,
+    BoardList,
+    BoardView,
+    BoardWrite,
 } from './lazyComponents';
 import ProtectedGuard from '../guard/ProtectedGuard';
 
@@ -32,11 +33,20 @@ const AppRoutes = [
                 children: [
                     {
                         index: true,
-                        element: <div>목록</div>,
+                        element: <BoardList boardType={BOARD_QUERY_KEY.LIFE} />,
                     },
                     {
                         path: ':seq',
-                        element: <div>상세</div>,
+                        element: <BoardView boardType={BOARD_QUERY_KEY.LIFE} />,
+                    },
+                    {
+                        element: <ProtectedGuard />,
+                        children: [
+                            {
+                                path: 'write',
+                                element: <BoardWrite boardType={BOARD_QUERY_KEY.LIFE} />,
+                            },
+                        ],
                     },
                 ],
             },
@@ -46,20 +56,20 @@ const AppRoutes = [
                 children: [
                     {
                         index: true,
-                        element: <LazyTechList />,
+                        element: <BoardList boardType={BOARD_QUERY_KEY.TECH} />,
+                    },
+                    {
+                        path: ':seq',
+                        element: <BoardView boardType={BOARD_QUERY_KEY.TECH} />,
                     },
                     {
                         element: <ProtectedGuard />,
                         children: [
                             {
                                 path: 'write',
-                                element: <LazyTechWrite />,
+                                element: <BoardWrite boardType={BOARD_QUERY_KEY.TECH} />,
                             },
                         ],
-                    },
-                    {
-                        path: ':seq',
-                        element: <LazyTechView />,
                     },
                 ],
             },
@@ -69,11 +79,20 @@ const AppRoutes = [
                 children: [
                     {
                         index: true,
-                        element: <div>목록</div>,
+                        element: <BoardList boardType={BOARD_QUERY_KEY.PF} />,
                     },
                     {
                         path: ':seq',
-                        element: <div>상세</div>,
+                        element: <BoardView boardType={BOARD_QUERY_KEY.PF} />,
+                    },
+                    {
+                        element: <ProtectedGuard />,
+                        children: [
+                            {
+                                path: 'write',
+                                element: <BoardWrite boardType={BOARD_QUERY_KEY.PF} />,
+                            },
+                        ],
                     },
                 ],
             },

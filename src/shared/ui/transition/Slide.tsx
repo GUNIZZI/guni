@@ -10,7 +10,7 @@ interface OwnProps {
     duration?: number;
 }
 
-const Slide = ({ children, className, duration: time = 0.2 }: OwnProps) => {
+const Slide = ({ children, className, duration: time = 0.3 }: OwnProps) => {
     const aniVariants = {
         init: {
             marginLeft: 20,
@@ -21,6 +21,7 @@ const Slide = ({ children, className, duration: time = 0.2 }: OwnProps) => {
             opacity: 1,
             transition: {
                 duration: time,
+                delay: 0.1,
                 ease: EASE.EASE_OUT_CUBIC,
             },
         },

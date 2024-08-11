@@ -20,17 +20,19 @@ const aniVariants = {
     },
 };
 
-const Fade = ({ children, className, duration: time = 0.5 }: OwnProps) => (
-    <motion.div
-        className={className && className}
-        variants={aniVariants}
-        initial="init"
-        animate="ani"
-        exit="exit"
-        transition={{ type: 'spring', duration: time }}
-    >
-        {children}
-    </motion.div>
-);
+const Fade = ({ children, className, duration: time = 0.5 }: OwnProps) => {
+    return (
+        <motion.div
+            className={className && className}
+            variants={aniVariants}
+            initial="init"
+            animate="ani"
+            exit="exit"
+            transition={{ duration: time }}
+        >
+            {children}
+        </motion.div>
+    );
+};
 
 export { Fade };

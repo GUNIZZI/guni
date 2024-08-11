@@ -1,9 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { entitieAuthLoginAsync } from '@/entitie/auth';
+import { fbAuth } from '@/shared/api/firebase';
 import { setGlobalErrorHandler } from '@/shared/error/errorMiddleware';
+import { GoogleIconButton } from '@/shared/ui/button/GoogleIconButton';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
 import { LoaderCircle } from '@/shared/ui/loader';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
@@ -61,6 +64,17 @@ const LoginForm = () => {
             id: import.meta.env.VITE_FB_GUEST_ID,
             pw: import.meta.env.VITE_FB_GUEST_PW,
         });
+    };
+
+    const handleGoogleLogin = async () => {
+        try {
+            const provider = new GoogleAuthProvider();
+            const result = await signInWithPopup(fbAuth, provider);
+            console.log('result', result);
+            //   setUser(result.user);
+        } catch (error) {
+            console.error('Error signing in with Google', error);
+        }
     };
 
     useEffect(() => {
@@ -152,6 +166,9 @@ const LoginForm = () => {
                     <Button size="small" sx={{ mt: 2 }} onClick={handleGuestLogin}>
                         Guest Login
                     </Button>
+                </DialogActions>
+                <DialogActions sx={{ flexDirection: 'column' }}>
+                    <GoogleIconButton onClick={handleGoogleLogin} />
                 </DialogActions>
                 <Backdrop sx={{ position: 'absolute', color: '#fff', zIndex: 1 }} open={isLoading}>
                     <LoaderCircle size="3em" color="#000" />

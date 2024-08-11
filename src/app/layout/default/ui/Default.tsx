@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
-import { AnimatePresence } from 'framer-motion';
-import { ScrollRestoration, useLocation, useOutlet } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Outlet, ScrollRestoration, useLoaderData, useLocation, useOutlet } from 'react-router-dom';
 
 import { TransitionFade } from '@/shared/ui/transition';
 import { WidgetHeaderUser } from '@/widget/headerUser';
@@ -13,27 +13,21 @@ import { SuspensePage } from './PageSuspense';
 import { Container } from '@mui/material';
 
 const Default = () => {
-    const currentOutlet = useOutlet();
     const location = useLocation();
     const loc = useMemo(() => {
-        return `/${location.pathname.split('/')[1]}`;
+        return `/${location.pathname.split('/')[1]}` || null;
     }, [location.pathname]);
+    const currentOutlet = useOutlet();
 
     return (
         <Container sx={containerStyle}>
             <WidgetHeaderUser />
             <WidgetLnb />
-            <AnimatePresence mode="wait">
-                <TransitionFade key={loc} className="transitionWrap">
+            <AnimatePresence mode="wait" initial={false}>
+                <TransitionFade key={loc} className="transitionWrap" duration={0.4}>
                     <SuspensePage>{currentOutlet}</SuspensePage>
                 </TransitionFade>
             </AnimatePresence>
-            {/* <ScrollRestoration
-                getKey={(loc, matches) => {
-                    // 커스텀 키 생성 로직
-                    return loc.pathname;
-                }}
-            /> */}
         </Container>
     );
 };

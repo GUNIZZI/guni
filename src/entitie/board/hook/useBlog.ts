@@ -1,16 +1,16 @@
 import { UseQueryResult, useMutation, useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { BlogContentProps, addPost, fetchDatas, fetchDoc } from '@/entitie/blog';
-import { BlogAddPostProps } from '@/entitie/blog/model/type';
+import { BoardContentProps, addPost, fetchDatas, fetchDoc } from '@/entitie/board';
+import { BoardAddPostProps } from '@/entitie/board/model/type';
 
 /**
  * 게시판 패칭 리액트쿼리
  * @param id 리액트쿼리용 게시판 ID
  * @returns
  */
-const useFetchQuery = (id: string): UseQueryResult<BlogContentProps[], Error> => {
-    return useQuery<BlogContentProps[], Error, BlogContentProps[], [string]>({
+const useFetchQuery = (id: string): UseQueryResult<BoardContentProps[], Error> => {
+    return useQuery<BoardContentProps[], Error, BoardContentProps[], [string]>({
         queryKey: [`${id}_list`],
         queryFn: () => fetchDatas(id),
     });
@@ -21,9 +21,9 @@ const useFetchQuery = (id: string): UseQueryResult<BlogContentProps[], Error> =>
  * @param id 리액트쿼리용 게시판 ID
  * @returns
  */
-const useFetchDocQuery = (id: string): UseQueryResult<BlogContentProps, Error> => {
+const useFetchDocQuery = (id: string): UseQueryResult<BoardContentProps, Error> => {
     const { seq } = useParams() as { seq: string };
-    return useQuery<BlogContentProps, Error, BlogContentProps, [string]>({
+    return useQuery<BoardContentProps, Error, BoardContentProps, [string]>({
         queryKey: [`${id}_view`],
         queryFn: () => fetchDoc(id, seq),
     });
@@ -42,10 +42,12 @@ const useAddDocMutation = () => {
             docData,
         }: {
             collectionName: string;
-            docData: BlogAddPostProps;
+            docData: BoardAddPostProps;
         }) => addPost(collectionName, docData),
         onSuccess: res => {
-            navigate(`../seq=${res.id}`);
+            navigate(`../seq=${res.id}`, {
+                state: { from: 'write' },
+            });
             return res;
         },
         onError: error => {

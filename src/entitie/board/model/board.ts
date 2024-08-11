@@ -10,10 +10,9 @@ import {
     serverTimestamp,
 } from 'firebase/firestore';
 
-import { BlogContentProps } from '@/entitie/blog';
 import { fbDb } from '@/shared/api/firebase';
 
-import { BlogAddPostProps } from './type';
+import { BoardAddPostProps, BoardContentProps } from './type';
 
 /**
  * content(본문) 내용내에 img태그중 첫번째 요소의 src주소 반환
@@ -45,8 +44,8 @@ const fetchDatas = async (collectionName: string) => {
             title: data.title.trim(),
             content: data.content?.trim() || null,
             image: getImage(data.content || ''),
-        } as BlogContentProps;
-    }) as BlogContentProps[];
+        } as BoardContentProps;
+    }) as BoardContentProps[];
 };
 
 /**
@@ -66,7 +65,7 @@ const fetchDoc = async (collectionName: string, seq: string) => {
             title: data.title.trim(),
             content: data.content?.trim() || null,
             image: getImage(data.content || ''),
-        } as BlogContentProps;
+        } as BoardContentProps;
     }
     throw new Error('Document not found');
 };
@@ -77,7 +76,7 @@ const fetchDoc = async (collectionName: string, seq: string) => {
  * @param docData 게시판 등록 내용
  * @returns
  */
-const addPost = async (collectionName: string, docData: BlogAddPostProps) => {
+const addPost = async (collectionName: string, docData: BoardAddPostProps) => {
     const postsCollection = collection(fbDb, collectionName);
     const docRef = await addDoc(postsCollection, {
         ...docData,
