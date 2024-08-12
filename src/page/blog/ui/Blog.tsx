@@ -1,6 +1,6 @@
 import { Interpolation, Theme } from '@emotion/react';
 
-import { WidgetBoard } from '@/widget/board';
+import { WidgetBoardContainer } from '@/widget/board';
 
 import { Paper } from '@mui/material';
 
@@ -14,7 +14,7 @@ const Blog = () => {
                     <h2>Life.</h2>
                     <p>일상...</p>
                 </div>
-                <WidgetBoard />
+                <WidgetBoardContainer />
             </div>
         </Paper>
     );

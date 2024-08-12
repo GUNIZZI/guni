@@ -1,6 +1,6 @@
 import { Interpolation, Theme } from '@emotion/react';
 
-import { WidgetBoard } from '@/widget/board';
+import { WidgetBoardContainer } from '@/widget/board';
 
 import { Paper } from '@mui/material';
 
@@ -14,7 +14,7 @@ const Pf = () => {
                     <h2>Portfolio.</h2>
                     <p>만든거 이것 저것</p>
                 </div>
-                <WidgetBoard />
+                <WidgetBoardContainer />
             </div>
         </Paper>
     );

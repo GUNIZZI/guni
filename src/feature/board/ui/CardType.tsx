@@ -24,7 +24,7 @@ interface OwnProps {
     datas: BoardContentProps[] | undefined;
 }
 
-const BoardCard = ({ datas }: OwnProps) => {
+const CardType = ({ datas }: OwnProps) => {
     const navigate = useNavigate();
 
     if (!datas?.length) return <div>데이터 없음</div>;
@@ -88,4 +88,4 @@ const BoardCard = ({ datas }: OwnProps) => {
     );
 };
 
-export { BoardCard };
+export { CardType };

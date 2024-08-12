@@ -14,7 +14,7 @@ interface OwnProps {
     datas: BoardContentProps[] | undefined;
 }
 
-const BoardList = ({ datas }: OwnProps) => {
+const ListType = ({ datas }: OwnProps) => {
     const navigate = useNavigate();
 
     if (!datas?.length) return <div>데이터 없음</div>;
@@ -47,4 +47,4 @@ const BoardList = ({ datas }: OwnProps) => {
     );
 };
 
-export { BoardList };
+export { ListType };

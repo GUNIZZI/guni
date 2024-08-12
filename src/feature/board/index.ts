@@ -1,3 +1,5 @@
-export { List as FeatureBoardList } from './ui/List';
-export { View as FeatureBoardView } from './ui/View';
-export { Write as FeatureBoardWrite } from './ui/Write';
+export { ListType as FeatureBoardListType } from './ui/ListType';
+export { CardType as FeatureBoardCardType } from './ui/CardType';
+
+export { AddButton as FeatureBoardAddButton } from './ui/AddButton';
+export { DeleteButton as FeatureBoardDeleteButton } from './ui/DeleteButton';

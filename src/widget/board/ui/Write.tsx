@@ -12,6 +12,7 @@ import { CustomSelect } from '@/shared/ui/select/CustomSelect';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
 
 import { writeStyle } from './Write.css';
+
 import { useAddDocMutation } from '../../../entitie/board/hook/useBlog';
 
 import { Check, Close } from '@mui/icons-material';
@@ -23,7 +24,7 @@ interface OwnProps {
 
 const Write = ({ boardType }: OwnProps) => {
     const navigate = useNavigate();
-    const { mutate: addDocAuery, isPending } = useAddDocMutation();
+    const { mutate: addDocQuery, isPending } = useAddDocMutation();
     const {
         control,
         register,
@@ -32,7 +33,7 @@ const Write = ({ boardType }: OwnProps) => {
     } = useForm<BoardAddPostProps>();
 
     const handleSave = (data: BoardAddPostProps) => {
-        addDocAuery({
+        addDocQuery({
             collectionName: boardType,
             docData: {
                 ...data,

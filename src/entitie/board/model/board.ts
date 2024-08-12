@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import {
     addDoc,
     collection,
+    deleteDoc,
     doc,
     getDoc,
     getDocs,
@@ -85,4 +86,14 @@ const addPost = async (collectionName: string, docData: BoardAddPostProps) => {
     return docRef;
 };
 
-export { fetchDatas, fetchDoc, addPost };
+/**
+ * 게시판 컨텐츠 삭제
+ * @param postId 게시판
+ */
+const deletePost = async (collectionName: string, seq: string) => {
+    const useSeq = seq.split('seq=')[1];
+    const docRef = doc(fbDb, collectionName, useSeq);
+    await deleteDoc(docRef);
+};
+
+export { fetchDatas, fetchDoc, addPost, deletePost };

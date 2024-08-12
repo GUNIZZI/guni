@@ -3,8 +3,9 @@ import { useCallback } from 'react';
 import DOMPurify from 'isomorphic-dompurify';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { BoardQueryKey } from '@/entitie/board/model/type';
 import { useFetchDocQuery } from '@/entitie/board/hook/useBlog';
+import { BoardQueryKey } from '@/entitie/board/model/type';
+import { FeatureBoardDeleteButton } from '@/feature/board';
 import { BackButton } from '@/shared/ui/button/BackButton';
 import { LoaderCircle } from '@/shared/ui/loader';
 import { MdViewer } from '@/shared/ui/mdViewer/MdViewer';
@@ -15,7 +16,7 @@ interface OwnProps {
     boardType: BoardQueryKey['type'];
 }
 
-const ViewNotContent = () => {
+const NotContent = () => {
     return <div>데이터 불러오는 중...</div>;
 };
 
@@ -33,7 +34,11 @@ const View = ({ boardType }: OwnProps) => {
     return (
         <>
             <div className="viewWrap">
+                {/* 뒤로가기 */}
                 <BackButton onClick={handleBack} />
+
+                {/* 삭제 버튼 */}
+                <FeatureBoardDeleteButton boardType={boardType} />
                 {posts ? (
                     <>
                         <h2>{posts.title}</h2>
@@ -48,7 +53,7 @@ const View = ({ boardType }: OwnProps) => {
                         />
                     </>
                 ) : (
-                    <ViewNotContent />
+                    <NotContent />
                 )}
             </div>
             <Backdrop sx={{ color: '#fff', zIndex: 1 }} open={isLoading}>

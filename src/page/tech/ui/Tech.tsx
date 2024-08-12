@@ -1,6 +1,6 @@
 import { Interpolation, Theme } from '@emotion/react';
 
-import { WidgetBoard } from '@/widget/board';
+import { WidgetBoardContainer } from '@/widget/board';
 
 import { Paper } from '@mui/material';
 
@@ -24,7 +24,7 @@ const Tech = () => {
                         잊지 말아야 할 것들.
                     </p>
                 </div>
-                <WidgetBoard />
+                <WidgetBoardContainer />
             </div>
         </Paper>
     );

@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { BoardContentProps, addPost, fetchDatas, fetchDoc } from '@/entitie/board';
 import { BoardAddPostProps } from '@/entitie/board/model/type';
 
+import { deletePost } from '../model/board';
+
 /**
  * 게시판 패칭 리액트쿼리
  * @param id 리액트쿼리용 게시판 ID
@@ -56,4 +58,24 @@ const useAddDocMutation = () => {
     });
 };
 
-export { useFetchQuery, useFetchDocQuery, useAddDocMutation };
+/**
+ * 게시글 삭제
+ * @returns
+ */
+const useDeleteDocMutation = () => {
+    const { seq } = useParams() as { seq: string };
+    const navigate = useNavigate();
+
+    return useMutation({
+        mutationFn: (collectionName: string) => deletePost(collectionName, seq),
+        onSuccess: res => {
+            navigate('../');
+            return res;
+        },
+        onError: error => {
+            throw error;
+        },
+    });
+};
+
+export { useFetchQuery, useFetchDocQuery, useAddDocMutation, useDeleteDocMutation };
