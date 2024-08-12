@@ -3,6 +3,8 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 // import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
+import { getFunctions } from 'firebase/functions';
+import { getStorage } from 'firebase/storage';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -35,7 +37,19 @@ const fbAuth = getAuth(fbApp);
  */
 const fbStore = getFirestore(fbApp);
 
+/**
+ * ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+ * 스토리지
+ */
+const fbStorage = getStorage(fbApp);
+
+/**
+ * ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+ * 함수
+ */
+const fbFunction = getFunctions(fbApp);
+
 const fbDb = getFirestore(fbApp);
 
-export { fbApp, fbAuth, fbStore, fbDb };
+export { fbApp, fbAuth, fbStore, fbStorage, fbFunction, fbDb };
 // export { db, signInWithGoogle };

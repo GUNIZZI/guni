@@ -23,9 +23,12 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
             target: 'esnext',
         },
         server: {
-            host: 'guni.devel.com',
+            // host: 'guni.devel.com',
             open: true,
             port: 9999,
+            headers: {
+                'Cross-Origin-Embedder-Policy': 'unsafe-none',
+            },
         },
     };
 });

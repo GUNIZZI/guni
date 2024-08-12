@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { entitieAuthLoginAsync } from '@/entitie/auth';
-import { fbAuth } from '@/shared/api/firebase';
+import { LoginAsync, LoginWithGithubAsync, LoginWithGoogleAsync } from '@/entitie/auth';
 import { setGlobalErrorHandler } from '@/shared/error/errorMiddleware';
+// import { FacebookIconButton } from '@/shared/ui/button/FacebookIconButton';
+import { GithubIconButton } from '@/shared/ui/button/GithubIconButton';
 import { GoogleIconButton } from '@/shared/ui/button/GoogleIconButton';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
+// import { XIconButton } from '@/shared/ui/button/XIconButton.tsx';
 import { LoaderCircle } from '@/shared/ui/loader';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
 
@@ -43,10 +44,31 @@ const LoginForm = () => {
     const [isSnackbarMsg, setIsSnackbarMsg] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleLogin = async ({ id, pw }: UserLoginCredential) => {
+    // const handleLogin = async ({ id, pw }: UserLoginCredential) => {
+    const handleLogin = async (
+        type: string | null,
+        userCredential?: { id: string; pw: string } | null,
+    ) => {
         setIsLoading(true);
         try {
-            await entitieAuthLoginAsync({ id, pw });
+            switch (type) {
+                case 'google':
+                    await LoginWithGoogleAsync();
+                    break;
+                case 'github':
+                    await LoginWithGithubAsync();
+                    break;
+                case 'guest':
+                    await LoginAsync({
+                        id: import.meta.env.VITE_FB_GUEST_ID,
+                        pw: import.meta.env.VITE_FB_GUEST_PW,
+                    });
+                    break;
+                default:
+                    if (userCredential) await LoginAsync(userCredential);
+                    break;
+            }
+
             setLoginFormActive(false);
         } catch (e) {
             // 비지니스(login)에서 처리
@@ -56,25 +78,14 @@ const LoginForm = () => {
     };
 
     const onSubmit: SubmitHandler<UserLoginCredential> = data => {
-        handleLogin(data);
+        handleLogin(null, data);
     };
 
     const handleGuestLogin = async () => {
-        handleLogin({
+        handleLogin('guest', {
             id: import.meta.env.VITE_FB_GUEST_ID,
             pw: import.meta.env.VITE_FB_GUEST_PW,
         });
-    };
-
-    const handleGoogleLogin = async () => {
-        try {
-            const provider = new GoogleAuthProvider();
-            const result = await signInWithPopup(fbAuth, provider);
-            console.log('result', result);
-            //   setUser(result.user);
-        } catch (error) {
-            console.error('Error signing in with Google', error);
-        }
     };
 
     useEffect(() => {
@@ -167,8 +178,19 @@ const LoginForm = () => {
                         Guest Login
                     </Button>
                 </DialogActions>
-                <DialogActions sx={{ flexDirection: 'column' }}>
-                    <GoogleIconButton onClick={handleGoogleLogin} />
+                <DialogActions
+                    sx={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        padding: '2em 0 1em',
+                        margin: '1em 0 0 0',
+                        borderTop: '1px solid rgba(255,255,255,0.1)',
+                    }}
+                >
+                    <GoogleIconButton onClick={() => handleLogin('google')} />
+                    <GithubIconButton onClick={() => handleLogin('github')} />
+                    {/* <FacebookIconButton onClick={() => handleLogin('facebook')} />
+                    <XIconButton onClick={() => handleLogin('x')} /> */}
                 </DialogActions>
                 <Backdrop sx={{ position: 'absolute', color: '#fff', zIndex: 1 }} open={isLoading}>
                     <LoaderCircle size="3em" color="#000" />

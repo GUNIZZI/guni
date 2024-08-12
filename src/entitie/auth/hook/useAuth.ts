@@ -15,7 +15,13 @@ export function useAuth() {
             if (authUser) {
                 setUser({
                     email: authUser?.email,
-                    role: authUser?.uid === import.meta.env.VITE_FB_ADMIN_UID ? 'ADMIN' : 'USER',
+                    name: authUser?.displayName,
+                    role:
+                        authUser?.uid === import.meta.env.VITE_FB_ADMIN_UID
+                            ? 'ADMIN'
+                            : authUser?.email === import.meta.env.VITE_FB_GUEST_ID
+                              ? 'GUEST'
+                              : 'USER',
                 } as AuthUser);
             } else {
                 setUser(null);

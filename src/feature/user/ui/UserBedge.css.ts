@@ -19,4 +19,4 @@ const style = () => css`
     }
 `;
 
-export { style as userInfoStyle };
+export { style as userBedgeStyle };

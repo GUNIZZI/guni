@@ -25,17 +25,29 @@ const GoogleIcon: React.FC<SvgIconProps> = props => (
 );
 
 const GoogleButton = styled(Button)(({ theme }) => ({
-    backgroundColor: 'transparent',
-    color: theme.palette.text.primary,
+    position: 'relative',
+    width: '2rem',
+    minWidth: 0,
+    height: '2rem',
+    padding: 0,
     textTransform: 'none',
     border: 'none',
+    borderRadius: '50%',
+    backgroundColor: 'rgba(255,255,255,0.1)',
     boxShadow: '0 2px 4px 0 rgba(0,0,0,.25)',
+    color: theme.palette.text.primary,
     '&:hover': {
-        backgroundColor: '#f8f8f8',
-        boxShadow: '0 2px 8px 0 rgba(0,0,0,.25)',
+        backgroundColor: 'rgba(255,255,255,0.2)',
     },
     '& .MuiButton-startIcon': {
         marginRight: theme.spacing(2),
+    },
+    '> .MuiButton-icon': {
+        margin: 0,
+    },
+    '> .MuiTouchRipple-root': {
+        width: '100%',
+        height: '100%',
     },
 }));
 
@@ -44,7 +56,14 @@ interface GoogleLoginButtonProps {
 }
 
 const GoogleIconButton: React.FC<GoogleLoginButtonProps> = ({ onClick }) => {
-    return <GoogleButton variant="contained" startIcon={<GoogleIcon />} onClick={onClick} />;
+    return (
+        <GoogleButton
+            title="Google 로그인"
+            variant="contained"
+            startIcon={<GoogleIcon />}
+            onClick={onClick}
+        />
+    );
 };
 
 export { GoogleIconButton };

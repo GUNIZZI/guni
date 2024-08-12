@@ -1,3 +1,8 @@
 export { useAuth } from './hook/useAuth';
 
-export { login as entitieAuthLoginAsync, logout as entitieAuthLogoutAsync } from './model/auth';
+export {
+    login as LoginAsync,
+    loginWithGoogle as LoginWithGoogleAsync,
+    loginWithGithub as LoginWithGithubAsync,
+    logout as LogoutAsync,
+} from './model/auth';

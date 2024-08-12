@@ -33,6 +33,29 @@ const style = (theme: Theme) => css`
             min-height: unset !important;
         }
     }
+
+    .wmde-markdown {
+        background: none;
+
+        ul,
+        ol {
+            list-style-type: inherit;
+
+            ul,
+            ol {
+                list-style-type: circle;
+
+                ul,
+                ol {
+                    list-style-type: square;
+                }
+            }
+        }
+
+        .language-tsx {
+            background: rgba(255, 255, 255, 0.05);
+        }
+    }
 `;
 
 export { style as mdEditorStyle };

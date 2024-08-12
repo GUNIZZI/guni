@@ -1,33 +1,25 @@
 import { useContext } from 'react';
 
-import { entitieAuthLogoutAsync, useAuth } from '@/entitie/auth';
+import { LogoutAsync, useAuth } from '@/entitie/auth';
+import { getUserName } from '@/entitie/user';
 import { FeatureLoginContext } from '@/feature/auth';
 import { LoaderCircle } from '@/shared/ui/loader';
 
-import { userInfoStyle } from './UserInfo.css';
+import { userBedgeStyle } from './UserBedge.css';
 
 import { LockOutlined, LockPerson } from '@mui/icons-material';
 import { Backdrop, Button } from '@mui/material';
 
-const getUserName = (email: string | null): string => {
-    switch (email) {
-        case 'guest@gunizzi.com':
-            return 'GUEST';
-        default:
-            return 'ADMIN';
-    }
-};
-
-const UserInfo = () => {
+const UserBedge = () => {
     const { isLogined, loginLoading, user } = useAuth();
     const { handleLoginForm } = useContext(FeatureLoginContext);
 
     return (
-        <div css={userInfoStyle}>
+        <div css={userBedgeStyle}>
             <div style={{ position: 'relative' }}>
                 <Button
                     color="secondary"
-                    onClick={!isLogined ? handleLoginForm : entitieAuthLogoutAsync}
+                    onClick={!isLogined ? handleLoginForm : LogoutAsync}
                     title={!isLogined ? '로그인' : '로그아웃'}
                 >
                     {isLogined ? (
@@ -35,7 +27,7 @@ const UserInfo = () => {
                     ) : (
                         <LockOutlined sx={{ fontSize: '18px' }} />
                     )}
-                    {user?.email && <span className="userName">{getUserName(user.email)}</span>}
+                    {user?.email && <span className="userName">{getUserName(user)}</span>}
                 </Button>
                 <Backdrop
                     sx={{
@@ -54,4 +46,4 @@ const UserInfo = () => {
     );
 };
 
-export { UserInfo };
+export { UserBedge };
