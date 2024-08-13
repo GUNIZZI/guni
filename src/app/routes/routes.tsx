@@ -5,12 +5,12 @@ import { BOARD_QUERY_KEY } from '@/shared/config/constants';
 import {
     LazyHome,
     LazyAbout,
-    LazyTech,
-    LazyBlog,
-    LazyPortfolio,
-    BoardList,
-    BoardView,
-    BoardWrite,
+    LayoutTech,
+    LayoutBlog,
+    LayoutPortfolio,
+    PageBoardList,
+    PageBoardView,
+    PageBoardWrite,
 } from './lazyComponents';
 import ProtectedGuard from '../guard/ProtectedGuard';
 
@@ -29,22 +29,22 @@ const AppRoutes = [
             },
             {
                 path: 'blog',
-                element: <LazyBlog />,
+                element: <LayoutBlog />,
                 children: [
                     {
                         index: true,
-                        element: <BoardList boardType={BOARD_QUERY_KEY.LIFE} />,
+                        element: <PageBoardList boardType={BOARD_QUERY_KEY.LIFE} />,
                     },
                     {
                         path: ':seq',
-                        element: <BoardView boardType={BOARD_QUERY_KEY.LIFE} />,
+                        element: <PageBoardView boardType={BOARD_QUERY_KEY.LIFE} />,
                     },
                     {
                         element: <ProtectedGuard />,
                         children: [
                             {
                                 path: 'write',
-                                element: <BoardWrite boardType={BOARD_QUERY_KEY.LIFE} />,
+                                element: <PageBoardWrite boardType={BOARD_QUERY_KEY.LIFE} />,
                             },
                         ],
                     },
@@ -52,22 +52,22 @@ const AppRoutes = [
             },
             {
                 path: 'tech',
-                element: <LazyTech />,
+                element: <LayoutTech />,
                 children: [
                     {
                         index: true,
-                        element: <BoardList boardType={BOARD_QUERY_KEY.TECH} />,
+                        element: <PageBoardList boardType={BOARD_QUERY_KEY.TECH} />,
                     },
                     {
                         path: ':seq',
-                        element: <BoardView boardType={BOARD_QUERY_KEY.TECH} />,
+                        element: <PageBoardView boardType={BOARD_QUERY_KEY.TECH} />,
                     },
                     {
                         element: <ProtectedGuard />,
                         children: [
                             {
                                 path: 'write',
-                                element: <BoardWrite boardType={BOARD_QUERY_KEY.TECH} />,
+                                element: <PageBoardWrite boardType={BOARD_QUERY_KEY.TECH} />,
                             },
                         ],
                     },
@@ -75,22 +75,22 @@ const AppRoutes = [
             },
             {
                 path: 'pf',
-                element: <LazyPortfolio />,
+                element: <LayoutPortfolio />,
                 children: [
                     {
                         index: true,
-                        element: <BoardList boardType={BOARD_QUERY_KEY.PF} />,
+                        element: <PageBoardList boardType={BOARD_QUERY_KEY.PF} />,
                     },
                     {
                         path: ':seq',
-                        element: <BoardView boardType={BOARD_QUERY_KEY.PF} />,
+                        element: <PageBoardView boardType={BOARD_QUERY_KEY.PF} />,
                     },
                     {
                         element: <ProtectedGuard />,
                         children: [
                             {
                                 path: 'write',
-                                element: <BoardWrite boardType={BOARD_QUERY_KEY.PF} />,
+                                element: <PageBoardWrite boardType={BOARD_QUERY_KEY.PF} />,
                             },
                         ],
                     },

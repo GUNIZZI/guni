@@ -2,9 +2,16 @@ import { lazy } from 'react';
 
 const Home = lazy(() => import('@/page/home').then(module => ({ default: module.PageHome })));
 const About = lazy(() => import('@/page/about').then(module => ({ default: module.PageAbout })));
-const Tech = lazy(() => import('@/page/tech/ui/Tech').then(module => ({ default: module.Tech })));
-const Blog = lazy(() => import('@/page/blog').then(module => ({ default: module.PageBlog })));
-const Portfolio = lazy(() => import('@/page/pf').then(module => ({ default: module.PagePf })));
+
+const LayoutTech = lazy(() =>
+    import('@/app/layout/ui/Tech').then(module => ({ default: module.Tech })),
+);
+const LayoutBlog = lazy(() =>
+    import('@/app/layout/ui/Blog').then(module => ({ default: module.Blog })),
+);
+const LayoutPortfolio = lazy(() =>
+    import('@/app/layout/ui/Pf').then(module => ({ default: module.Pf })),
+);
 
 const BoardList = lazy(() =>
     import('@/page/board/ui/List').then(module => ({ default: module.List })),
@@ -19,10 +26,10 @@ const BoardWrite = lazy(() =>
 export {
     Home as LazyHome,
     About as LazyAbout,
-    Tech as LazyTech,
-    Blog as LazyBlog,
-    Portfolio as LazyPortfolio,
-    BoardList,
-    BoardView,
-    BoardWrite,
+    LayoutPortfolio,
+    LayoutTech,
+    LayoutBlog,
+    BoardList as PageBoardList,
+    BoardView as PageBoardView,
+    BoardWrite as PageBoardWrite,
 };

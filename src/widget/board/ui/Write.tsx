@@ -24,7 +24,7 @@ interface OwnProps {
 
 const Write = ({ boardType }: OwnProps) => {
     const navigate = useNavigate();
-    const { mutate: addDocQuery, isPending } = useAddDocMutation();
+    const { mutate: addDocQuery, isPending } = useAddDocMutation(boardType);
     const {
         control,
         register,
@@ -34,7 +34,6 @@ const Write = ({ boardType }: OwnProps) => {
 
     const handleSave = (data: BoardAddPostProps) => {
         addDocQuery({
-            collectionName: boardType,
             docData: {
                 ...data,
             },
@@ -79,7 +78,7 @@ const Write = ({ boardType }: OwnProps) => {
                             style={{ flex: '0 0 200px' }}
                             control={control}
                             sx={{ flex: '0 0 200px' }}
-                            defaultValue={BOARD_CONTENT_TYPES[boardType][0].code}
+                            defaultValue={BOARD_CONTENT_TYPES[boardType][1].code}
                         />
                         <CustomTextField<BoardAddPostProps>
                             autoFocus

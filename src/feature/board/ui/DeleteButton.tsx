@@ -10,11 +10,11 @@ interface OwnProps {
 }
 
 const DeleteButton = ({ boardType }: OwnProps) => {
-    const { mutate: delDocQuery, isPending } = useDeleteDocMutation();
+    const { mutate: delDocQuery, isPending } = useDeleteDocMutation(boardType);
     const { isLogined, user } = useAuth();
 
     const handleDelete = () => {
-        delDocQuery(boardType);
+        delDocQuery();
     };
 
     if (!isLogined || user?.role !== 'ADMIN') return null;
