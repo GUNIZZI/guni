@@ -12,6 +12,7 @@ const BOARD_QUERY_KEY: Record<BoardQueryKey['type'], BoardQueryKey['type']> = {
 // 게시판 별 컨텐츠 타입
 const BOARD_CONTENT_TYPES: Record<BoardQueryKey['type'], Opt[]> = {
     TECH: [
+        { code: '', name: 'ALL' },
         { code: '0', name: 'React' },
         { code: '1', name: 'Vue' },
         { code: '2', name: 'Html/Css' },
@@ -19,11 +20,13 @@ const BOARD_CONTENT_TYPES: Record<BoardQueryKey['type'], Opt[]> = {
         { code: '4', name: 'Other' },
     ],
     LIFE: [
+        { code: '', name: 'ALL' },
         { code: '0', name: '일상' },
         { code: '1', name: '여행' },
         { code: '2', name: '소중한것들' },
     ],
     PF: [
+        { code: '', name: 'ALL' },
         { code: '0', name: 'Web' },
         { code: '1', name: 'Mobile' },
         { code: '2', name: 'Admin' },

@@ -1,12 +1,18 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { useFetchQuery } from '@/entitie/board/hook/useBlog';
 import { BoardContentProps, BoardQueryKey } from '@/entitie/board/model/type';
-import { FeatureBoardListType, FeatureBoardCardType, FeatureBoardAddButton } from '@/feature/board';
+import { getFilterData } from '@/entitie/board/util/filterData';
+import {
+    FeatureBoardListType,
+    FeatureBoardCardType,
+    FeatureBoardAddButton,
+    FeatureBoardFilterTab,
+} from '@/feature/board';
 import { BOARD_CONTENT_TYPES, BOARD_QUERY_KEY } from '@/shared/config/constants';
 import { LoaderCircle } from '@/shared/ui/loader';
 
-import { Backdrop, Tab, Tabs } from '@mui/material';
+import { Backdrop } from '@mui/material';
 
 interface OwnProps {
     boardType: BoardQueryKey['type'];
@@ -17,6 +23,12 @@ interface BoardListType {
     posts: BoardContentProps[] | undefined;
 }
 
+/**
+ * borderType에 따른 현재 게시판 컴포넌트 반환
+ * @boardType 게시판 목록 타입 "TECH" | "LIFE" | "PF"
+ * @posts 게시판 목록 데이터
+ * @returns 조건에 맞는 게시판 목록
+ */
 const CurrentBoard = ({ boardType, posts }: BoardListType) => {
     switch (boardType) {
         case BOARD_QUERY_KEY.TECH:
@@ -33,31 +45,22 @@ const CurrentBoard = ({ boardType, posts }: BoardListType) => {
 const List = ({ boardType }: OwnProps) => {
     const { data: posts, isLoading } = useFetchQuery(boardType);
     const [tab, setTab] = useState(BOARD_CONTENT_TYPES[boardType][0].code);
-    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-        console.log('탭 바꿔요', event, newValue);
-    };
-
-    console.log();
+    const filterData = useMemo(() => getFilterData({ posts, tab }), [posts, tab]);
 
     return (
         <>
             {/* 추가 버튼 */}
             <FeatureBoardAddButton />
 
-            <Tabs
+            {/* 필터링 */}
+            <FeatureBoardFilterTab
                 value={tab}
-                onChange={handleChange}
-                textColor="secondary"
-                indicatorColor="secondary"
-                aria-label="secondary tabs example"
-            >
-                {BOARD_CONTENT_TYPES[boardType].map(item => (
-                    <Tab key={item.code} value={item.code} label={item.name} />
-                ))}
-            </Tabs>
+                opts={BOARD_CONTENT_TYPES[boardType]}
+                onChange={setTab}
+            />
 
             {/* 게시판 */}
-            <CurrentBoard boardType={boardType} posts={posts} />
+            <CurrentBoard boardType={boardType} posts={filterData} />
 
             {/* 로더 */}
             <Backdrop sx={{ color: '#fff', zIndex: 1 }} open={isLoading}>
