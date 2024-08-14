@@ -9,6 +9,7 @@ import {
     FeatureBoardAddButton,
     FeatureBoardFilterTab,
 } from '@/feature/board';
+import { useScrollRestorationBoardList } from '@/feature/scrollRestoration/hook/useScrollRestorationBoardList';
 import { BOARD_CONTENT_TYPES, BOARD_QUERY_KEY } from '@/shared/config/constants';
 import { LoaderCircle } from '@/shared/ui/loader';
 
@@ -46,6 +47,7 @@ const List = ({ boardType }: OwnProps) => {
     const { data: posts, isLoading } = useFetchQuery(boardType);
     const [tab, setTab] = useState(BOARD_CONTENT_TYPES[boardType][0].code);
     const filterData = useMemo(() => getFilterData({ posts, tab }), [posts, tab]);
+    useScrollRestorationBoardList();
 
     return (
         <>

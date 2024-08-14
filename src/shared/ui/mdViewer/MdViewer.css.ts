@@ -18,10 +18,10 @@ const style = () => css`
                 }
             }
         }
+    }
 
-        .language-tsx {
-            background: rgba(255, 255, 255, 0.05);
-        }
+    pre[class^='language'] {
+        background: rgba(255, 255, 255, 0.05);
     }
 `;
 

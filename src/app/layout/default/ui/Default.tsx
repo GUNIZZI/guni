@@ -1,7 +1,7 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
-import { AnimatePresence, motion } from 'framer-motion';
-import { Outlet, ScrollRestoration, useLoaderData, useLocation, useOutlet } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import { useLocation, useOutlet } from 'react-router-dom';
 
 import { TransitionFade } from '@/shared/ui/transition';
 import { WidgetHeaderUser } from '@/widget/headerUser';
@@ -21,6 +21,7 @@ const Default = () => {
 
     return (
         <Container sx={containerStyle}>
+            {/* <ScrollRestoration /> */}
             <WidgetHeaderUser />
             <WidgetLnb />
             <AnimatePresence mode="wait" initial={false}>

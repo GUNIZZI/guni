@@ -10,7 +10,7 @@ const Tech = () => {
     return (
         <Paper className="page isList" css={boardListStyle as Interpolation<Theme>}>
             <div className="wrap">
-                <div className="headers">
+                {/* <div className="headers">
                     <h2>Tech Blog.</h2>
                     <p>
                         일하다가, 문득
@@ -23,7 +23,7 @@ const Tech = () => {
                         <br />
                         잊지 말아야 할 것들.
                     </p>
-                </div>
+                </div> */}
                 <WidgetBoardContainer />
             </div>
         </Paper>
