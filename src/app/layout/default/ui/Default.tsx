@@ -24,7 +24,7 @@ const Default = () => {
             {/* <ScrollRestoration /> */}
             <WidgetHeaderUser />
             <WidgetLnb />
-            <AnimatePresence mode="wait" initial={false}>
+            <AnimatePresence mode="wait">
                 <TransitionFade key={loc} className="transitionWrap" duration={0.4}>
                     <SuspensePage>{currentOutlet}</SuspensePage>
                 </TransitionFade>

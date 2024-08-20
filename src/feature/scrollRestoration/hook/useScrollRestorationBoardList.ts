@@ -9,7 +9,13 @@ const useScrollRestorationBoardList = () => {
     const { scrollY } = useScrollRestoration();
 
     useEffect(() => {
-        console.log('뒤로가기로 왓어', scrollY);
+        if (navigationType === 'POP') {
+            console.log('뒤로가기로 왓어', navigationType, scrollY);
+            window.scrollTo({
+                top: scrollY,
+                behavior: 'smooth',
+            });
+        }
         //     // 뒤로 가기로 목록 페이지에 돌아왔을 때만 스크롤 위치 복원
         //     // if (location.pathname === '/list' && navigationType === 'POP') {
         //     //     const savedPosition = scrollPositions.current[location.pathname] || 0;

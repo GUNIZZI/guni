@@ -12,7 +12,7 @@ const BoardContainer = () => {
     const currentOutlet = useOutlet(0);
 
     return (
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
             <TransitionSlide key={loc} className="transitionWrap">
                 <SuspensePage>{currentOutlet}</SuspensePage>
             </TransitionSlide>
