@@ -1,0 +1,32 @@
+# 로그
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 패키지
+package-lock.json
+node_modules
+dist
+dist-ssr
+*.local
+# @dist
+
+# 환경설정
+# gitlab서버 외에 절대 배포 금지
+.env
+.env.development
+.env.production
+
+# 폴더/파일
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
