@@ -1,4 +1,4 @@
-import{c as r,N as i,a,j as o,m as n}from"./index-fYcrmBwT.js";import{E as s}from"./easeing-Cu5ImZQx.js";const c="/guni/assets/bg2-Ch0aaDQq.jpg",g=t=>r`
+import{c as r,N as i,a,j as o,m as n}from"./index-gxbjmqFB.js";import{E as s}from"./easeing-CvTn5Zp3.js";const c="/guni/assets/bg2-Ch0aaDQq.jpg",g=t=>r`
     background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${c});
     background-size: cover;
     background-position: center;

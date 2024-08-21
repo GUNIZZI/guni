@@ -1,4 +1,4 @@
-import{a as t,m as s,c as l,u as p,r as e,b as d,A as c,S as g,P as f}from"./index-fYcrmBwT.js";import{E as r}from"./easeing-Cu5ImZQx.js";const m=({children:i,className:o,duration:a=.3})=>{const n={init:{marginLeft:20,opacity:0},ani:{marginLeft:0,opacity:1,transition:{duration:a,delay:.1,ease:r.EASE_OUT_CUBIC}},exit:{marginLeft:-20,opacity:0,transition:{duration:a,ease:r.EASE_IN_CUBIC}}};return t(s.div,{className:o&&o,variants:n,initial:"init",animate:"ani",exit:"exit",layout:!0,style:{position:"absolute",width:"100%"},children:i})},w=i=>l`
+import{a as t,m as s,c as l,u as p,r as e,b as d,A as c,S as g,P as f}from"./index-gxbjmqFB.js";import{E as r}from"./easeing-CvTn5Zp3.js";const m=({children:i,className:o,duration:a=.3})=>{const n={init:{marginLeft:20,opacity:0},ani:{marginLeft:0,opacity:1,transition:{duration:a,delay:.1,ease:r.EASE_OUT_CUBIC}},exit:{marginLeft:-20,opacity:0,transition:{duration:a,ease:r.EASE_IN_CUBIC}}};return t(s.div,{className:o&&o,variants:n,initial:"init",animate:"ani",exit:"exit",layout:!0,style:{position:"absolute",width:"100%"},children:i})},w=i=>l`
     .header {
         display: flex;
         align-items: flex-end;
