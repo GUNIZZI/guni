@@ -7,13 +7,13 @@
     "scripts": {
         "dev": "vite",
         "dev:prod": "vite --mode production",
-        "build": "tsc && vite build --mode production --outDir @dist/prod",
-        "build:dev": "tsc && vite build --mode development --outDir @dist/dev",
+        "build": "tsc && vite build --mode production --outDir /@dist/prod",
+        "build:dev": "tsc && vite build --mode development --outDir /@dist/dev",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
         "generate": "npm run build:dev && npm run build",
         "predeploy": "npm run build",
-        "deploy": "gh-pages -d @dist/prod --add"
+        "deploy": "gh-pages -d /@dist/prod --add"
     },
     "dependencies": {
         "@emotion/react": "^11.11.4",

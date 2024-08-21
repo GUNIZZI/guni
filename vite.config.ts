@@ -6,7 +6,7 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
     const isProduction = mode === 'production';
 
     return {
-        base: '/',
+        base: '/guni/',
         plugins: [react(), mkcert()],
         resolve: {
             alias: [{ find: '@/', replacement: '/src/' }],
@@ -17,7 +17,7 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
             },
         },
         build: {
-            outDir: '@dist/prod',
+            outDir: '/@dist/prod',
             minify: isProduction,
             sourcemap: !isProduction,
             target: 'esnext',
