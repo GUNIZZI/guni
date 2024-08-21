@@ -17,7 +17,7 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
             },
         },
         build: {
-            outDir: '@dist',
+            outDir: '@dist/prod',
             minify: isProduction,
             sourcemap: !isProduction,
             target: 'esnext',
