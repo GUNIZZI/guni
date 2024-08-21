@@ -6,7 +6,7 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
     const isProduction = mode === 'production';
 
     return {
-        base: '/guni/',
+        base: '/guni',
         plugins: [react(), mkcert()],
         resolve: {
             alias: [{ find: '@/', replacement: '/src/' }],
@@ -23,7 +23,7 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
             target: 'esnext',
         },
         server: {
-            // host: 'guni.devel.com',
+            host: 'guni.devel.com',
             open: true,
             port: 9999,
             headers: {

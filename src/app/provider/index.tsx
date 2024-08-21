@@ -7,7 +7,7 @@ import { theme } from '@/shared/config/theme';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-const router = createBrowserRouter(AppRoutes);
+const router = createBrowserRouter(AppRoutes, { basename: '/guni' });
 const queryClient = new QueryClient();
 
 const AppProvider = () => {
