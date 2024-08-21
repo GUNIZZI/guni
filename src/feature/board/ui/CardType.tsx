@@ -1,5 +1,3 @@
-import React from 'react';
-
 import DOMPurify from 'isomorphic-dompurify';
 import { find } from 'lodash';
 import { useNavigate } from 'react-router-dom';
@@ -8,17 +6,7 @@ import { BoardContentProps } from '@/entitie/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
 import { MdViewer } from '@/shared/ui/mdViewer/MdViewer';
 
-import {
-    List,
-    ListItem,
-    Divider,
-    Grid,
-    Box,
-    Card,
-    CardActionArea,
-    CardContent,
-    Typography,
-} from '@mui/material';
+import { Grid, Box, Card, CardActionArea, CardContent, Typography } from '@mui/material';
 
 interface OwnProps {
     datas: BoardContentProps[] | undefined;

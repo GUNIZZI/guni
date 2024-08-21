@@ -1,6 +1,5 @@
 import { Interpolation, Theme } from '@emotion/react';
 import { motion } from 'framer-motion';
-import { delay } from 'lodash';
 
 import { EASE } from '@/shared/ui/transition/easeing';
 

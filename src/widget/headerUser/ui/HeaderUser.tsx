@@ -3,8 +3,6 @@ import { useContext, useEffect, useState } from 'react';
 import { FeatureLoginContext, FeatureLoginProvider, FeatureAuthLoginForm } from '@/feature/auth';
 import { FeatureUserBedge } from '@/feature/user';
 
-import { UserInfo } from './UserInfo';
-
 const UserWrap = () => {
     const { loginFormActive } = useContext(FeatureLoginContext);
     const [isLoginActive, setIsLoginActive] = useState(false);
@@ -21,7 +19,6 @@ const UserWrap = () => {
 
     return (
         <>
-            {/* <UserInfo /> */}
             <FeatureUserBedge />
             {isLoginActive && <FeatureAuthLoginForm />}
         </>
