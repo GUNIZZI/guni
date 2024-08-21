@@ -10,10 +10,6 @@ const Pf = () => {
     return (
         <Paper className="page isList" css={boardListStyle as Interpolation<Theme>}>
             <div className="wrap">
-                <div className="headers">
-                    <h2>Portfolio.</h2>
-                    <p>만든거 이것 저것</p>
-                </div>
                 <WidgetBoardContainer />
             </div>
         </Paper>

@@ -1,5 +1,5 @@
 import { Interpolation, Theme } from '@emotion/react';
-import { motion, transform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { delay } from 'lodash';
 
 import { EASE } from '@/shared/ui/transition/easeing';
@@ -28,24 +28,24 @@ const motionSubTitle = {
 };
 
 const motionG = {
-    hidden: { opacity: 0, transform: 'scale(1.1)' },
+    hidden: { opacity: 0, transform: 'scale(1.2)' },
     visible: {
         opacity: 1,
         transform: 'scale(1)',
         transition: {
-            duration: 2,
+            duration: 3,
             ease: EASE.EASE_OUT_QUART,
         },
     },
 };
 
 const motionUNI = {
-    hidden: { opacity: 0, x: '0.3em' },
+    hidden: { opacity: 0, x: '0.4em' },
     visible: () => ({
         opacity: 1,
         x: 0,
         transition: {
-            duration: 0.5,
+            duration: 1.2,
             ease: EASE.EASE_OUT_QUART,
         },
     }),
@@ -62,7 +62,7 @@ const Home = () => {
                 animate="visible"
             >
                 <motion.div className="subtitle" variants={motionSubTitle}>
-                    PUBLISH <span>&amp;</span> FRONT END Dev.
+                    Publisher <span>&amp;</span> Front End Developer.
                 </motion.div>
                 <div className="grpG">
                     <motion.div className="g" variants={motionG}>

@@ -86,8 +86,13 @@ const style = (theme: Theme) => css`
     }
 
     .bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         font-family: sans-serif;
-        // background: linear-gradient(95deg, ${NAV_PATH[0].color} 0%, rgba(0, 0, 0, 0) 55%);
+        overflow: hidden;
 
         &:before {
             content: 'G';

@@ -5,9 +5,10 @@ import { BOARD_QUERY_KEY } from '@/shared/config/constants';
 import {
     LazyHome,
     LazyAbout,
-    LayoutTech,
-    LayoutBlog,
-    LayoutPortfolio,
+    // LayoutTech,
+    // LayoutBlog,
+    // LayoutPortfolio,
+    LayoutBoard,
     PageBoardList,
     PageBoardView,
     PageBoardWrite,
@@ -29,7 +30,7 @@ const AppRoutes = [
             },
             {
                 path: 'blog',
-                element: <LayoutBlog />,
+                element: <LayoutBoard />,
                 children: [
                     {
                         index: true,
@@ -52,7 +53,7 @@ const AppRoutes = [
             },
             {
                 path: 'tech',
-                element: <LayoutTech />,
+                element: <LayoutBoard />,
                 children: [
                     {
                         index: true,
@@ -75,7 +76,7 @@ const AppRoutes = [
             },
             {
                 path: 'pf',
-                element: <LayoutPortfolio />,
+                element: <LayoutBoard />,
                 children: [
                     {
                         index: true,
