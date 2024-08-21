@@ -28,6 +28,12 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     plugins: ['react', 'jsx-a11y', 'react-hooks', 'react-refresh', 'import'],
     rules: {
+        // 사용되지 않는 prop type에 대한 경고
+        'react/no-unused-prop-types': 'warn',
+        // 선택적 props에 대해 defaultProps의 요구
+        'react/require-default-props': 'off',
+        // 속성이 없을 때 나는 에러에서 제외할 속성 설정
+        'react/no-unknown-property': ['error', { ignore: ['css'] }],
         // 화살표 함수 {} 사용 - off로 사용하지 않음
         'arrow-body-style': 'off',
         // JSX 확장자만 허용
@@ -98,6 +104,14 @@ module.exports = {
                 jsx: 'never',
                 ts: 'never',
                 tsx: 'never',
+            },
+        ],
+        // HTML요소에 대한 propspreading은 금지, 커스텀 컴포넌트 대해서는 허용 {...props}
+        'react/jsx-props-no-spreading': [
+            'error',
+            {
+                html: 'enforce',
+                custom: 'ignore',
             },
         ],
     },

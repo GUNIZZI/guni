@@ -40,6 +40,8 @@
 -   `eslint-plugin-import`: eslint import 관리(순서)
 -   `lodash`: 유틸리티
 -   `rsn-react-ui`: 커스텀 UI(자체 제작한 UI로 추후에 추가)
+-   `framer-motion`: Animation 라이브러리
+-   `react-hook-form`: Form 유효성 검사
 
 ---
 
