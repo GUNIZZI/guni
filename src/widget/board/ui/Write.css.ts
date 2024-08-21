@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
 
-import { Theme } from '@mui/material';
-
-const style = (theme: Theme) => css`
+const style = () => css`
     .btns {
         position: fixed;
         bottom: 2rem;

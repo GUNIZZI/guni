@@ -2,9 +2,6 @@ import { CSSProperties, useCallback } from 'react';
 
 import { Interpolation, Theme } from '@emotion/react';
 import MDEditor from '@uiw/react-md-editor';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-
-import { fbStorage } from '@/shared/api/firebase';
 
 import { mdEditorStyle } from './MdEditor.css';
 import { clipboardImagePaste } from './util/clipboardImagePaste';

@@ -1,8 +1,9 @@
 {
-    "name": "cocacola",
+    "name": "guni",
     "private": true,
     "version": "0.0.1",
     "type": "module",
+    "homepage": "https://gunizzi.github.io/guni/",
     "scripts": {
         "dev": "vite",
         "dev:prod": "vite --mode production",
@@ -10,7 +11,9 @@
         "build:dev": "tsc && vite build --mode development --outDir @dist/dev",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
-        "generate": "npm run build:dev && npm run build"
+        "generate": "npm run build:dev && npm run build",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d @dist/prod --add"
     },
     "dependencies": {
         "@emotion/react": "^11.11.4",
@@ -56,6 +59,7 @@
         "eslint-plugin-react": "^7.28.0",
         "eslint-plugin-react-hooks": "^4.3.0",
         "eslint-plugin-react-refresh": "^0.4.5",
+        "gh-pages": "^6.1.1",
         "msw": "^2.2.13",
         "node-forge": "^1.3.1",
         "prettier": "^3.3.3",

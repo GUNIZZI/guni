@@ -8,7 +8,7 @@ interface OwnProps extends ButtonProps {
     colors?: string | [];
     to?: string;
 }
-const GradientButton = styled(Button)<OwnProps>(({ theme, colors }) => ({
+const GradientButton = styled(Button)<OwnProps>(({ colors }) => ({
     background: colors
         ? `linear-gradient(45deg, ${colors[0]}, ${colors[1]})`
         : `linear-gradient(45deg, ${NAV_PATH[0].color}, ${NAV_PATH[NAV_PATH.length - 1].color})`,

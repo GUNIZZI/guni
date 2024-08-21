@@ -13,7 +13,7 @@ interface OwnProps {
 const FilterTab = ({ opts, value = opts[0].code || '', onChange }: OwnProps) => {
     const [tab, setTab] = useState(value);
 
-    const handleChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
+    const handleChange = useCallback((_event: React.SyntheticEvent, newValue: string) => {
         setTab(newValue);
         onChange(newValue);
     }, []);
