@@ -218,6 +218,25 @@ const boardStyle = (theme: Theme) => css`
         //     margin: 0;
         // }
     }
+
+    .viewWrap {
+        > h2 {
+            padding: 0 0 0.6em 0;
+            font-size: 4rem;
+        }
+
+        > .infos {
+            display: flex;
+            gap: 1.8em;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75;
+            font-weight: 200;
+        }
+
+        > .content {
+            padding: 2rem 0;
+        }
+    }
 `;
 
 export { boardStyle };

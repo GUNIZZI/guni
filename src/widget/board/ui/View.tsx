@@ -42,10 +42,10 @@ const View = ({ boardType }: OwnProps) => {
                 {posts ? (
                     <>
                         <h2>{posts.title}</h2>
-                        <div>
+                        <div className="infos">
                             <span>{posts.date}</span>
-                            <span>댓글 0개</span>
-                            <span>찜 0회</span>
+                            <span>2개의 댓글</span>
+                            <span>찜: 26</span>
                         </div>
                         <MdViewer
                             content={DOMPurify.sanitize(posts.content || '')}
