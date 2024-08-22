@@ -11,19 +11,18 @@ import {
     orderBy,
 } from 'firebase/firestore';
 
+import { BoardCommentProps } from '@/entitie/comment';
 import { fbDb } from '@/shared/api/firebase';
-
-import { BoardCommentProps } from './type';
 
 export const addComment = async (
     postId: string,
-    comment: Omit<BoardCommentProps, 'id' | 'createdAt'>,
+    comment: Omit<BoardCommentProps, 'id' | 'date'>,
 ) => {
     try {
         const commentsRef = collection(fbDb, 'TECH', postId, 'comments');
         await addDoc(commentsRef, {
             ...comment,
-            createdAt: Timestamp.now(),
+            date: Timestamp.now(),
         });
     } catch (error) {
         console.error('Error adding comment: ', error);
@@ -37,7 +36,7 @@ export const getComments = (
 ) => {
     if (!postId) return null;
     const commentsRef = collection(fbDb, 'TECH', postId, 'comments');
-    const q = query(commentsRef, orderBy('createdAt', 'desc'));
+    const q = query(commentsRef, orderBy('date', 'desc'));
 
     return onSnapshot(q, (querySnapshot: QuerySnapshot) => {
         const comments = querySnapshot.docs.map(

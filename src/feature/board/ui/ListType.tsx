@@ -19,6 +19,8 @@ const ListType = ({ datas }: OwnProps) => {
 
     if (!datas?.length) return <div>데이터 없음</div>;
 
+    console.log(datas);
+
     return (
         <List className="itemWrap">
             {datas.map(item => (

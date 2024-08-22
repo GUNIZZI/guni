@@ -21,11 +21,3 @@ export interface BoardAddPostProps {
     content: string;
     docType: string;
 }
-
-export interface BoardCommentProps {
-    id: string;
-    content: string;
-    authorId: string;
-    authorName: string;
-    createdAt: Date;
-}

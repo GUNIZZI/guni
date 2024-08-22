@@ -8,7 +8,7 @@ const containerStyle = (theme: Theme) => css`
 
     .page {
         min-height: 100vh;
-        padding: ${theme.spacing(3)};
+        padding: ${theme.spacing(3)} ${theme.spacing(16)};
         box-sizing: border-box;
 
         > .wrap {

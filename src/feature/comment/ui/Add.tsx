@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 import { useAuth } from '@/entitie/auth';
-import { addComment } from '@/entitie/board/model/comment';
+import { addComment } from '@/entitie/comment/model/comment';
+import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
 
 interface OwnProps {
     postId: string | null;
@@ -11,8 +12,6 @@ const Add = ({ postId }: OwnProps) => {
     const { user } = useAuth();
     const [newComment, setNewComment] = useState('');
 
-    console.log('user', user);
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!newComment.trim() || !postId || !user) return;
@@ -20,8 +19,9 @@ const Add = ({ postId }: OwnProps) => {
         try {
             await addComment(postId, {
                 content: newComment,
-                authorId: user.email, // 실제 사용자 ID로 대체
-                authorName: user.name || 'N', // 실제 사용자 이름으로 대체
+                authorId: user.email,
+                authorName:
+                    user.uid === import.meta.env.VITE_FB_ADMIN_UID ? 'ADMIN' : user.name || '-',
             });
             setNewComment('');
         } catch (error) {
@@ -31,13 +31,15 @@ const Add = ({ postId }: OwnProps) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input
-                type="text"
+            <textarea
                 value={newComment}
                 onChange={e => setNewComment(e.target.value)}
                 placeholder="댓글을 입력하세요"
             />
             <button type="submit">댓글 작성</button>
+            {/* <CustomTextField id="replyTA" label="asd" /> */}
+
+            {/* multiline */}
         </form>
     );
 };

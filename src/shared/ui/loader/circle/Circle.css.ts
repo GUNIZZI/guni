@@ -5,7 +5,7 @@ import { theme } from '@/shared/config/theme';
 
 const getColor = () => {
     return (
-        NAV_PATH.find(item => item.path === `/${window.location.pathname.split('/')[1]}`)?.color ??
+        NAV_PATH.find(item => item.path === `/${window.location.pathname.split('/')[2]}`)?.color ??
         '#ffffff'
     );
 };

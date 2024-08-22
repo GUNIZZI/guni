@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import {
     addDoc,
     collection,
@@ -12,6 +11,7 @@ import {
 } from 'firebase/firestore';
 
 import { fbDb } from '@/shared/api/firebase';
+import { timestampConversion } from '@/shared/util';
 
 import { BoardAddPostProps, BoardContentProps } from './type';
 
@@ -41,7 +41,7 @@ const fetchDatas = async (collectionName: string) => {
         return {
             id: item.id,
             ...data,
-            date: format(data.date.toDate(), 'yyyy-MM-dd'),
+            date: timestampConversion(data.date),
             title: data.title.trim(),
             content: data.content?.trim() || null,
             image: getImage(data.content || ''),
@@ -62,7 +62,7 @@ const fetchDoc = async (collectionName: string, seq: string) => {
     if (data) {
         return {
             ...data,
-            date: format(data.date.toDate(), 'yyyy-MM-dd'),
+            date: timestampConversion(data.date),
             title: data.title.trim(),
             content: data.content?.trim() || null,
             image: getImage(data.content || ''),

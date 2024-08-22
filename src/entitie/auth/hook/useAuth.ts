@@ -21,6 +21,7 @@ export function useAuth() {
                 else userRole = 'USER';
 
                 setUser({
+                    uid: authUser.uid,
                     email: authUser?.email,
                     name: authUser?.displayName,
                     role: userRole,
