@@ -42,7 +42,7 @@ const Slide = ({ children, className, duration: time = 0.3 }: OwnProps) => {
             initial="init"
             animate="ani"
             exit="exit"
-            layout
+            // layout
             style={{
                 position: 'absolute',
                 width: '100%',

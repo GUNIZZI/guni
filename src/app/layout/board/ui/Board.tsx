@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Interpolation, Theme } from '@emotion/react';
 import { AnimatePresence } from 'framer-motion';
@@ -11,7 +11,7 @@ import { SuspensePage } from '../../default/ui/PageSuspense';
 
 import { Paper } from '@mui/material';
 
-import { boardStyle } from '@/shared/assets/styles/Board.css';
+import { boardStyle } from '@/widget/board/ui/Board.css';
 
 /**
  * 도메인 서브 경로로 게시판 클래스명 반환
@@ -21,7 +21,8 @@ import { boardStyle } from '@/shared/assets/styles/Board.css';
 const getClass = (pathname: string) => {
     if (pathname === 'tech') return 'isList';
     if (pathname === 'blog') return 'isCard';
-    return 'isPf';
+    if (pathname === 'pf') return 'isPf';
+    return '';
 };
 
 const Board = () => {
@@ -29,9 +30,13 @@ const Board = () => {
     const pathname = useMemo(() => location.pathname.split('/')[1] || 'tech', [location.pathname]);
     const loc = useMemo(() => location.pathname.split('/')[2] || 'list', [location.pathname]);
     const currentOutlet = useOutlet(0);
+    const [typeClassName, setTypeClassName] = useState('');
+    useEffect(() => {
+        setTypeClassName(getClass(pathname));
+    }, []);
 
     return (
-        <Paper className={`page ${getClass(pathname)}`} css={[boardStyle as Interpolation<Theme>]}>
+        <Paper className={`page ${typeClassName}`} css={[boardStyle as Interpolation<Theme>]}>
             <div className="wrap">
                 <AnimatePresence mode="wait">
                     <TransitionSlide key={loc} className="transitionWrap">
