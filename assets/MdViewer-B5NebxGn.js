@@ -1,4 +1,4 @@
-import{c as e,j as a,a as l}from"./index-gxbjmqFB.js";import{E as o}from"./scrollRestoration.store-BFU_QZ3E.js";const t=()=>e`
+import{c as e,j as a,a as l}from"./index-Dv5VmVNw.js";import{E as o}from"./scrollRestoration.store-CDbNPUD3.js";const t=()=>e`
     .wmde-markdown {
         background: none;
 
