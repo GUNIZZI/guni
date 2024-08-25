@@ -6,10 +6,6 @@ import { NAV_PATH } from '@/shared/config/navPath';
 import { Theme } from '@mui/material';
 
 const style = (theme: Theme) => css`
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${bg2});
-    background-size: cover;
-    background-position: center;
-
     > * {
         & div {
             font-size: ${theme.typography.h6.fontSize};

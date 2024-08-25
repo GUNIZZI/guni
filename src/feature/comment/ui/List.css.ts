@@ -32,46 +32,61 @@ const styles = () => css`
 
                 > .icon {
                     display: block;
-                    width: 110px;
+                    width: 90px;
                     padding: 0.3em 0.8em;
                     border: 1px solid rgba(255, 255, 255, 0.1);
                     border-radius: 100px;
                     background: rgba(255, 255, 255, 0.05);
+                    overflow: hidden;
+                    white-space: nowrap;
                     font-size: 0.75em;
                     font-weight: 300;
                     text-align: center;
+                    text-overflow: ellipsis;
 
                     &.isAdmin {
                         border-color: ${getColor()} !important;
                         color: ${getColor()} !important;
                         font-weight: 800;
+                        opacity: 0.7;
                     }
                 }
 
                 > .date {
                     display: block;
-                    color: rgba(255, 255, 255, 0.5);
-                    font-size: 0.75em;
+                    color: rgba(255, 255, 255, 0.4);
+                    font-size: 12px;
+                    font-weight: 100;
                 }
             }
 
             > .content {
                 align-content: center;
-                font-size: 0.9rem;
-                font-weight: 100;
+                font-weight: 200;
+                line-height: 1.8em;
+                word-break: keep-all;
             }
 
             > .btns {
-                align-content: center;
                 margin-left: auto;
+                display: flex;
+                gap: 4px;
+                align-items: center;
+
+                > * {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    min-width: 0;
+                    padding: 0;
+                }
             }
         }
     }
 
     &.noData {
-        padding: 3em;
-        color: rgba(255, 255, 255, 0.3);
-        font-size: 1.2;
+        padding: 4rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 1em;
         font-weight: 100;
         text-align: center;
     }

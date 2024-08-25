@@ -3,7 +3,9 @@ import { useMemo } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useLocation, useOutlet } from 'react-router-dom';
 
+import { MainLoaderProvider } from '@/shared/ui/loader';
 import { TransitionFade } from '@/shared/ui/transition';
+import { WidgetBg } from '@/widget/bg';
 import { WidgetHeaderUser } from '@/widget/headerUser';
 import { WidgetLnb } from '@/widget/nav';
 
@@ -21,14 +23,18 @@ const Default = () => {
 
     return (
         <Container sx={containerStyle}>
-            {/* <ScrollRestoration /> */}
-            <WidgetHeaderUser />
-            <WidgetLnb />
-            <AnimatePresence mode="wait">
-                <TransitionFade key={loc} className="transitionWrap" duration={0.4}>
-                    <SuspensePage>{currentOutlet}</SuspensePage>
-                </TransitionFade>
-            </AnimatePresence>
+            <MainLoaderProvider>
+                {/* <ScrollRestoration /> */}
+                <WidgetBg />
+                <WidgetHeaderUser />
+                <WidgetLnb />
+
+                <AnimatePresence mode="wait">
+                    <TransitionFade key={loc} className="transitionWrap" duration={0.4}>
+                        <SuspensePage>{currentOutlet}</SuspensePage>
+                    </TransitionFade>
+                </AnimatePresence>
+            </MainLoaderProvider>
         </Container>
     );
 };

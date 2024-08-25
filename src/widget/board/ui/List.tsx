@@ -1,8 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 
+import { getFilterData } from '@/entitie/board';
 import { useFetchQuery } from '@/entitie/board/hook/useBlog';
 import { BoardContentProps, BoardQueryKey } from '@/entitie/board/model/type';
-import { getFilterData } from '@/entitie/board/util/filterData';
 import {
     FeatureBoardListType,
     FeatureBoardCardType,
@@ -12,9 +12,7 @@ import {
 import { useScrollRestorationBoardList } from '@/feature/scrollRestoration/hook/useScrollRestorationBoardList';
 import { BOARD_CONTENT_TYPES, BOARD_QUERY_KEY } from '@/shared/config/constants';
 import { NAV_PATH } from '@/shared/config/navPath';
-import { LoaderCircle } from '@/shared/ui/loader';
-
-import { Backdrop } from '@mui/material';
+import { MainLoaderContext } from '@/shared/ui/loader';
 
 interface OwnProps {
     boardType: BoardQueryKey['type'];
@@ -87,10 +85,19 @@ const CurrentBoard = ({ boardType, posts }: BoardListType) => {
 };
 
 const List = ({ boardType }: OwnProps) => {
+    const { loaderOn, loaderOff } = useContext(MainLoaderContext);
     const { data: posts, isLoading } = useFetchQuery(boardType);
     const [tab, setTab] = useState(BOARD_CONTENT_TYPES[boardType][0].code);
     const filterData = useMemo(() => getFilterData({ posts, tab }), [posts, tab]);
     useScrollRestorationBoardList();
+
+    useEffect(() => {
+        if (isLoading) {
+            loaderOn();
+        } else {
+            loaderOff();
+        }
+    }, [isLoading]);
 
     return (
         <>
@@ -111,11 +118,6 @@ const List = ({ boardType }: OwnProps) => {
 
             {/* 게시판 */}
             <CurrentBoard boardType={boardType} posts={filterData} />
-
-            {/* 로더 */}
-            <Backdrop sx={{ color: '#fff', zIndex: 1 }} open={isLoading}>
-                <LoaderCircle size="3em" color="#000" />
-            </Backdrop>
         </>
     );
 };

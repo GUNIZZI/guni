@@ -50,16 +50,6 @@ export const getComments = (
     });
 };
 
-export const updateComment = async (postId: string, commentId: string, content: string) => {
-    try {
-        const commentRef = doc(fbDb, 'TECH', postId, 'comments', commentId);
-        await updateDoc(commentRef, { content });
-    } catch (error) {
-        console.error('Error updating comment: ', error);
-        throw error;
-    }
-};
-
 export const deleteComment = async (postId: string, commentId: string) => {
     try {
         const commentRef = doc(fbDb, 'TECH', postId, 'comments', commentId);

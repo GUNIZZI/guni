@@ -17,7 +17,7 @@ interface OwnProps {
 const ListType = ({ datas }: OwnProps) => {
     const navigate = useNavigate();
 
-    if (!datas?.length) return <div>데이터 없음</div>;
+    if (!datas?.length) return <div className="noData">게시글이 없습니다.</div>;
 
     console.log(datas);
 

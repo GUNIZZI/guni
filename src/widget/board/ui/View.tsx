@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 
 import DOMPurify from 'isomorphic-dompurify';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -7,10 +7,8 @@ import { useFetchDocQuery } from '@/entitie/board/hook/useBlog';
 import { BoardQueryKey } from '@/entitie/board/model/type';
 import { FeatureBoardDeleteButton } from '@/feature/board';
 import { BackButton } from '@/shared/ui/button/BackButton';
-import { LoaderCircle } from '@/shared/ui/loader';
+import { MainLoaderContext } from '@/shared/ui/loader';
 import { MdViewer } from '@/shared/ui/mdViewer/MdViewer';
-
-import { Backdrop } from '@mui/material';
 
 interface OwnProps {
     boardType: BoardQueryKey['type'];
@@ -29,37 +27,41 @@ const View = ({ boardType }: OwnProps) => {
         return location.state?.from === 'write' ? navigate('../') : navigate(-1);
     }, [location, navigate]);
 
+    const { loaderOn, loaderOff } = useContext(MainLoaderContext);
+    useEffect(() => {
+        if (isLoading) {
+            loaderOn();
+        } else {
+            loaderOff();
+        }
+    }, [isLoading]);
+
     if (error) return <div>없는 컨텐츠 입니다.</div>;
 
     return (
-        <>
-            <div className="viewWrap">
-                {/* 뒤로가기 */}
-                <BackButton onClick={handleBack} />
+        <div className="viewWrap">
+            {/* 뒤로가기 */}
+            <BackButton onClick={handleBack} />
 
-                {/* 삭제 버튼 */}
-                <FeatureBoardDeleteButton boardType={boardType} />
-                {posts ? (
-                    <>
-                        <h2>{posts.title}</h2>
-                        <div className="infos">
-                            <span>{posts.date}</span>
-                            <span>2개의 댓글</span>
-                            <span>찜: 26</span>
-                        </div>
-                        <MdViewer
-                            content={DOMPurify.sanitize(posts.content || '')}
-                            className="content"
-                        />
-                    </>
-                ) : (
-                    <NotContent />
-                )}
-            </div>
-            <Backdrop sx={{ color: '#fff', zIndex: 1 }} open={isLoading}>
-                <LoaderCircle color="#000" />
-            </Backdrop>
-        </>
+            {/* 삭제 버튼 */}
+            <FeatureBoardDeleteButton boardType={boardType} />
+            {posts ? (
+                <>
+                    <h2>{posts.title}</h2>
+                    <div className="infos">
+                        <span>{posts.date}</span>
+                        <span>2개의 댓글</span>
+                        <span>찜: 26</span>
+                    </div>
+                    <MdViewer
+                        content={DOMPurify.sanitize(posts.content || '')}
+                        className="content"
+                    />
+                </>
+            ) : (
+                <NotContent />
+            )}
+        </div>
     );
 };
 

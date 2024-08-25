@@ -25,7 +25,7 @@ const timestampConversion = (date: Timestamp) => {
         }
         return `${hours}시간 전`;
     }
-    return format(paramDate, 'yyyy년 MM월 dd일', { locale: ko });
+    return format(paramDate, 'yy년 MM월 dd일', { locale: ko });
 };
 
 export { timestampConversion };

@@ -1,22 +1,10 @@
 import { css } from '@emotion/react';
 
-import bg1 from '@/shared/assets/images/bg1.jpg';
 import { NAV_PATH } from '@/shared/config/navPath';
 
 import { Theme } from '@mui/material';
 
 const style = (theme: Theme) => css`
-    // background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${bg1});
-    // background-size: cover;
-    // background-position: center;
-
-    background: radial-gradient(
-        circle at 20% 20%,
-        rgb(255 135 212 / 20%) 0%,
-        rgba(50, 50, 100, 0.2) 50%,
-        rgba(10, 10, 10, 1) 100%
-    );
-
     .wrap {
         display: flex;
         flex-direction: column;

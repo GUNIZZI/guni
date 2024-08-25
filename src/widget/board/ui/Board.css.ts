@@ -40,17 +40,17 @@ const boardStyle = (theme: Theme) => css`
                 transition: all 0.24s;
 
                 &:hover {
-                    padding: ${theme.spacing(8)} ${theme.spacing(3)};
-                    background: rgba(255, 255, 255, 0.02);
+                    background: rgba(0, 0, 0, 0.4);
                 }
 
                 > * {
+                    width: 100%;
                     margin: ${theme.spacing(0.2)} 0;
                 }
 
-                .title {
+                > .title {
                     display: block;
-                    padding: ${theme.spacing(2)} 0;
+                    padding: ${theme.spacing(2)} 0 0;
                     font-size: 2em;
                     font-weight: 200;
                     white-space: nowrap;
@@ -71,18 +71,24 @@ const boardStyle = (theme: Theme) => css`
                         font-size: 0.45em;
                     }
                 }
-                .content {
+                > .content {
                     display: block;
-                    max-height: 100px;
+                    max-height: 300px;
+                    padding: 1em;
+                    margin: 1em 0 2rem;
+                    border-radius: 10px;
+                    background: rgba(0, 0, 0, 0.4);
                     color: rgba(255, 255, 255, 0.8);
                     font-weight: 300;
                     overflow: hidden;
+                    opacity: 0.4;
+                    pointer-events: none;
                 }
-                .infos {
+                > .infos {
                     display: flex;
                     gap: 1.8em;
-                    color: rgba(255, 255, 255, 0.4);
-                    font-size: 0%.75;
+                    color: rgba(255, 255, 255, 0.7);
+                    font-size: 0.9em;
                     font-weight: 200;
                 }
             }
@@ -221,21 +227,38 @@ const boardStyle = (theme: Theme) => css`
 
     .viewWrap {
         > h2 {
-            padding: 0 0 0.6em 0;
-            font-size: 4rem;
+            padding: 0.5rem 1.5rem;
+            font-size: 3.5rem;
+            font-weight: 500;
         }
 
         > .infos {
             display: flex;
             gap: 1.8em;
+            padding: 1em 2em;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.05);
             color: rgba(255, 255, 255, 0.6);
-            font-size: 0.75;
+            font-size: 0.9em;
             font-weight: 200;
+
+            > *:first-of-type {
+                margin-right: auto;
+            }
         }
 
         > .content {
-            padding: 2rem 0;
+            padding: 3rem 0 0;
+            margin-bottom: 4rem;
         }
+    }
+
+    .noData {
+        padding: 8rem 0;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 1em;
+        font-weight: 100;
+        text-align: center;
     }
 `;
 

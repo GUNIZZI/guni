@@ -1,11 +1,19 @@
 import { useMemo, useState } from 'react';
 
+import { deleteDoc, doc } from 'firebase/firestore';
+
 import { useAuth } from '@/entitie/auth';
 import { BoardCommentProps } from '@/entitie/comment';
+import { deleteComment } from '@/entitie/comment/model/comment';
+import { fbDb } from '@/shared/api/firebase';
 import { NAV_PATH } from '@/shared/config/navPath';
 import { timestampConversion } from '@/shared/util';
 
+import { Delete } from '@mui/icons-material';
+import { Button, CircularProgress } from '@mui/material';
+
 interface OwnProps {
+    postId: string;
     data: BoardCommentProps;
 }
 
@@ -21,19 +29,24 @@ const hexToRgb = (hex: string) => {
         : null;
 };
 const getRndColor = (name: string) => {
-    if (name === 'ADMIN') return '#fff';
+    if (name === 'GUEST') return 'rgba(255,255,255,0.4)';
     const randomColor = arrColors[Math.floor(Math.random() * arrColors.length)];
     const rgb = hexToRgb(randomColor);
     return rgb ? `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 1)` : 'rgba(0, 0, 0, 1)'; // 기본값 설정
 };
 
-const ListItem = ({ data }: OwnProps) => {
+const ListItem = ({ postId, data }: OwnProps) => {
     const { user } = useAuth();
-    const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
+    // const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
     const isMyComment = useMemo(() => user?.email === data.authorId, [user]);
 
+    const handleDelete = async () => {
+        console.log('삭제  >>  ', data.id);
+
+        deleteComment(postId, data.id);
+    };
+
     // console.log(data);
-    console.log(data, user?.role !== 'ADMIN');
 
     return (
         <div className="comment">
@@ -51,32 +64,29 @@ const ListItem = ({ data }: OwnProps) => {
             </div>
             <div className="content">{data.content}</div>
             {isMyComment && (
-                // 작성자만 보이도록 작업
+                // 작성자만 보임
                 <div className="btns">
-                    가능
-                    {/* <button onClick={() => setEditingCommentId(data.id)}>수정</button> */}
-                    {/* <button onClick={() => handleDelete(data.id)}>삭제</button> */}
+                    <Button
+                        className="btnDelete"
+                        variant="contained"
+                        title="삭제"
+                        color="error"
+                        onClick={handleDelete}
+                        // disabled={isPending}
+                    >
+                        <Delete sx={{ fontSize: '1rem' }} />
+                        {/* {isPending && (
+                            <CircularProgress
+                                size="3.6em"
+                                sx={{
+                                    position: 'absolute',
+                                    color: '#fff',
+                                }}
+                            />
+                        )} */}
+                    </Button>
                 </div>
             )}
-            {/* {editingCommentId === comment.id ? (
-                        <form
-                            onSubmit={e => {
-                                e.preventDefault();
-                                // handleEdit(comment.id, (e.target as HTMLFormElement).comment.value);
-                            }}
-                        >
-                            <input name="comment" defaultValue={comment.content} />
-                            <button type="submit">수정</button>
-                            <button onClick={() => setEditingCommentId(null)}>취소</button>
-                        </form>
-                    ) : (
-                        <>
-                            <p>{comment.content}</p>
-                            <small>{comment.authorName}</small>
-                            <button onClick={() => setEditingCommentId(comment.id)}>수정</button>
-                            <button onClick={() => handleDelete(comment.id)}>삭제</button>
-                        </>
-                    )} */}
         </div>
     );
 };

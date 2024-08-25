@@ -9,7 +9,7 @@ import { styles } from './List.css';
 import { ListItem } from './ListItem';
 
 interface OwnProps {
-    postId: string | null;
+    postId: string;
 }
 const List = ({ postId }: OwnProps) => {
     const [comments, setComments] = useState<BoardCommentProps[]>([]);
@@ -32,7 +32,7 @@ const List = ({ postId }: OwnProps) => {
         <ul css={[styles as Interpolation<Theme>]}>
             {comments.map(comment => (
                 <li key={comment.id} className="comment">
-                    <ListItem data={comment} />
+                    <ListItem postId={postId} data={comment} />
                 </li>
             ))}
         </ul>

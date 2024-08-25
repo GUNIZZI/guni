@@ -15,7 +15,6 @@ const MdViewer = ({ content, className }: MarkdownViewProps) => {
             css={mdViewerStyle as Interpolation<Theme>}
             className={className}
         >
-            {content}
             <MDEditor.Markdown style={{ padding: 10 }} source={content} />
         </div>
     );

@@ -1,3 +1,5 @@
+import { useContext, useEffect } from 'react';
+
 import { Interpolation, Theme } from '@emotion/react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +8,7 @@ import { BoardQueryKey, BoardAddPostProps } from '@/entitie/board/model/type';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
 import { BackButton } from '@/shared/ui/button/BackButton';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
-import { LoaderCircle } from '@/shared/ui/loader';
+import { MainLoaderContext } from '@/shared/ui/loader';
 import { MdEditor } from '@/shared/ui/mdEditor/MdEditor';
 import { CustomSelect } from '@/shared/ui/select/CustomSelect';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
@@ -16,7 +18,7 @@ import { writeStyle } from './Write.css';
 import { useAddDocMutation } from '../../../entitie/board/hook/useBlog';
 
 import { Check, Close } from '@mui/icons-material';
-import { Backdrop, Box, Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 interface OwnProps {
     boardType: BoardQueryKey['type'];
@@ -24,7 +26,7 @@ interface OwnProps {
 
 const Write = ({ boardType }: OwnProps) => {
     const navigate = useNavigate();
-    const { mutate: addDocQuery, isPending } = useAddDocMutation(boardType);
+    const { mutate: addDocQuery, isPending: isLoading } = useAddDocMutation(boardType);
     const {
         control,
         register,
@@ -32,11 +34,21 @@ const Write = ({ boardType }: OwnProps) => {
         formState: { isValid, isDirty },
     } = useForm<BoardAddPostProps>();
 
+    const { loaderOn, loaderOff } = useContext(MainLoaderContext);
+    useEffect(() => {
+        if (isLoading) {
+            loaderOn();
+        } else {
+            loaderOff();
+        }
+    }, [isLoading]);
+
     const handleSave = (data: BoardAddPostProps) => {
         addDocQuery({
-            docData: {
-                ...data,
-            },
+            // docData: {
+            //     ...data,
+            // },
+            docData: data,
         });
     };
 
@@ -52,19 +64,20 @@ const Write = ({ boardType }: OwnProps) => {
                     <GradientButton
                         type="submit"
                         className="isConfirm"
-                        style={{ width: '6rem', color: '#fff' }}
+                        style={{ width: '4rem', height: '4rem', color: '#fff' }}
                         title="저장"
                         disabled={!isValid || !isDirty}
                     >
-                        <Check sx={{ fontSize: '4rem' }} />
+                        <Check sx={{ fontSize: '2rem' }} />
                     </GradientButton>
                     <Button
                         variant="contained"
                         color="secondary"
+                        style={{ width: '4rem', height: '4rem' }}
                         title="취소"
                         onClick={() => navigate(-1)}
                     >
-                        <Close sx={{ fontSize: '4rem' }} />
+                        <Close sx={{ fontSize: '2rem' }} />
                     </Button>
                 </div>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
@@ -105,9 +118,6 @@ const Write = ({ boardType }: OwnProps) => {
                     />
                 </Box>
             </form>
-            <Backdrop open={isPending}>
-                <LoaderCircle size="3em" color="#000" />
-            </Backdrop>
         </>
     );
 };
