@@ -1,16 +1,13 @@
-import { useMemo, useState } from 'react';
-
-import { deleteDoc, doc } from 'firebase/firestore';
+import { useMemo } from 'react';
 
 import { useAuth } from '@/entitie/auth';
 import { BoardCommentProps } from '@/entitie/comment';
 import { deleteComment } from '@/entitie/comment/model/comment';
-import { fbDb } from '@/shared/api/firebase';
 import { NAV_PATH } from '@/shared/config/navPath';
 import { timestampConversion } from '@/shared/util';
 
 import { Delete } from '@mui/icons-material';
-import { Button, CircularProgress } from '@mui/material';
+import { Button } from '@mui/material';
 
 interface OwnProps {
     postId: string;

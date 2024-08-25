@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 
-import bg2 from '@/shared/assets/images/bg2.jpg';
 import { NAV_PATH } from '@/shared/config/navPath';
 
 import { Theme } from '@mui/material';
