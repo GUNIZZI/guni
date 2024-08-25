@@ -1,15 +1,4 @@
-import{c as s,N as t,j as n,a as e,m as i}from"./index-Dv5VmVNw.js";import{E as r}from"./easeing-ikc3D7PZ.js";const l="/guni/assets/bg1-CP3TVomi.jpg",c=a=>s`
-    // background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${l});
-    // background-size: cover;
-    // background-position: center;
-
-    background: radial-gradient(
-        circle at 20% 20%,
-        rgb(255 135 212 / 20%) 0%,
-        rgba(50, 50, 100, 0.2) 50%,
-        rgba(10, 10, 10, 1) 100%
-    );
-
+import{c as s,N as t,j as n,a as e,m as i}from"./index-AcLjnihf.js";import{E as r}from"./easeing-Z0y1a3f_.js";const l=a=>s`
     .wrap {
         display: flex;
         flex-direction: column;
@@ -136,4 +125,4 @@ import{c as s,N as t,j as n,a as e,m as i}from"./index-Dv5VmVNw.js";import{E as 
         -webkit-text-fill-color: transparent;
         text-fill-color: transparent;
     }
-`,d={visible:{transition:{staggerChildren:.2,when:"beforeChildren"}}},g={hidden:{opacity:0,y:"1em"},visible:{opacity:1,y:0,transition:{duration:1,ease:r.EASE_OUT_QUART}}},p={hidden:{opacity:0,transform:"scale(1.2)"},visible:{opacity:1,transform:"scale(1)",transition:{duration:3,ease:r.EASE_OUT_QUART}}},o={hidden:{opacity:0,x:"0.4em"},visible:()=>({opacity:1,x:0,transition:{duration:1.2,ease:r.EASE_OUT_QUART}})},b=()=>n("div",{className:"page",css:c,children:[e("span",{className:"bg"}),n(i.div,{className:"wrap",variants:d,initial:"hidden",animate:"visible",children:[n(i.div,{className:"subtitle",variants:g,children:["Publisher ",e("span",{children:"&"})," Front End Developer."]}),n("div",{className:"grpG",children:[e(i.div,{className:"g",variants:p,children:"G"}),n("div",{className:"uni",children:[e(i.div,{variants:o,children:"U"}),e(i.div,{variants:o,children:"N"}),e(i.div,{variants:o,children:"I"})]})]})]})]});export{b as PageHome};
+`,c={visible:{transition:{staggerChildren:.2,when:"beforeChildren"}}},d={hidden:{opacity:0,y:"1em"},visible:{opacity:1,y:0,transition:{duration:1,ease:r.EASE_OUT_QUART}}},p={hidden:{opacity:0,transform:"scale(1.2)"},visible:{opacity:1,transform:"scale(1)",transition:{duration:3,ease:r.EASE_OUT_QUART}}},o={hidden:{opacity:0,x:"0.4em"},visible:()=>({opacity:1,x:0,transition:{duration:1.2,ease:r.EASE_OUT_QUART}})},h=()=>n("div",{className:"page",css:l,children:[e("span",{className:"bg"}),n(i.div,{className:"wrap",variants:c,initial:"hidden",animate:"visible",children:[n(i.div,{className:"subtitle",variants:d,children:["Publisher ",e("span",{children:"&"})," Front End Developer."]}),n("div",{className:"grpG",children:[e(i.div,{className:"g",variants:p,children:"G"}),n("div",{className:"uni",children:[e(i.div,{variants:o,children:"U"}),e(i.div,{variants:o,children:"N"}),e(i.div,{variants:o,children:"I"})]})]})]})]});export{h as PageHome};

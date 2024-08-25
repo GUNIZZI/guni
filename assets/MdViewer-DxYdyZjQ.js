@@ -1,4 +1,4 @@
-import{c as e,j as a,a as l}from"./index-Dv5VmVNw.js";import{E as o}from"./scrollRestoration.store-CDbNPUD3.js";const t=()=>e`
+import{c as o,a as s}from"./index-AcLjnihf.js";import{E as t}from"./scrollRestoration.store-DEnUZNAA.js";const l=()=>o`
     .wmde-markdown {
         background: none;
 
@@ -21,4 +21,4 @@ import{c as e,j as a,a as l}from"./index-Dv5VmVNw.js";import{E as o}from"./scrol
     pre[class^='language'] {
         background: rgba(255, 255, 255, 0.05);
     }
-`,c=({content:s,className:r})=>a("div",{"data-color-mode":"dark",css:t,className:r,children:[s,l(o.Markdown,{style:{padding:10},source:s})]});export{c as M};
+`,c=({content:e,className:r})=>s("div",{"data-color-mode":"dark",css:l,className:r,children:s(t.Markdown,{style:{padding:10},source:e})});export{c as M};
