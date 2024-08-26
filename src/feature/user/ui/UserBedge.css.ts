@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 
-const style = () => css`
+import { Theme } from '@mui/material';
+
+const style = (theme: Theme) => css`
     position: fixed;
     top: 1em;
     right: 1em;
@@ -17,6 +19,10 @@ const style = () => css`
         padding-left: 0.4em;
         font-size: 11px;
     }
+
+    ${theme.breakpoints.down('sm')} {
+        top: 2rem;
+    }
 `;
 
-export { style as userBedgeStyle };
+export { style };

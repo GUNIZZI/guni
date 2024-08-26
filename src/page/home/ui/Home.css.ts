@@ -12,6 +12,10 @@ const style = (theme: Theme) => css`
         align-items: center;
         height: calc(100vh - 48px);
 
+        ${theme.breakpoints.down('md')} {
+            height: calc(100vh - 8rem);
+        }
+
         .subtitle {
             padding: 0 0 2rem 0;
             font-size: 1em;

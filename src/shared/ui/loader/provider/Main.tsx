@@ -29,12 +29,14 @@ const MainLoaderProvider = ({ children }: OwnProps) => {
     return (
         <MainLoaderContext.Provider value={contextValue}>
             {children}
-            <Backdrop
-                sx={{ position: 'absolute', color: '#ff0000', zIndex: 1 }}
-                open={loaderCnt > 0}
-            >
-                <LoaderCircle color="#000" />
-            </Backdrop>
+            {loaderCnt && (
+                <Backdrop
+                    sx={{ position: 'absolute', color: '#ff0000', zIndex: 1 }}
+                    open={loaderCnt > 0}
+                >
+                    <LoaderCircle color="#000" />
+                </Backdrop>
+            )}
         </MainLoaderContext.Provider>
     );
 };

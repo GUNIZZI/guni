@@ -1,11 +1,13 @@
 import { useContext } from 'react';
 
+import { Interpolation, Theme } from '@emotion/react';
+
 import { LogoutAsync, useAuth } from '@/entitie/auth';
 import { getUserName } from '@/entitie/user';
 import { FeatureLoginContext } from '@/feature/auth';
 import { LoaderCircle } from '@/shared/ui/loader';
 
-import { userBedgeStyle } from './UserBedge.css';
+import { style } from './UserBedge.css';
 
 import { LockOutlined, LockPerson } from '@mui/icons-material';
 import { Backdrop, Button } from '@mui/material';
@@ -15,7 +17,7 @@ const UserBedge = () => {
     const { handleLoginForm } = useContext(FeatureLoginContext);
 
     return (
-        <div css={userBedgeStyle}>
+        <div css={style as Interpolation<Theme>}>
             <div style={{ position: 'relative' }}>
                 <Button
                     color="secondary"

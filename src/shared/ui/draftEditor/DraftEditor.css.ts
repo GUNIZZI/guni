@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 
 const style = () => css`
     padding: 16px;
+    border-radius: 4px;
 
     &.isEditMode {
         height: calc(100vh - 9rem);
@@ -28,74 +29,83 @@ const style = () => css`
         margin: 1em 0;
     }
 
-    // Button Styles
-    .buttonWrapper {
-        display: inline-block;
-    }
-
-    .button {
-        background: #333;
-        color: #ddd;
-        font-size: 18px;
-        border: 0;
-        padding-top: 5px;
-        vertical-align: bottom;
-        height: 34px;
-        width: 36px;
-        border-radius: 4px;
-    }
-
-    .button svg {
-        fill: #ddd;
-    }
-
-    .button:hover,
-    .button:focus {
-        background: #444;
-        outline: 0; /* reset for :focus */
-    }
-
-    .active {
-        color: #6a9cc9;
-    }
-
-    .active svg {
-        fill: #6a9cc9;
-    }
-
     // Toolbar
-    .toolbar {
-        padding: 0.4em;
+    .toolbarContainer {
+        display: flex;
+        gap: 2px;
+        padding: 1em;
+        margin: -16px -16px 0;
         border-radius: 4px;
-        background: rgba(255, 255, 255, 0.1);
-        // filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 1));
+        background: rgba(255, 255, 255, 0.2);
         box-sizing: border-box;
         z-index: 2;
 
         > * {
+            flex: 0 0;
             display: flex;
             gap: 2px;
+        }
 
-            .btn {
-                padding: 0;
-                width: 36px;
-                height: 36px;
-                border: none;
-                border-radius: 4px;
-                background: rgba(255, 255, 255, 0.8);
-                font-size: 0.5em;
-                transition: all 0.18s;
-                cursor: pointer;
+        hr {
+            flex: 0 0 1px;
+            align-self: center;
+            width: 1px;
+            height: 30px;
+            padding: 0;
+            margin: 0 10px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+        }
 
-                &:hover {
-                    background: rgba(255, 255, 255, 1);
-                }
+        .toolbar {
+            margin-right: auto;
 
-                svg {
-                    width: 18px;
-                    height: 18px;
-                }
+            > * {
+                display: flex;
+                gap: 2px;
             }
+        }
+
+        button {
+            padding: 9px 0;
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #000;
+            font-size: 18px;
+            transition: all 0.18s;
+            cursor: pointer;
+
+            &:hover {
+                background: rgba(255, 255, 255, 1);
+            }
+
+            &:disabled {
+                background: rgba(255, 255, 255, 0.3);
+                cursor: default;
+            }
+
+            svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+
+    .editorImg {
+        display: block;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .linkyLink {
+        &:link {
+            color: #0dd9ff;
+        }
+        &:visited {
+            color: #ce57ff;
         }
     }
 `;

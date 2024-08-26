@@ -1,11 +1,13 @@
 import { css } from '@emotion/react';
 
-const style = () => css`
+import { Theme } from '@mui/material';
+
+const style = (theme: Theme) => css`
     position: fixed;
     top: 50%;
     right: 2em;
     transform: translateY(-50%);
-    z-index: 10;
+    z-index: 9;
 
     ul {
         display: flex;
@@ -63,6 +65,40 @@ const style = () => css`
                     position: relative;
                 }
             }
+        }
+    }
+
+    ${theme.breakpoints.down('md')} {
+        position: relative;
+        top: 0;
+        height: 6rem;
+        right: auto;
+        transform: none;
+        padding: ${theme.spacing(5)};
+        box-sizing: border-box;
+
+        ul {
+            flex-direction: row;
+            justify-content: center;
+            gap: 2em;
+
+            li {
+                a {
+                    height: 50px;
+                    padding: 15px 15px;
+                    border-radius: 1em;
+
+                    > .title {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    ${theme.breakpoints.down('sm')} {
+        ul {
+            gap: 0.5em;
         }
     }
 `;

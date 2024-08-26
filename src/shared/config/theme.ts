@@ -1,5 +1,7 @@
 import { NAV_PATH } from './navPath';
 
+import { VoiceOverOffOutlined } from '@mui/icons-material';
+import { Theme as MuiTheme } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
 // 커스텀 컬러 적용을 위한 타입 확장
@@ -13,6 +15,16 @@ declare module '@mui/material/styles' {
 }
 
 export const theme = createTheme({
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 720,
+            md: 960, // 요 아래로 모바일
+            lg: 1280,
+            xl: 1920,
+        },
+    },
+    spacing: (factor: number) => `${0.25 * factor}rem`,
     typography: {
         fontFamily: ['Montserrat', 'Noto Sans KR', 'sans-serif'].join(','),
     },
@@ -29,7 +41,7 @@ export const theme = createTheme({
     // 여기에 추가적인 테마 커스터마이징을 할 수 있습니다.
     components: {
         MuiCssBaseline: {
-            styleOverrides: {
+            styleOverrides: (theme: MuiTheme) => ({
                 body: {
                     background: '#111',
                     backgroundAttachment: 'fixed',
@@ -43,7 +55,35 @@ export const theme = createTheme({
                 'h1, h2, h3, h4, h5, h6': {
                     margin: 0,
                 },
-            },
+                '.page': {
+                    minHeight: '100vh',
+                    padding: `${theme.spacing(3)} ${theme.spacing(16)}`,
+                    boxSizing: 'border-box',
+
+                    '.wrap': {
+                        position: 'relative',
+                        maxWidth: '1890px',
+                        margin: '0 auto',
+                    },
+
+                    // [theme.breakpoints.up('xs')]: {
+                    //     padding: `${theme.spacing(0)} ${theme.spacing(2)}`,
+                    // },
+                    [theme.breakpoints.up('sm')]: {
+                        minHeight: `calc(100vh - 8rem)`,
+                        padding: `0 ${theme.spacing(25)} 0`,
+                    },
+                    [theme.breakpoints.up('md')]: {
+                        padding: `${theme.spacing(5)} ${theme.spacing(25)}`,
+                    },
+                    [theme.breakpoints.up('lg')]: {
+                        padding: `${theme.spacing(5)} ${theme.spacing(25)}`,
+                    },
+                    [theme.breakpoints.up('xl')]: {
+                        padding: `${theme.spacing(5)} ${theme.spacing(40)}`,
+                    },
+                },
+            }),
         },
         MuiContainer: {
             styleOverrides: {
