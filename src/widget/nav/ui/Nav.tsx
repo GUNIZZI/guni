@@ -1,3 +1,5 @@
+import { Interpolation, Theme } from '@emotion/react';
+
 import { NAV_PATH } from '@/shared/config/navPath';
 
 import { navStyle } from './Nav.css';
@@ -7,7 +9,7 @@ const Nav = () => {
     // useNavMove();
 
     return (
-        <nav css={navStyle}>
+        <nav css={navStyle as Interpolation<Theme>}>
             <ul>
                 {NAV_PATH.map(item => (
                     <li key={item.name}>

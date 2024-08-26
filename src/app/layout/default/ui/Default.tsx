@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { Interpolation, Theme } from '@emotion/react';
 import { AnimatePresence } from 'framer-motion';
 import { useLocation, useOutlet } from 'react-router-dom';
 
@@ -22,7 +23,7 @@ const Default = () => {
     const currentOutlet = useOutlet();
 
     return (
-        <Container sx={containerStyle}>
+        <Container css={containerStyle as Interpolation<Theme>}>
             <MainLoaderProvider>
                 {/* <ScrollRestoration /> */}
                 <WidgetBg />

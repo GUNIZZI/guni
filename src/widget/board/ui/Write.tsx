@@ -10,7 +10,7 @@ import { BackButton } from '@/shared/ui/button/BackButton';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
 import { DraftEditor } from '@/shared/ui/draftEditor/DraftEditor';
 import { MainLoaderContext } from '@/shared/ui/loader';
-import { MdEditor } from '@/shared/ui/mdEditor/MdEditor';
+// import { MdEditor } from '@/shared/ui/mdEditor/MdEditor';
 import { CustomSelect } from '@/shared/ui/select/CustomSelect';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
 

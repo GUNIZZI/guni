@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect } from 'react';
 
-import DOMPurify from 'isomorphic-dompurify';
+// import DOMPurify from 'isomorphic-dompurify';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useFetchDocQuery } from '@/entitie/board/hook/useBlog';
@@ -9,7 +9,7 @@ import { FeatureBoardDeleteButton } from '@/feature/board';
 import { BackButton } from '@/shared/ui/button/BackButton';
 import { DraftViewer } from '@/shared/ui/draftEditor/DraftViewer';
 import { MainLoaderContext } from '@/shared/ui/loader';
-import { MdViewer } from '@/shared/ui/mdViewer/MdViewer';
+// import { MdViewer } from '@/shared/ui/mdViewer/MdViewer';
 
 interface OwnProps {
     boardType: BoardQueryKey['type'];
