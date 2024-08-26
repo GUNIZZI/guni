@@ -1,6 +1,6 @@
-import { ReactNode, Suspense } from 'react';
+import { ReactNode, Suspense, useContext, useEffect, useTransition } from 'react';
 
-import { LoaderCircle } from '@/shared/ui/loader';
+import { MainLoaderContext } from '@/shared/ui/loader';
 import { TransitionFade } from '@/shared/ui/transition';
 
 interface OwnProps {
@@ -8,14 +8,19 @@ interface OwnProps {
 }
 
 const SuspensePage = ({ children }: OwnProps) => {
+    const [isPending, startTransition] = useTransition();
+    const { loaderOn, loaderOff } = useContext(MainLoaderContext);
+
+    useEffect(() => {
+        startTransition(() => loaderOn());
+    }, []);
+
+    useEffect(() => {
+        if (!isPending) loaderOff();
+    }, [isPending]);
+
     return (
-        <Suspense
-            fallback={
-                <TransitionFade>
-                    <LoaderCircle />
-                </TransitionFade>
-            }
-        >
+        <Suspense>
             <TransitionFade className="transitionWrap">{children}</TransitionFade>
         </Suspense>
     );

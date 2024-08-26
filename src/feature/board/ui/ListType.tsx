@@ -19,8 +19,6 @@ const ListType = ({ datas }: OwnProps) => {
 
     if (!datas?.length) return <div className="noData">게시글이 없습니다.</div>;
 
-    console.log(datas);
-
     return (
         <List className="itemWrap">
             {datas.map(item => (
