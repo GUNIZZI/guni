@@ -1,10 +1,14 @@
-import{c as s,N as t,j as n,a as e,m as i}from"./index-AcLjnihf.js";import{E as r}from"./easeing-Z0y1a3f_.js";const l=a=>s`
+import{c as s,N as t,j as n,a as e,m as i}from"./index-BN-XhCyz.js";import{E as r}from"./easeing-Dac_vDom.js";const l=a=>s`
     .wrap {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         height: calc(100vh - 48px);
+
+        ${a.breakpoints.down("md")} {
+            height: calc(100vh - 8rem);
+        }
 
         .subtitle {
             padding: 0 0 2rem 0;
