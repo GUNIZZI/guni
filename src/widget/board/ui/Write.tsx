@@ -8,6 +8,7 @@ import { BoardQueryKey, BoardAddPostProps } from '@/entitie/board/model/type';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
 import { BackButton } from '@/shared/ui/button/BackButton';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
+import { DraftEditor } from '@/shared/ui/draftEditor/DraftEditor';
 import { MainLoaderContext } from '@/shared/ui/loader';
 import { MdEditor } from '@/shared/ui/mdEditor/MdEditor';
 import { CustomSelect } from '@/shared/ui/select/CustomSelect';
@@ -109,11 +110,17 @@ const Write = ({ boardType }: OwnProps) => {
                             required: '내용은 필수입니다',
                         }}
                         render={({ field }) => (
-                            <MdEditor
-                                value={field.value}
-                                onChange={val => field.onChange(val)}
-                                style={{ height: 'calc(100vh - 300px)' }}
-                            />
+                            <>
+                                {/* <MdEditor
+                                    value={field.value}
+                                    onChange={val => field.onChange(val)}
+                                    style={{ height: 'calc(100vh - 300px)' }}
+                                /> */}
+                                <DraftEditor
+                                    initialContent={field.value}
+                                    onChange={val => field.onChange(val)}
+                                />
+                            </>
                         )}
                     />
                 </Box>

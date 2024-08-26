@@ -7,6 +7,7 @@ import { useFetchDocQuery } from '@/entitie/board/hook/useBlog';
 import { BoardQueryKey } from '@/entitie/board/model/type';
 import { FeatureBoardDeleteButton } from '@/feature/board';
 import { BackButton } from '@/shared/ui/button/BackButton';
+import { DraftViewer } from '@/shared/ui/draftEditor/DraftViewer';
 import { MainLoaderContext } from '@/shared/ui/loader';
 import { MdViewer } from '@/shared/ui/mdViewer/MdViewer';
 
@@ -53,10 +54,11 @@ const View = ({ boardType }: OwnProps) => {
                         <span>2개의 댓글</span>
                         <span>찜: 26</span>
                     </div>
-                    <MdViewer
+                    {/* <MdViewer
                         content={DOMPurify.sanitize(posts.content || '')}
                         className="content"
-                    />
+                    /> */}
+                    <DraftViewer initialContent={posts.content || ''} />
                 </>
             ) : (
                 <NotContent />
