@@ -1,16 +1,15 @@
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 
 import { useAuth } from '@/entitie/auth';
-import { BoardCommentProps } from '@/entitie/comment';
-import { deleteComment } from '@/entitie/comment/model/comment';
+import { BoardCommentProps, useCommentDeleteDocMutation } from '@/entitie/comment';
 import { NAV_PATH } from '@/shared/config/navPath';
 import { timestampConversion } from '@/shared/util';
+import { CommentContext } from '@/widget/comment/provider/Comment';
 
 import { Delete } from '@mui/icons-material';
 import { Button } from '@mui/material';
 
 interface OwnProps {
-    postId: string;
     data: BoardCommentProps;
 }
 
@@ -32,18 +31,15 @@ const getRndColor = (name: string) => {
     return rgb ? `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 1)` : 'rgba(0, 0, 0, 1)'; // 기본값 설정
 };
 
-const ListItem = ({ postId, data }: OwnProps) => {
+const ListItem = ({ data }: OwnProps) => {
+    const { boardType, postId } = useContext(CommentContext);
     const { user } = useAuth();
-    // const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
     const isMyComment = useMemo(() => user?.email === data.authorId, [user]);
+    const { mutate: delDocQuery } = useCommentDeleteDocMutation(boardType, postId);
 
     const handleDelete = async () => {
-        console.log('삭제  >>  ', data.id);
-
-        deleteComment(postId, data.id);
+        delDocQuery(data.id);
     };
-
-    // console.log(data);
 
     return (
         <div className="comment">

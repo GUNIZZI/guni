@@ -1,7 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 
-import { getFilterData } from '@/entitie/board';
-import { useFetchQuery } from '@/entitie/board/hook/useBlog';
+import { getFilterData, useBoardFetchQuery } from '@/entitie/board';
 import { BoardContentProps, BoardQueryKey } from '@/entitie/board/model/type';
 import {
     FeatureBoardListType,
@@ -86,7 +85,7 @@ const CurrentBoard = ({ boardType, posts }: BoardListType) => {
 
 const List = ({ boardType }: OwnProps) => {
     const { loaderOn, loaderOff } = useContext(MainLoaderContext);
-    const { data: posts, isLoading } = useFetchQuery(boardType);
+    const { data: posts, isLoading } = useBoardFetchQuery(boardType);
     const [tab, setTab] = useState(BOARD_CONTENT_TYPES[boardType][0].code);
     const filterData = useMemo(() => getFilterData({ posts, tab }), [posts, tab]);
     useScrollRestorationBoardList();

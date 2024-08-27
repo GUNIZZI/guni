@@ -1,25 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { Interpolation, Theme } from '@emotion/react';
 
-import { BoardCommentProps } from '@/entitie/comment';
-import { getComments } from '@/entitie/comment/model/comment';
+import { useCommentFetchQuery } from '@/entitie/comment';
+import { MainLoaderContext } from '@/shared/ui/loader';
+import { CommentContext } from '@/widget/comment/provider/Comment';
 
 import { styles } from './List.css';
 import { ListItem } from './ListItem';
 
-interface OwnProps {
-    postId: string;
-}
-const List = ({ postId }: OwnProps) => {
-    const [comments, setComments] = useState<BoardCommentProps[]>([]);
-
-    console.log(comments);
+const List = () => {
+    const { boardType, postId } = useContext(CommentContext);
+    const { data: comments, isLoading } = useCommentFetchQuery(boardType, postId);
+    const { loaderOn, loaderOff } = useContext(MainLoaderContext);
 
     useEffect(() => {
-        getComments(postId, setComments);
-        // return () => unsubscribe();
-    }, [postId]);
+        if (isLoading) loaderOn();
+        else loaderOff();
+    }, [isLoading]);
 
     if (!comments || !comments.length)
         return (
@@ -32,7 +30,7 @@ const List = ({ postId }: OwnProps) => {
         <ul css={[styles as Interpolation<Theme>]}>
             {comments.map(comment => (
                 <li key={comment.id} className="comment">
-                    <ListItem postId={postId} data={comment} />
+                    <ListItem data={comment} />
                 </li>
             ))}
         </ul>

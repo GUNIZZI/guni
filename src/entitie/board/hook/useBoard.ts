@@ -11,9 +11,9 @@ import { deletePost } from '../model/board';
  * @param boardType 리액트쿼리용 게시판 타입
  * @returns
  */
-const useFetchQuery = (boardType: string): UseQueryResult<BoardContentProps[], Error> => {
-    return useQuery<BoardContentProps[], Error, BoardContentProps[], [string]>({
-        queryKey: [`${boardType}_list`],
+const useBoardFetchQuery = (boardType: string): UseQueryResult<BoardContentProps[], Error> => {
+    return useQuery<BoardContentProps[], Error>({
+        queryKey: ['boardList', boardType],
         queryFn: () => fetchDatas(boardType),
     });
 };
@@ -23,11 +23,12 @@ const useFetchQuery = (boardType: string): UseQueryResult<BoardContentProps[], E
  * @param boardType 리액트쿼리용 게시판 boardType
  * @returns
  */
-const useFetchDocQuery = (boardType: string): UseQueryResult<BoardContentProps, Error> => {
+const useBoardFetchDocQuery = (boardType: string): UseQueryResult<BoardContentProps, Error> => {
     const { seq } = useParams() as { seq: string };
-    return useQuery<BoardContentProps, Error, BoardContentProps, [string, string]>({
-        queryKey: [`${boardType}_view`, seq],
-        queryFn: () => fetchDoc(boardType, seq),
+    const splitSeq = seq.split('seq=')[1];
+    return useQuery<BoardContentProps, Error>({
+        queryKey: ['boardView', boardType, splitSeq],
+        queryFn: () => fetchDoc(boardType, splitSeq),
     });
 };
 
@@ -36,7 +37,7 @@ const useFetchDocQuery = (boardType: string): UseQueryResult<BoardContentProps, 
  * @param boardType 리액트쿼리용 게시판 타입
  * @returns
  */
-const useAddDocMutation = (boardType: string) => {
+const useBoardAddDocMutation = (boardType: string) => {
     const navigate = useNavigate();
 
     return useMutation({
@@ -58,17 +59,18 @@ const useAddDocMutation = (boardType: string) => {
  * @param boardType 리액트쿼리용 게시판 타입
  * @returns
  */
-const useDeleteDocMutation = (boardType: string) => {
+const useBoardDeleteDocMutation = (boardType: string) => {
     const queryClient = useQueryClient();
     const { seq } = useParams() as { seq: string };
+    const splitSeq = seq.split('seq=')[1];
     const navigate = useNavigate();
 
     return useMutation({
-        mutationFn: () => deletePost(boardType, seq),
+        mutationFn: () => deletePost(boardType, splitSeq),
         onSuccess: res => {
             navigate('../');
             queryClient.removeQueries({
-                queryKey: [`${boardType}_view`, seq],
+                queryKey: ['boardView', boardType, splitSeq],
                 exact: true,
             });
             return res;
@@ -79,4 +81,9 @@ const useDeleteDocMutation = (boardType: string) => {
     });
 };
 
-export { useFetchQuery, useFetchDocQuery, useAddDocMutation, useDeleteDocMutation };
+export {
+    useBoardFetchQuery,
+    useBoardFetchDocQuery,
+    useBoardAddDocMutation,
+    useBoardDeleteDocMutation,
+};

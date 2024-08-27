@@ -1,18 +1,21 @@
-import { useLocation } from 'react-router-dom';
-
+import { BoardQueryKey } from '@/entitie/board/model/type';
 import { FeatureCommentAdd, FeatureCommentList } from '@/feature/comment';
 
 import { style } from './Comment.css';
+import { CommentProvider } from '../provider/Comment';
 
-const Comment = () => {
-    const location = useLocation();
-    const postId = location.pathname.split('seq=')[1];
+interface OwnProps {
+    boardType: BoardQueryKey['type'];
+}
 
+const Comment = ({ boardType }: OwnProps) => {
     return (
-        <div css={style}>
-            <FeatureCommentAdd postId={postId} />
-            <FeatureCommentList postId={postId} />
-        </div>
+        <CommentProvider boardType={boardType}>
+            <div css={style}>
+                <FeatureCommentAdd />
+                <FeatureCommentList />
+            </div>
+        </CommentProvider>
     );
 };
 

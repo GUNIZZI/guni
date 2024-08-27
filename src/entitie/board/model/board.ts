@@ -55,8 +55,7 @@ const fetchDatas = async (collectionName: string) => {
  * @returns
  */
 const fetchDoc = async (collectionName: string, seq: string) => {
-    const useSeq = seq.split('seq=')[1];
-    const docRef = doc(fbDb, collectionName, useSeq);
+    const docRef = doc(fbDb, collectionName, seq);
     const docData = await getDoc(docRef);
     const data = docData.data();
     if (data) {
@@ -91,8 +90,7 @@ const addPost = async (collectionName: string, docData: BoardAddPostProps) => {
  * @param postId 게시판
  */
 const deletePost = async (collectionName: string, seq: string) => {
-    const useSeq = seq.split('seq=')[1];
-    const docRef = doc(fbDb, collectionName, useSeq);
+    const docRef = doc(fbDb, collectionName, seq);
     await deleteDoc(docRef);
 };
 

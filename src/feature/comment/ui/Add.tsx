@@ -1,24 +1,24 @@
+import { useContext } from 'react';
+
 import { Interpolation, Theme } from '@emotion/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { useAuth } from '@/entitie/auth';
-import { addComment } from '@/entitie/comment/model/comment';
+import { BoardCommentProps, useCommentAddDocMutation } from '@/entitie/comment';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
+import { CommentContext } from '@/widget/comment/provider/Comment';
 
 import { styles } from './Add.css';
 
 import { AddComment } from '@mui/icons-material';
 import { Button } from '@mui/material';
 
-interface OwnProps {
-    postId: string | null;
-}
-
 interface CommentInputType {
     comment: string;
 }
 
-const Add = ({ postId }: OwnProps) => {
+const Add = () => {
+    const { boardType, postId } = useContext(CommentContext);
     const { user } = useAuth();
     const {
         register,
@@ -28,12 +28,13 @@ const Add = ({ postId }: OwnProps) => {
     } = useForm<CommentInputType>({
         mode: 'onChange',
     });
+    const { mutate: addDocQuery } = useCommentAddDocMutation(boardType, postId);
 
-    const onSubmit: SubmitHandler<CommentInputType> = async ({ comment }: CommentInputType) => {
+    const onSubmit: SubmitHandler<CommentInputType> = ({ comment }: CommentInputType) => {
         if (!comment.trim()?.length || !postId || !user) return;
 
         try {
-            await addComment(postId, {
+            addDocQuery({
                 content: comment,
                 authorId: user.email,
                 authorName:
@@ -42,7 +43,7 @@ const Add = ({ postId }: OwnProps) => {
                         ? 'ADMIN'
                         : (user.uid === import.meta.env.VITE_FB_GUEST_UID ? 'GUEST' : user.name) ||
                           '-',
-            });
+            } as BoardCommentProps);
             reset();
         } catch (error) {
             console.error('Failed to add comment:', error);
