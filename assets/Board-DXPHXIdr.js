@@ -1,4 +1,4 @@
-import{a as t,m as p,c as l,u as g,r as a,b as c,A as f,S as m,P as h}from"./index-CF9ZDk09.js";import{E as r}from"./easeing-Bl5gXnr_.js";const w=({children:i,className:e,duration:o=.3})=>{const n={init:{marginLeft:20,opacity:0},ani:{marginLeft:0,opacity:1,transition:{duration:o,delay:.1,ease:r.EASE_OUT_CUBIC}},exit:{marginLeft:-20,opacity:0,transition:{duration:o,ease:r.EASE_IN_CUBIC}}};return t(p.div,{className:e&&e,variants:n,initial:"init",animate:"ani",exit:"exit",style:{position:"absolute",width:"100%"},children:i})},b=i=>l`
+import{a as t,m as p,c as l,u as g,r as n,b as c,A as m,S as f,P as h}from"./index-Dlwmc9MZ.js";import{E as r}from"./easeing-D3AaMf9v.js";const w=({children:i,className:e,duration:o=.3})=>{const a={init:{marginLeft:20,opacity:0},ani:{marginLeft:0,opacity:1,transition:{duration:o,delay:.1,ease:r.EASE_OUT_CUBIC}},exit:{marginLeft:-20,opacity:0,transition:{duration:o,ease:r.EASE_IN_CUBIC}}};return t(p.div,{className:e&&e,variants:a,initial:"init",animate:"ani",exit:"exit",style:{position:"absolute",width:"100%"},children:i})},b=i=>l`
     .header {
         display: flex;
         align-items: flex-end;
@@ -21,6 +21,22 @@ import{a as t,m as p,c as l,u as g,r as a,b as c,A as f,S as m,P as h}from"./ind
             color: #999;
             font-weight: 300;
             font-size: 12px;
+        }
+
+        ${i.breakpoints.down("sm")} {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 0;
+            padding: 0 0 0.5rem 0;
+
+            > h2 {
+                font-size: 2rem;
+                line-height: 1;
+            }
+
+            > p {
+                padding-bottom: 0;
+            }
         }
     }
 
@@ -256,4 +272,4 @@ import{a as t,m as p,c as l,u as g,r as a,b as c,A as f,S as m,P as h}from"./ind
         font-weight: 100;
         text-align: center;
     }
-`,u=i=>i==="tech"?"isList":i==="blog"?"isCard":i==="pf"?"isPf":"",v=()=>{const i=g(),e=a.useMemo(()=>i.pathname.split("/")[1]||"tech",[i.pathname]),o=a.useMemo(()=>i.pathname.split("/")[2]||"list",[i.pathname]),n=c(0),[s,d]=a.useState("");return a.useEffect(()=>{d(u(e))},[]),t(h,{className:`page ${s}`,css:[b],children:t("div",{className:"wrap",children:t(f,{mode:"wait",children:t(w,{className:"transitionWrap",children:t(m,{children:n})},o)})})})};export{v as LayoutBoard};
+`,u=i=>i==="tech"?"isList":i==="blog"?"isCard":i==="pf"?"isPf":"",v=()=>{const i=g(),e=n.useMemo(()=>i.pathname.split("/")[1]||"tech",[i.pathname]),o=n.useMemo(()=>i.pathname.split("/")[2]||"list",[i.pathname]),a=c(0),[s,d]=n.useState("");return n.useEffect(()=>{d(u(e))},[]),t(h,{className:`page ${s}`,css:[b],children:t("div",{className:"wrap",children:t(m,{mode:"wait",children:t(w,{className:"transitionWrap",children:t(f,{children:a})},o)})})})};export{v as LayoutBoard};
