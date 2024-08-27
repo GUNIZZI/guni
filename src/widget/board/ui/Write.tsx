@@ -4,6 +4,7 @@ import { Interpolation, Theme } from '@emotion/react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
+import { useBoardAddDocMutation } from '@/entitie/board';
 import { BoardQueryKey, BoardAddPostProps } from '@/entitie/board/model/type';
 import { FeatureBoardBackButton } from '@/feature/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
@@ -16,8 +17,6 @@ import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
 
 import { writeStyle } from './Write.css';
 
-import { useAddDocMutation } from '../../../entitie/board/hook/useBlog';
-
 import { Check, Close } from '@mui/icons-material';
 import { Box, Button, useMediaQuery, useTheme } from '@mui/material';
 
@@ -27,7 +26,7 @@ interface OwnProps {
 
 const Write = ({ boardType }: OwnProps) => {
     const navigate = useNavigate();
-    const { mutate: addDocQuery, isPending: isLoading } = useAddDocMutation(boardType);
+    const { mutate: addDocQuery, isPending: isLoading } = useBoardAddDocMutation(boardType);
     const {
         control,
         register,

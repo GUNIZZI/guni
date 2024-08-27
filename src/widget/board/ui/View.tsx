@@ -3,7 +3,7 @@ import { useCallback, useContext, useEffect } from 'react';
 // import DOMPurify from 'isomorphic-dompurify';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useFetchDocQuery } from '@/entitie/board/hook/useBlog';
+import { useBoardFetchDocQuery } from '@/entitie/board';
 import { BoardQueryKey } from '@/entitie/board/model/type';
 import { FeatureBoardDeleteButton, FeatureBoardBackButton } from '@/feature/board';
 import { DraftViewer } from '@/shared/ui/draftEditor/DraftViewer';
@@ -21,7 +21,9 @@ const NotContent = () => {
 const View = ({ boardType }: OwnProps) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { data: posts, isLoading, error } = useFetchDocQuery(boardType);
+    const { data: posts, isLoading, error } = useBoardFetchDocQuery(boardType);
+
+    console.log(posts);
 
     const handleBack = useCallback(() => {
         return location.state?.from === 'write' ? navigate('../') : navigate(-1);
@@ -50,8 +52,7 @@ const View = ({ boardType }: OwnProps) => {
                     <h2>{posts.title}</h2>
                     <div className="infos">
                         <span>{posts.date}</span>
-                        <span>2개의 댓글</span>
-                        <span>찜: 26</span>
+                        <span>{posts.commentCount}개의 댓글</span>
                     </div>
                     {/* <MdViewer
                         content={DOMPurify.sanitize(posts.content || '')}

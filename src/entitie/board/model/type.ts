@@ -14,6 +14,7 @@ export interface BoardContentProps {
     content?: string;
     docType?: string;
     image?: string | null;
+    commentCount?: number;
 }
 
 export interface BoardAddPostProps {

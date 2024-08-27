@@ -38,8 +38,7 @@ const ListType = ({ datas }: OwnProps) => {
                         <DraftViewer initialContent={item.content || ''} className="content" />
                         <div className="infos">
                             <span>{item.date}</span>
-                            <span>2개의 댓글</span>
-                            <span>찜: 26</span>
+                            <span>{item.commentCount}개의 댓글</span>
                         </div>
                     </ListItem>
                     <Divider variant="inset" component="li" />

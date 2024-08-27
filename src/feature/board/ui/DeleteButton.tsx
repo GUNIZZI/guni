@@ -1,5 +1,5 @@
 import { useAuth } from '@/entitie/auth';
-import { useDeleteDocMutation } from '@/entitie/board/hook/useBlog';
+import { useBoardDeleteDocMutation } from '@/entitie/board';
 import { BoardQueryKey } from '@/entitie/board/model/type';
 
 import { Delete } from '@mui/icons-material';
@@ -10,7 +10,7 @@ interface OwnProps {
 }
 
 const DeleteButton = ({ boardType }: OwnProps) => {
-    const { mutate: delDocQuery, isPending } = useDeleteDocMutation(boardType);
+    const { mutate: delDocQuery, isPending } = useBoardDeleteDocMutation(boardType);
     const { isLogined, user } = useAuth();
 
     const handleDelete = () => {

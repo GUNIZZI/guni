@@ -7,10 +7,11 @@ interface OwnProps {
 }
 
 const View = ({ boardType }: OwnProps) => {
+    console.log(' 요기선 아나?');
     return (
         <>
             <WidgetBoardView boardType={boardType} />
-            <WidgetComment />
+            <WidgetComment boardType={boardType} />
         </>
     );
 };
