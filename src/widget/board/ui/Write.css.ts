@@ -1,6 +1,6 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@mui/material';
 
-const style = () => css`
+const style = (theme: Theme) => css`
     .btns {
         position: fixed;
         bottom: 2rem;
@@ -11,6 +11,21 @@ const style = () => css`
 
             &.isConfirm {
                 width: 3em;
+            }
+        }
+    }
+
+    .inputHeader {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+
+        ${theme.breakpoints.down('lg')} {
+            flex-direction: column;
+            gap: 0.1em;
+
+            > * {
+                flex: 0 0 auto !important;
             }
         }
     }

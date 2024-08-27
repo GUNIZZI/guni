@@ -5,8 +5,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { BoardQueryKey, BoardAddPostProps } from '@/entitie/board/model/type';
+import { FeatureBoardBackButton } from '@/feature/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
-import { BackButton } from '@/shared/ui/button/BackButton';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
 import { DraftEditor } from '@/shared/ui/draftEditor/DraftEditor';
 import { MainLoaderContext } from '@/shared/ui/loader';
@@ -19,7 +19,7 @@ import { writeStyle } from './Write.css';
 import { useAddDocMutation } from '../../../entitie/board/hook/useBlog';
 
 import { Check, Close } from '@mui/icons-material';
-import { Box, Button } from '@mui/material';
+import { Box, Button, useMediaQuery, useTheme } from '@mui/material';
 
 interface OwnProps {
     boardType: BoardQueryKey['type'];
@@ -34,6 +34,8 @@ const Write = ({ boardType }: OwnProps) => {
         handleSubmit,
         formState: { isValid, isDirty },
     } = useForm<BoardAddPostProps>();
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const { loaderOn, loaderOff } = useContext(MainLoaderContext);
     useEffect(() => {
@@ -55,7 +57,8 @@ const Write = ({ boardType }: OwnProps) => {
 
     return (
         <>
-            <BackButton onClick={() => navigate(-1)} />
+            <FeatureBoardBackButton onClick={() => navigate(-1)} />
+
             <form
                 onSubmit={handleSubmit(handleSave)}
                 css={writeStyle as Interpolation<Theme>}
@@ -82,17 +85,20 @@ const Write = ({ boardType }: OwnProps) => {
                     </Button>
                 </div>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', gap: '1em' }}>
+                    <Box className="inputHeader">
                         <CustomSelect<BoardAddPostProps>
                             id="type"
                             name="docType"
                             label="카테고리"
-                            opts={BOARD_CONTENT_TYPES[boardType]}
+                            opts={BOARD_CONTENT_TYPES[boardType].filter(
+                                item => item.name !== 'ALL',
+                            )}
                             variant="filled"
                             style={{ flex: '0 0 200px' }}
                             control={control}
                             sx={{ flex: '0 0 200px' }}
                             defaultValue={BOARD_CONTENT_TYPES[boardType][1].code}
+                            size={isSmallScreen ? 'small' : 'medium'}
                         />
                         <CustomTextField<BoardAddPostProps>
                             autoFocus
@@ -101,6 +107,10 @@ const Write = ({ boardType }: OwnProps) => {
                             fullWidth
                             variant="filled"
                             register={register}
+                            rules={{
+                                required: '제목은 필수입니다',
+                            }}
+                            size={isSmallScreen ? 'small' : 'medium'}
                         />
                     </Box>
                     <Controller

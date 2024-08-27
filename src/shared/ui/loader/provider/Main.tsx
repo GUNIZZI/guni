@@ -29,7 +29,7 @@ const MainLoaderProvider = ({ children }: OwnProps) => {
     return (
         <MainLoaderContext.Provider value={contextValue}>
             {children}
-            {loaderCnt && (
+            {loaderCnt > 0 && (
                 <Backdrop
                     sx={{ position: 'absolute', color: '#ff0000', zIndex: 1 }}
                     open={loaderCnt > 0}

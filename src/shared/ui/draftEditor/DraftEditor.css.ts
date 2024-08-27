@@ -5,8 +5,8 @@ const style = () => css`
     border-radius: 4px;
 
     &.isEditMode {
-        height: calc(100vh - 9rem);
-        min-height: 500px;
+        min-height: calc(100vh - 9rem);
+        margin-bottom: 2em;
         background: rgba(255, 255, 255, 0.06);
         box-sizing: border-box;
         cursor: text;

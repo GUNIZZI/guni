@@ -31,6 +31,7 @@ const DeleteButton = ({ boardType }: OwnProps) => {
                 bottom: '2rem',
                 width: '4rem',
                 height: '4rem',
+                zIndex: 20,
             }}
             onClick={handleDelete}
             disabled={isPending}

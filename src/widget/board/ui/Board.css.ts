@@ -26,6 +26,22 @@ const boardStyle = (theme: Theme) => css`
             font-weight: 300;
             font-size: 12px;
         }
+
+        ${theme.breakpoints.down('sm')} {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 0;
+            padding: 0 0 0.5rem 0;
+
+            > h2 {
+                font-size: 2rem;
+                line-height: 1;
+            }
+
+            > p {
+                padding-bottom: 0;
+            }
+        }
     }
 
     &.isList {

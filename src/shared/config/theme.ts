@@ -41,6 +41,7 @@ export const theme = createTheme({
     // 여기에 추가적인 테마 커스터마이징을 할 수 있습니다.
     components: {
         MuiCssBaseline: {
+            // eslint-disable-next-line no-shadow
             styleOverrides: (theme: MuiTheme) => ({
                 body: {
                     background: '#111',
@@ -55,9 +56,14 @@ export const theme = createTheme({
                 'h1, h2, h3, h4, h5, h6': {
                     margin: 0,
                 },
-                '.page': {
+                '#root': {
+                    display: 'flex',
                     minHeight: '100vh',
-                    padding: `${theme.spacing(3)} ${theme.spacing(16)}`,
+                },
+                '.page': {
+                    flex: '1 1',
+                    minHeight: '100%',
+                    padding: `${theme.spacing(0)} ${theme.spacing(16)}`,
                     boxSizing: 'border-box',
 
                     '.wrap': {
@@ -66,18 +72,19 @@ export const theme = createTheme({
                         margin: '0 auto',
                     },
 
-                    // [theme.breakpoints.up('xs')]: {
-                    //     padding: `${theme.spacing(0)} ${theme.spacing(2)}`,
-                    // },
+                    [theme.breakpoints.up('xs')]: {
+                        minHeight: `calc(100% - 8rem)`,
+                        padding: `0 ${theme.spacing(3)} 0`,
+                    },
                     [theme.breakpoints.up('sm')]: {
-                        minHeight: `calc(100vh - 8rem)`,
-                        padding: `0 ${theme.spacing(25)} 0`,
+                        minHeight: `calc(100% - 8rem)`,
+                        padding: `0 ${theme.spacing(5)} 0`,
                     },
                     [theme.breakpoints.up('md')]: {
                         padding: `${theme.spacing(5)} ${theme.spacing(25)}`,
                     },
                     [theme.breakpoints.up('lg')]: {
-                        padding: `${theme.spacing(5)} ${theme.spacing(25)}`,
+                        padding: `${theme.spacing(5)} ${theme.spacing(35)}`,
                     },
                     [theme.breakpoints.up('xl')]: {
                         padding: `${theme.spacing(5)} ${theme.spacing(40)}`,
@@ -88,9 +95,24 @@ export const theme = createTheme({
         MuiContainer: {
             styleOverrides: {
                 root: {
+                    flex: '1 1',
+                    flexDirection: 'column',
+                    width: 'auto',
+                    minHeight: '100vh',
                     maxWidth: '100% !important',
                     paddingLeft: '0 !important',
                     paddingRight: '0 !important',
+                    margin: 0,
+
+                    '> .transitionWrap': {
+                        display: 'flex',
+                        flex: '1 1',
+
+                        '> .transitionWrap': {
+                            flex: '1 1',
+                            display: 'flex',
+                        },
+                    },
                 },
             },
         },

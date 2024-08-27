@@ -3,8 +3,7 @@ import { css } from '@emotion/react';
 import { Theme } from '@mui/material';
 
 const containerStyle = (theme: Theme) => css`
-    width: 100vw;
-    min-height: 100vh;
+    display: flex;
     padding: ${theme.spacing(0)};
 `;
 

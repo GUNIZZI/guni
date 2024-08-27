@@ -5,8 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useFetchDocQuery } from '@/entitie/board/hook/useBlog';
 import { BoardQueryKey } from '@/entitie/board/model/type';
-import { FeatureBoardDeleteButton } from '@/feature/board';
-import { BackButton } from '@/shared/ui/button/BackButton';
+import { FeatureBoardDeleteButton, FeatureBoardBackButton } from '@/feature/board';
 import { DraftViewer } from '@/shared/ui/draftEditor/DraftViewer';
 import { MainLoaderContext } from '@/shared/ui/loader';
 // import { MdViewer } from '@/shared/ui/mdViewer/MdViewer';
@@ -42,7 +41,7 @@ const View = ({ boardType }: OwnProps) => {
     return (
         <div className="viewWrap">
             {/* 뒤로가기 */}
-            <BackButton onClick={handleBack} />
+            <FeatureBoardBackButton onClick={handleBack} />
 
             {/* 삭제 버튼 */}
             <FeatureBoardDeleteButton boardType={boardType} />

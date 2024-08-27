@@ -23,6 +23,7 @@ const AddButton = () => {
                 width: '4rem',
                 height: '4rem',
                 color: '#fff',
+                zIndex: 20,
             }}
         >
             <Add sx={{ fontSize: '2rem' }} />
