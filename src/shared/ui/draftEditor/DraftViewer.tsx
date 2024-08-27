@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createElement } from 'react';
 
 import Editor, { EditorPlugin } from '@draft-js-plugins/editor';
 import createImagePlugin from '@draft-js-plugins/image';
@@ -10,11 +10,19 @@ import { style } from './DraftEditor.css';
 
 interface OwnProps {
     initialContent: string;
+    className?: string;
 }
-const imagePlugin = createImagePlugin();
+const imagePlugin = createImagePlugin({
+    decorator: component => props => {
+        const { block, contentState } = props;
+        const entity = contentState.getEntity(block.getEntityAt(0));
+        const { alignment } = entity.getData();
+        return <div style={{ textAlign: alignment || '' }}>{createElement(component, props)}</div>;
+    },
+});
 const plugins: EditorPlugin[] = [imagePlugin];
 
-const DraftViewer = ({ initialContent }: OwnProps) => {
+const DraftViewer = ({ initialContent, className }: OwnProps) => {
     const [editorState, setEditorState] = useState<EditorState>(() => EditorState.createEmpty());
 
     useEffect(() => {
@@ -25,7 +33,7 @@ const DraftViewer = ({ initialContent }: OwnProps) => {
     }, [initialContent]);
 
     return (
-        <div css={style}>
+        <div css={style} className={className || ''}>
             <Editor editorState={editorState} onChange={() => {}} plugins={plugins} readOnly />
         </div>
     );

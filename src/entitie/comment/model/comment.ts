@@ -8,20 +8,33 @@ import {
     doc,
     deleteDoc,
     orderBy,
+    runTransaction,
 } from 'firebase/firestore';
 
 import { BoardCommentProps } from '@/entitie/comment';
 import { fbDb } from '@/shared/api/firebase';
 
-export const addComment = async (
-    postId: string,
-    comment: Omit<BoardCommentProps, 'id' | 'date'>,
-) => {
+export const addComment = async (postId: string, comment: Omit<BoardCommentProps, 'date'>) => {
+    const postRef = doc(fbDb, 'TECH', postId);
+    console.log(postRef);
+
     try {
-        const commentsRef = collection(fbDb, 'TECH', postId, 'comments');
-        await addDoc(commentsRef, {
-            ...comment,
-            date: Timestamp.now(),
+        // const commentsRef = collection(fbDb, 'TECH', postId, 'comments');
+        // await addDoc(commentsRef, {
+        //     ...comment,
+        //     date: Timestamp.now(),
+        // });
+        await runTransaction(fbDb, async transaction => {
+            // 댓글 추가
+            // const commentRef = doc(db, 'posts', postId, 'comments', commentData.id);
+            // transaction.set(commentRef, commentData);
+
+            const commentRef = doc(fbDb, 'TECH', postId, 'comments', comment.id);
+
+            // 포스트의 댓글 수 증가
+            transaction.update(postRef, {
+                commentCount: increment(1),
+            });
         });
     } catch (error) {
         console.error('Error adding comment: ', error);
