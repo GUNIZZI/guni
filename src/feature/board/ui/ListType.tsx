@@ -1,13 +1,11 @@
 import React from 'react';
 
-import DOMPurify from 'isomorphic-dompurify';
 import { find } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
 import { BoardContentProps } from '@/entitie/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
 import { DraftViewer } from '@/shared/ui/draftEditor/DraftViewer';
-import { MdViewer } from '@/shared/ui/mdViewer/MdViewer';
 
 import { List, ListItem, Divider } from '@mui/material';
 
@@ -31,14 +29,15 @@ const ListType = ({ datas }: OwnProps) => {
                             </div>
                             {item.title}
                         </div>
-                        {/* <MdViewer
-                            content={DOMPurify.sanitize(item.content || '')}
+                        <DraftViewer
+                            initialContent={item.content || ''}
                             className="content"
-                        /> */}
-                        <DraftViewer initialContent={item.content || ''} className="content" />
+                            limit={300}
+                            useAtomic={false}
+                        />
                         <div className="infos">
                             <span>{item.date}</span>
-                            <span>{item.commentCount}개의 댓글</span>
+                            <span>{item.commentCount || 0}개의 댓글</span>
                         </div>
                     </ListItem>
                     <Divider variant="inset" component="li" />

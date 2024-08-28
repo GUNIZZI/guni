@@ -108,6 +108,13 @@ const style = () => css`
             color: #ce57ff;
         }
     }
+
+    .code-block {
+        background-color: #f0f0f0;
+        padding: 10px;
+        border-radius: 4px;
+        font-family: 'Courier New', Courier, monospace;
+    }
 `;
 
 export { style };

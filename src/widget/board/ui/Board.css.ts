@@ -89,7 +89,7 @@ const boardStyle = (theme: Theme) => css`
                 }
                 > .content {
                     display: block;
-                    max-height: 300px;
+                    // max-height: 400px;
                     padding: 1em;
                     margin: 1em 0 2rem;
                     border-radius: 10px;
@@ -99,6 +99,10 @@ const boardStyle = (theme: Theme) => css`
                     overflow: hidden;
                     opacity: 0.4;
                     pointer-events: none;
+
+                    > .DraftEditor-root {
+                        padding: 0;
+                    }
                 }
                 > .infos {
                     display: flex;

@@ -20,11 +20,11 @@ import createImagePlugin from '@draft-js-plugins/image';
 import createLinkifyPlugin from '@draft-js-plugins/linkify';
 import createResizeablePlugin from '@draft-js-plugins/resizeable';
 import createToolbarPlugin from '@draft-js-plugins/static-toolbar';
+import createTextAlignmentPlugin from '@draft-js-plugins/text-alignment';
 import createUndoPlugin from '@draft-js-plugins/undo';
-import { AtomicBlockUtils, EditorProps, EditorState, convertToRaw } from 'draft-js';
-
 import '@draft-js-plugins/static-toolbar/lib/plugin.css';
 import '@draft-js-plugins/focus/lib/plugin.css';
+import { AtomicBlockUtils, EditorProps, EditorState, convertToRaw } from 'draft-js';
 
 import { style } from './DraftEditor.css';
 import { uploadFile } from '../mdEditor/util/uploadFile';
@@ -65,6 +65,7 @@ const linkifyPlugin = createLinkifyPlugin({
         link: 'linkyLink',
     },
 });
+const textAlignmentPlugin = createTextAlignmentPlugin();
 
 const plugins: EditorPlugin[] = [
     toolbarPlugin,
@@ -73,6 +74,7 @@ const plugins: EditorPlugin[] = [
     linkifyPlugin,
     focusPlugin,
     resizeablePlugin,
+    textAlignmentPlugin,
 ];
 
 const DraftEditor = ({ initialContent, onChange }: OwnProps) => {
@@ -146,6 +148,8 @@ const DraftEditor = ({ initialContent, onChange }: OwnProps) => {
                                 <ItalicButton {...externalProps} />
                                 <UnderlineButton {...externalProps} />
                                 <CodeButton {...externalProps} />
+                                <hr />
+                                <textAlignmentPlugin.TextAlignment {...externalProps} />
                                 <hr />
                                 <UnorderedListButton {...externalProps} />
                                 <OrderedListButton {...externalProps} />
