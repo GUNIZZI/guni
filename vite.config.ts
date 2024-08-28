@@ -8,6 +8,9 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
     return {
         base: '/guni',
         plugins: [react(), mkcert()],
+        optimizeDeps: {
+            include: ['highlight.js', 'quill', 'react-quilljs'],
+        },
         resolve: {
             alias: [{ find: '@/', replacement: '/src/' }],
         },

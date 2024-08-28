@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { BoardContentProps } from '@/entitie/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
-import { DraftViewer } from '@/shared/ui/draftEditor/DraftViewer';
 
 import { List, ListItem, Divider } from '@mui/material';
 
@@ -29,12 +28,12 @@ const ListType = ({ datas }: OwnProps) => {
                             </div>
                             {item.title}
                         </div>
-                        <DraftViewer
+                        {/* <DraftViewer
                             initialContent={item.content || ''}
                             className="content"
                             limit={300}
                             useAtomic={false}
-                        />
+                        /> */}
                         <div className="infos">
                             <span>{item.date}</span>
                             <span>{item.commentCount || 0}개의 댓글</span>

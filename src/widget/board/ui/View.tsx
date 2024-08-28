@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useBoardFetchDocQuery } from '@/entitie/board';
 import { BoardQueryKey } from '@/entitie/board/model/type';
 import { FeatureBoardDeleteButton, FeatureBoardBackButton } from '@/feature/board';
-import { DraftViewer } from '@/shared/ui/draftEditor/DraftViewer';
 import { MainLoaderContext } from '@/shared/ui/loader';
 
 // import 'draft'
@@ -52,7 +51,7 @@ const View = ({ boardType }: OwnProps) => {
                         <span>{posts.date}</span>
                         <span>{posts.commentCount || 0}개의 댓글</span>
                     </div>
-                    <DraftViewer initialContent={posts.content || ''} />
+                    {/* <DraftViewer initialContent={posts.content || ''} /> */}
                 </>
             ) : (
                 <NotContent />

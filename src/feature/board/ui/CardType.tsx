@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { BoardContentProps } from '@/entitie/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
-import { MdViewer } from '@/shared/ui/mdViewer/MdViewer';
+// import { MdViewer } from '@/shared/ui/mdViewer/MdViewer';
 
 import { Grid, Box, Card, CardActionArea, CardContent, Typography } from '@mui/material';
 
@@ -55,7 +55,7 @@ const CardType = ({ datas }: OwnProps) => {
                                     {item.title}
                                 </Typography>
                                 <Box sx={{ maxHeight: 100, overflow: 'hidden' }}>
-                                    <MdViewer content={DOMPurify.sanitize(item.content || '')} />
+                                    {/* <MdViewer content={DOMPurify.sanitize(item.content || '')} /> */}
                                 </Box>
                                 <Box
                                     sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}

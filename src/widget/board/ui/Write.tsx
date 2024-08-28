@@ -9,9 +9,9 @@ import { BoardQueryKey, BoardAddPostProps } from '@/entitie/board/model/type';
 import { FeatureBoardBackButton } from '@/feature/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
-import { DraftEditor } from '@/shared/ui/draftEditor/DraftEditor';
 import { MainLoaderContext } from '@/shared/ui/loader';
 // import { MdEditor } from '@/shared/ui/mdEditor/MdEditor';
+import { QuillEditor } from '@/shared/ui/quillEditor';
 import { CustomSelect } from '@/shared/ui/select/CustomSelect';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
 
@@ -120,15 +120,16 @@ const Write = ({ boardType }: OwnProps) => {
                         }}
                         render={({ field }) => (
                             <>
+                                <QuillEditor />
                                 {/* <MdEditor
                                     value={field.value}
                                     onChange={val => field.onChange(val)}
                                     style={{ height: 'calc(100vh - 300px)' }}
                                 /> */}
-                                <DraftEditor
+                                {/* <DraftEditor
                                     initialContent={field.value}
                                     onChange={val => field.onChange(val)}
-                                />
+                                /> */}
                             </>
                         )}
                     />
