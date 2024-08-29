@@ -10,7 +10,6 @@ import { FeatureBoardBackButton } from '@/feature/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
 import { MainLoaderContext } from '@/shared/ui/loader';
-// import { MdEditor } from '@/shared/ui/mdEditor/MdEditor';
 import { QuillEditor } from '@/shared/ui/quillEditor';
 import { CustomSelect } from '@/shared/ui/select/CustomSelect';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
@@ -120,7 +119,11 @@ const Write = ({ boardType }: OwnProps) => {
                         }}
                         render={({ field }) => (
                             <>
-                                <QuillEditor />
+                                {/* <Editor2 /> */}
+                                <QuillEditor
+                                    initialContent={field.value}
+                                    onChange={val => field.onChange(val)}
+                                />
                                 {/* <MdEditor
                                     value={field.value}
                                     onChange={val => field.onChange(val)}
@@ -130,6 +133,8 @@ const Write = ({ boardType }: OwnProps) => {
                                     initialContent={field.value}
                                     onChange={val => field.onChange(val)}
                                 /> */}
+
+                                {/* <Editor /> */}
                             </>
                         )}
                     />

@@ -7,9 +7,9 @@ const style = (theme: Theme) => css`
 
     .ql-toolbar,
     .ql-container {
-        background-color: #2c2c2c;
+        background-color: rgba(0, 0, 0, 0.5);
         color: #fff;
-        border-color: #444;
+        border: none;
     }
 
     .ql-toolbar button,

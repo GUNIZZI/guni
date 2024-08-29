@@ -9,7 +9,7 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
         base: '/guni',
         plugins: [react(), mkcert()],
         optimizeDeps: {
-            include: ['highlight.js', 'quill', 'react-quilljs'],
+            include: ['highlight.js'],
         },
         resolve: {
             alias: [{ find: '@/', replacement: '/src/' }],
