@@ -4,7 +4,7 @@ import { Interpolation, Theme } from '@emotion/react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import { useBoardAddDocMutation } from '@/entitie/board';
+import { uploadFile, useBoardAddDocMutation } from '@/entitie/board';
 import { BoardQueryKey, BoardAddPostProps } from '@/entitie/board/model/type';
 import { FeatureBoardBackButton } from '@/feature/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
@@ -13,6 +13,7 @@ import { MainLoaderContext } from '@/shared/ui/loader';
 import { QuillEditor } from '@/shared/ui/quillEditor';
 import { CustomSelect } from '@/shared/ui/select/CustomSelect';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
+import { base64ToFile } from '@/shared/util';
 
 import { writeStyle } from './Write.css';
 
@@ -22,6 +23,47 @@ import { Box, Button, useMediaQuery, useTheme } from '@mui/material';
 interface OwnProps {
     boardType: BoardQueryKey['type'];
 }
+interface UploadPromise {
+    success: boolean;
+    imgBlock: HTMLImageElement;
+    result?: {
+        fileName: string;
+        downloadURL: string;
+    } | null;
+    e?: unknown;
+}
+
+/**
+ * 에디터 데이터에서 img태그를 찾아 blob으로 되어 잇으면 firebase에 업로드 후 path로 변경 후 전달
+ * @param data 태그 문자열 데이터
+ * @returns 태그 문자열 데이터
+ */
+const getImageSrcTransfer = async (data: BoardAddPostProps) => {
+    const tmpDiv = document.createElement('div');
+    tmpDiv.innerHTML = data.content.trim();
+    const imgBlocks = Array.from(tmpDiv.querySelectorAll('img'));
+    const uploadPromises: Promise<UploadPromise>[] = imgBlocks.map(
+        async (imgBlock): Promise<UploadPromise> => {
+            if (imgBlock.src.startsWith('data:image/png;base64')) {
+                try {
+                    const imgFile = base64ToFile(
+                        imgBlock.src,
+                        `img_${new Date().getTime()}_${Math.round(Math.random() * 99999999999)}`,
+                    );
+                    const result = await uploadFile(imgFile);
+                    if (result) imgBlock.setAttribute('src', result.downloadURL);
+                    return { success: true, imgBlock, result };
+                } catch (e) {
+                    // 에러
+                    return { success: false, imgBlock, e };
+                }
+            }
+            return { success: true, imgBlock };
+        },
+    );
+    await Promise.all(uploadPromises);
+    return tmpDiv.innerHTML;
+};
 
 const Write = ({ boardType }: OwnProps) => {
     const navigate = useNavigate();
@@ -44,12 +86,15 @@ const Write = ({ boardType }: OwnProps) => {
         }
     }, [isLoading]);
 
-    const handleSave = (data: BoardAddPostProps) => {
+    const handleSave = async (data: BoardAddPostProps) => {
+        loaderOn();
+        const newContent = await getImageSrcTransfer(data);
+
         addDocQuery({
-            // docData: {
-            //     ...data,
-            // },
-            docData: data,
+            docData: {
+                ...data,
+                content: newContent,
+            },
         });
     };
 
@@ -118,24 +163,10 @@ const Write = ({ boardType }: OwnProps) => {
                             required: '내용은 필수입니다',
                         }}
                         render={({ field }) => (
-                            <>
-                                {/* <Editor2 /> */}
-                                <QuillEditor
-                                    initialContent={field.value}
-                                    onChange={val => field.onChange(val)}
-                                />
-                                {/* <MdEditor
-                                    value={field.value}
-                                    onChange={val => field.onChange(val)}
-                                    style={{ height: 'calc(100vh - 300px)' }}
-                                /> */}
-                                {/* <DraftEditor
-                                    initialContent={field.value}
-                                    onChange={val => field.onChange(val)}
-                                /> */}
-
-                                {/* <Editor /> */}
-                            </>
+                            <QuillEditor
+                                initialContent={field.value}
+                                onChange={val => field.onChange(val)}
+                            />
                         )}
                     />
                 </Box>

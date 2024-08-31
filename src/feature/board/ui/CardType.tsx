@@ -1,4 +1,3 @@
-import DOMPurify from 'isomorphic-dompurify';
 import { find } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 

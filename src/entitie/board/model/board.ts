@@ -9,8 +9,9 @@ import {
     query,
     serverTimestamp,
 } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-import { fbDb } from '@/shared/api/firebase';
+import { fbDb, fbStorage } from '@/shared/api/firebase';
 import { timestampConversion } from '@/shared/util';
 
 import { BoardAddPostProps, BoardContentProps } from './type';
@@ -94,4 +95,27 @@ const deletePost = async (collectionName: string, seq: string) => {
     await deleteDoc(docRef);
 };
 
-export { fetchDatas, fetchDoc, addPost, deletePost };
+/**
+ * 이미지 업로드
+ */
+interface UploadResult {
+    fileName: string;
+    downloadURL: string;
+}
+
+const uploadFile = async (file: File): Promise<UploadResult | null> => {
+    try {
+        const fileName = `${Date.now()}_${file.name}`;
+        const fileRef = ref(fbStorage, `uploads/boardImg/${fileName}`);
+
+        await uploadBytes(fileRef, file);
+        const downloadURL = await getDownloadURL(fileRef);
+
+        return { fileName, downloadURL };
+    } catch (e) {
+        console.error('Error uploading file:', e);
+        return null;
+    }
+};
+
+export { fetchDatas, fetchDoc, addPost, deletePost, uploadFile };
