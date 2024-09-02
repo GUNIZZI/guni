@@ -27,7 +27,7 @@ const List = () => {
         );
 
     return (
-        <ul css={[styles as Interpolation<Theme>]}>
+        <ul css={styles as Interpolation<Theme>}>
             {comments.map(comment => (
                 <li key={comment.id} className="comment">
                     <ListItem data={comment} />

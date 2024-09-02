@@ -1,3 +1,5 @@
+import { Interpolation, Theme } from '@emotion/react';
+
 import { BoardQueryKey } from '@/entitie/board/model/type';
 import { FeatureCommentAdd, FeatureCommentList } from '@/feature/comment';
 
@@ -11,7 +13,7 @@ interface OwnProps {
 const Comment = ({ boardType }: OwnProps) => {
     return (
         <CommentProvider boardType={boardType}>
-            <div css={style}>
+            <div css={style as Interpolation<Theme>}>
                 <FeatureCommentAdd />
                 <FeatureCommentList />
             </div>

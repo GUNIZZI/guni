@@ -2,6 +2,8 @@ import { css } from '@emotion/react';
 
 import { NAV_PATH } from '@/shared/config/navPath';
 
+import { Theme } from '@mui/material';
+
 const getColor = () => {
     return (
         NAV_PATH.find(item => item.path === `/${window.location.pathname.split('/')[2]}`)?.color ??
@@ -9,7 +11,7 @@ const getColor = () => {
     );
 };
 
-const styles = () => css`
+const styles = (theme: Theme) => css`
     padding: 1em 0;
 
     > li {
@@ -78,6 +80,36 @@ const styles = () => css`
                     height: 1.5rem;
                     min-width: 0;
                     padding: 0;
+                }
+            }
+
+            ${theme.breakpoints.down('sm')} {
+                flex-direction: column;
+                gap: 0.6em;
+                position: relative;
+                padding: 1em 0.5em;
+
+                > .iconWrap {
+                    flex-direction: row;
+                    gap: 1em;
+
+                    > .icon {
+                        width: 70px;
+                        padding: 0.1em 0.3em;
+                        font-size: 11px;
+                        font-weight: 600 !important;
+                    }
+                }
+
+                > .content {
+                    font-size: 14px;
+                    line-height: 1.6em;
+                }
+
+                > .btns {
+                    position: absolute;
+                    top: 1em;
+                    right: 0;
                 }
             }
         }

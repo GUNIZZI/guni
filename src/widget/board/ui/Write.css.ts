@@ -5,6 +5,7 @@ const style = (theme: Theme) => css`
         position: fixed;
         bottom: 2rem;
         right: 2rem;
+        z-index: 1;
 
         > * {
             margin: 0 0.3rem;

@@ -103,6 +103,11 @@ const boardStyle = (theme: Theme) => css`
                     > .DraftEditor-root {
                         padding: 0;
                     }
+
+                    ${theme.breakpoints.down('sm')} {
+                        padding: 0.5em 0;
+                        margin: 0 0 1em 0;
+                    }
                 }
                 > .infos {
                     display: flex;
@@ -245,11 +250,26 @@ const boardStyle = (theme: Theme) => css`
         // }
     }
 
+    .btnConfirm {
+        ${theme.breakpoints.down('sm')} {
+            right: 1rem !important;
+            bottom: 1rem !important;
+            width: 3rem !important;
+            height: 3rem !important;
+            min-width: 0;
+        }
+    }
+
     .viewWrap {
         > h2 {
             padding: 0.5rem 1.5rem;
             font-size: 3.5rem;
             font-weight: 500;
+
+            ${theme.breakpoints.down('sm')} {
+                padding: 0.5rem 0.5rem;
+                font-size: 2em;
+            }
         }
 
         > .infos {
@@ -265,11 +285,25 @@ const boardStyle = (theme: Theme) => css`
             > *:first-of-type {
                 margin-right: auto;
             }
+
+            ${theme.breakpoints.down('sm')} {
+                padding: 0.5em 1em;
+            }
         }
 
         > .content {
             padding: 3rem 0 0;
             margin-bottom: 4rem;
+        }
+
+        .btnDelete {
+            ${theme.breakpoints.down('sm')} {
+                right: 1rem !important;
+                bottom: 1rem !important;
+                width: 3rem !important;
+                height: 3rem !important;
+                min-width: 0;
+            }
         }
     }
 

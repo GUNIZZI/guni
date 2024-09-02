@@ -12,6 +12,12 @@ const style = (theme: Theme) => css`
     ${theme.breakpoints.down('lg')} {
         left: 0;
     }
+
+    ${theme.breakpoints.down('sm')} {
+        top: 0em;
+        left: 0em;
+        background: rgba(255, 255, 255, 0.3) !important;
+    }
 `;
 
 export { style };

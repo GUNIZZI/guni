@@ -17,6 +17,14 @@ const style = (theme: Theme) => css`
                     display: none;
                 }
             }
+
+            ${theme.breakpoints.down('md')} {
+                padding: 0;
+            }
+        }
+
+        ${theme.breakpoints.down('sm')} {
+            padding: 1.2em 0.5em;
         }
     }
 
@@ -146,6 +154,10 @@ const style = (theme: Theme) => css`
 
         .ql-code-block {
             background: none;
+        }
+
+        ${theme.breakpoints.down('sm')} {
+            padding: 1.5em !important;
         }
     }
 `;

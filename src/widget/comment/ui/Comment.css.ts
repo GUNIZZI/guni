@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 
-const style = () => css`
+import { Theme } from '@mui/material';
+
+const style = (theme: Theme) => css`
     position: relative;
     padding: 3rem 2rem;
 
@@ -13,6 +15,10 @@ const style = () => css`
         height: 100%;
         transform: translateX(-50%);
         background: rgba(0, 0, 0, 0.3);
+    }
+
+    ${theme.breakpoints.down('sm')} {
+        padding: 1em 0;
     }
 `;
 

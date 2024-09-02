@@ -21,7 +21,10 @@ const style = (theme: Theme) => css`
     }
 
     ${theme.breakpoints.down('sm')} {
-        top: 2rem;
+        position: relative;
+        top: 0;
+        right: auto;
+        margin: 0.5em 0.5em 0 auto;
     }
 `;
 
