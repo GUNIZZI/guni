@@ -1,8 +1,11 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 
+import { AnimatePresence } from 'framer-motion';
+
 import { MainLoaderContext } from './Main.context';
 
 import { LoaderCircle } from '..';
+import { TransitionFade } from '../../transition';
 
 import { Backdrop } from '@mui/material';
 
@@ -21,7 +24,7 @@ const MainLoaderProvider = ({ children }: OwnProps) => {
 
     // 로딩 제거 요청
     const loaderOff = useCallback(() => {
-        setLoaderCnt(prevCount => Math.max(0, prevCount - 1));
+        setLoaderCnt(prevCount => (prevCount > 0 ? prevCount - 1 : 0));
     }, []);
 
     const contextValue = useMemo(() => ({ loaderOn, loaderOff }), [loaderCnt]);
@@ -29,14 +32,19 @@ const MainLoaderProvider = ({ children }: OwnProps) => {
     return (
         <MainLoaderContext.Provider value={contextValue}>
             {children}
-            {loaderCnt > 0 && (
-                <Backdrop
-                    sx={{ position: 'absolute', color: '#ff0000', zIndex: 1 }}
-                    open={loaderCnt > 0}
-                >
-                    <LoaderCircle color="#000" />
-                </Backdrop>
-            )}
+
+            <AnimatePresence>
+                {loaderCnt !== 0 && (
+                    <TransitionFade className="transitionWrap">
+                        <Backdrop
+                            sx={{ position: 'absolute', color: '#ff0000', zIndex: 1 }}
+                            open={loaderCnt > 0}
+                        >
+                            <LoaderCircle color="#000" />
+                        </Backdrop>
+                    </TransitionFade>
+                )}
+            </AnimatePresence>
         </MainLoaderContext.Provider>
     );
 };

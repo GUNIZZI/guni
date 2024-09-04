@@ -65,6 +65,7 @@ export const theme = createTheme({
                     minHeight: '100%',
                     padding: `${theme.spacing(0)} ${theme.spacing(16)}`,
                     boxSizing: 'border-box',
+                    zIndex: 1,
 
                     '.wrap': {
                         position: 'relative',

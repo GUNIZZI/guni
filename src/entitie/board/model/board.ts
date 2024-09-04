@@ -118,4 +118,4 @@ const uploadFile = async (file: File): Promise<UploadResult | null> => {
     }
 };
 
-export { fetchDatas, fetchDoc, addPost, deletePost, uploadFile };
+export { getImage, fetchDatas, fetchDoc, addPost, deletePost, uploadFile };

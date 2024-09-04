@@ -1,74 +1,163 @@
+import { css, Interpolation, Theme as RenderTheme } from '@emotion/react';
+import DOMPurify from 'dompurify';
 import { find } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
-import { BoardContentProps } from '@/entitie/board';
+import { BoardContentProps, getImage } from '@/entitie/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
-// import { MdViewer } from '@/shared/ui/mdViewer/MdViewer';
+import { stripHtml } from '@/shared/util';
 
-import { Grid, Box, Card, CardActionArea, CardContent, Typography } from '@mui/material';
+import NoneData from './NoneData';
+
+import { ImageNotSupportedOutlined } from '@mui/icons-material';
+import { Grid, Theme } from '@mui/material';
 
 interface OwnProps {
     datas: BoardContentProps[] | undefined;
 }
 
+const style = (theme: Theme) => css`
+    .item {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: relative;
+        height: 28rem;
+        padding: ${theme.spacing(0)};
+        border: none;
+        border-radius: 1.5rem;
+        background: #000;
+        overflow: hidden;
+        text-align: left;
+        cursor: pointer;
+
+        > * {
+            position: relative;
+        }
+
+        .imgWrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: top center;
+
+            .isNoneImage {
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                color: #fff;
+                transform: translateX(-50%) translateY(-20%);
+                opacity: 0.1;
+            }
+        }
+
+        .infos {
+            padding: 1em;
+            border-radius: 2rem 0 0 0;
+            background: rgba(255, 255, 255, 0.7);
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: -2rem;
+                right: -2rem;
+                width: 4rem;
+                height: 4rem;
+                border-radius: 50%;
+                box-shadow: inset -2rem -2rem rgba(0, 0, 0, 0.9);
+            }
+
+            .title {
+                font-size: 1.8em;
+                line-height: 1.2em;
+
+                > .type {
+                    display: block;
+                    font-size: 13px;
+                    font-weight: 200;
+                    opacity: 0.6;
+                }
+                > .date {
+                    display: block;
+                    font-size: 12px;
+                    font-weight: 200;
+                    opacity: 0.4;
+                }
+            }
+
+            .content {
+                max-height: 0;
+                margin: 0;
+                overflow: hidden;
+                font-size: 1rem;
+                font-weight: 100;
+                opacity: 0.8;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+
+        &:hover {
+            .infos {
+                .content {
+                    max-height: 4.8rem;
+                    margin: 1em 0;
+                }
+            }
+        }
+    }
+`;
+
 const CardType = ({ datas }: OwnProps) => {
     const navigate = useNavigate();
 
-    if (!datas?.length) return <div>데이터 없음</div>;
+    if (!datas?.length) return <NoneData />;
 
     return (
-        // <List className="itemWrap">
-        //     {datas.map(item => (
-        //         <React.Fragment key={item.id}>
-        //             <ListItem className="item" onClick={() => navigate(`seq=${item.id}`)}>
-        //                 <div className="title">
-        //                     <div className="type">
-        //                         [{find(BOARD_CONTENT_TYPES.LIFE, { code: item.docType })?.name}]{' '}
-        //                     </div>
-        //                     {item.title}
-        //                 </div>
-        //                 <MdViewer
-        //                     content={DOMPurify.sanitize(item.content || '')}
-        //                     className="content"
-        //                 />
-        //                 <div className="infos">
-        //                     <span>{item.date}</span>
-        //                     <span>2개의 댓글</span>
-        //                     <span>찜: 26</span>
-        //                 </div>
-        //             </ListItem>
-        //             <Divider variant="inset" component="li" />
-        //         </React.Fragment>
-        //     ))}
-        // </List>
-        <Grid container spacing={2}>
+        <Grid container spacing={8} css={style as Interpolation<RenderTheme>}>
             {datas.map(item => (
-                <Grid item md={3} key={item.id}>
-                    <Card>
-                        <CardActionArea onClick={() => navigate(`seq=${item.id}`)}>
-                            <CardContent>
-                                <Typography variant="overline" color="textSecondary">
-                                    {find(BOARD_CONTENT_TYPES.LIFE, { code: item.docType })?.name}
-                                </Typography>
-                                <Typography variant="h6" component="div" gutterBottom>
-                                    {item.title}
-                                </Typography>
-                                <Box sx={{ maxHeight: 100, overflow: 'hidden' }}>
-                                    {/* <MdViewer content={DOMPurify.sanitize(item.content || '')} /> */}
-                                </Box>
-                                <Box
-                                    sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}
-                                >
-                                    <Typography variant="body2" color="textSecondary">
-                                        {item.date}
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary">
-                                        2개의 댓글 • 찜: 26
-                                    </Typography>
-                                </Box>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
+                <Grid item xs={24} sm={6} md={6} lg={4} xl={3} key={item.id}>
+                    <button
+                        type="button"
+                        className="item"
+                        onClick={() => navigate(`seq=${item.id}`)}
+                    >
+                        <div
+                            className="imgWrap"
+                            style={{
+                                backgroundImage: `url(${getImage(item.content || '')})`,
+                            }}
+                        >
+                            {item.content && !getImage(item.content) && (
+                                <ImageNotSupportedOutlined
+                                    className="isNoneImage"
+                                    sx={{ fontSize: '6rem' }}
+                                />
+                            )}
+                        </div>
+                        <div className="infos">
+                            <div className="title">
+                                <span className="type">
+                                    [{find(BOARD_CONTENT_TYPES.LIFE, { code: item.docType })?.name}]
+                                </span>
+                                {item.title}
+                                <span className="date">{item.date}</span>
+                            </div>
+                            <div
+                                className="content"
+                                dangerouslySetInnerHTML={{
+                                    __html: DOMPurify.sanitize(
+                                        stripHtml(item.content || '').substring(0, 50),
+                                    ),
+                                }}
+                            />
+                        </div>
+                    </button>
                 </Grid>
             ))}
         </Grid>

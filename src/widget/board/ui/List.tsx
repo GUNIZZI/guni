@@ -5,10 +5,10 @@ import { BoardContentProps, BoardQueryKey } from '@/entitie/board/model/type';
 import {
     FeatureBoardListType,
     FeatureBoardCardType,
+    FeatureBoardPfType,
     FeatureBoardAddButton,
     FeatureBoardFilterTab,
 } from '@/feature/board';
-import { useScrollRestorationBoardList } from '@/feature/scrollRestoration/hook/useScrollRestorationBoardList';
 import { BOARD_CONTENT_TYPES, BOARD_QUERY_KEY } from '@/shared/config/constants';
 import { NAV_PATH } from '@/shared/config/navPath';
 import { MainLoaderContext } from '@/shared/ui/loader';
@@ -77,7 +77,7 @@ const CurrentBoard = ({ boardType, posts }: BoardListType) => {
         case BOARD_QUERY_KEY.LIFE:
             return <FeatureBoardCardType datas={posts} />;
         case BOARD_QUERY_KEY.PF:
-            return <FeatureBoardListType datas={posts} />;
+            return <FeatureBoardPfType datas={posts} />;
         default:
             return null;
     }
@@ -88,7 +88,6 @@ const List = ({ boardType }: OwnProps) => {
     const { data: posts, isLoading } = useBoardFetchQuery(boardType);
     const [tab, setTab] = useState(BOARD_CONTENT_TYPES[boardType][0].code);
     const filterData = useMemo(() => getFilterData({ posts, tab }), [posts, tab]);
-    useScrollRestorationBoardList();
 
     useEffect(() => {
         if (isLoading) {

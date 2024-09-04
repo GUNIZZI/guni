@@ -13,7 +13,7 @@ interface OwnProps {
 const Comment = ({ boardType }: OwnProps) => {
     return (
         <CommentProvider boardType={boardType}>
-            <div css={style as Interpolation<Theme>}>
+            <div className="comment" css={style as Interpolation<Theme>}>
                 <FeatureCommentAdd />
                 <FeatureCommentList />
             </div>

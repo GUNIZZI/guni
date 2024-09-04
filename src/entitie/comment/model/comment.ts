@@ -6,6 +6,8 @@ import {
     increment,
     runTransaction,
     getDocs,
+    orderBy,
+    query,
 } from 'firebase/firestore';
 
 import { BoardCommentProps } from '@/entitie/comment';
@@ -40,7 +42,8 @@ export const addComment = async (
 
 export const fetchComments = async (collectionName: string, postId: string) => {
     const commentsRef = collection(fbDb, collectionName, postId, 'comments');
-    const snapshot = await getDocs(commentsRef);
+    const postsQuery = query(commentsRef, orderBy('date', 'desc'));
+    const snapshot = await getDocs(postsQuery);
     return snapshot.docs.map(
         docItem => ({ id: docItem.id, ...docItem.data() }) as BoardCommentProps,
     );

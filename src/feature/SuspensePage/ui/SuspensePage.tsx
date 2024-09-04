@@ -1,4 +1,4 @@
-import { ReactNode, Suspense, useContext, useEffect, useTransition } from 'react';
+import { ReactNode, Suspense, useContext, useEffect, useState, useTransition } from 'react';
 
 import { MainLoaderContext } from '@/shared/ui/loader';
 import { TransitionFade } from '@/shared/ui/transition';
@@ -9,15 +9,21 @@ interface OwnProps {
 
 const SuspensePage = ({ children }: OwnProps) => {
     const [isPending, startTransition] = useTransition();
+    const [isAniStart, setIsAniStart] = useState(false);
     const { loaderOn, loaderOff } = useContext(MainLoaderContext);
 
     useEffect(() => {
-        startTransition(() => loaderOn());
+        startTransition(() => {
+            setIsAniStart(true);
+            loaderOn();
+        });
     }, []);
 
     useEffect(() => {
-        if (!isPending) loaderOff();
-    }, [isPending]);
+        if (isAniStart && !isPending) {
+            loaderOff();
+        }
+    }, [isPending, isAniStart]);
 
     return (
         <Suspense>

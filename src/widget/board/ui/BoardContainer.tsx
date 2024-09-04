@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useLocation, useOutlet } from 'react-router-dom';
 
-import { SuspensePage } from '@/app/layout/default/ui/PageSuspense';
+import { SuspensePage } from '@/feature/SuspensePage';
 import { TransitionSlide } from '@/shared/ui/transition';
 
 const BoardContainer = () => {

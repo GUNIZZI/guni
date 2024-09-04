@@ -1,13 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { Interpolation, Theme } from '@emotion/react';
-import { AnimatePresence } from 'framer-motion';
 import { useLocation, useOutlet } from 'react-router-dom';
 
-import { TransitionSlide } from '@/shared/ui/transition';
-// import { WidgetBoardContainer } from '@/widget/board';
-
-import { SuspensePage } from '../../default/ui/PageSuspense';
+import { SuspensePage } from '../../../../feature/SuspensePage/ui/SuspensePage';
 
 import { Paper } from '@mui/material';
 
@@ -36,13 +32,12 @@ const Board = () => {
     }, []);
 
     return (
-        <Paper className={`page ${typeClassName}`} css={[boardStyle as Interpolation<Theme>]}>
+        <Paper
+            className={`page ${typeClassName} ${loc !== 'list' && loc !== 'write' ? 'isView' : ''}`}
+            css={[boardStyle as Interpolation<Theme>]}
+        >
             <div className="wrap">
-                <AnimatePresence mode="wait">
-                    <TransitionSlide key={loc} className="transitionWrap">
-                        <SuspensePage>{currentOutlet}</SuspensePage>
-                    </TransitionSlide>
-                </AnimatePresence>
+                <SuspensePage>{currentOutlet}</SuspensePage>
             </div>
         </Paper>
     );
