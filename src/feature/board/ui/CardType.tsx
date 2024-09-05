@@ -17,6 +17,8 @@ interface OwnProps {
 }
 
 const style = (theme: Theme) => css`
+    padding-top: 2em;
+
     .item {
         display: flex;
         width: 100%;
@@ -44,6 +46,7 @@ const style = (theme: Theme) => css`
             height: 100%;
             background-size: cover;
             background-position: top center;
+            transition: all 0.6s ease-in-out;
 
             .isNoneImage {
                 position: absolute;
@@ -103,6 +106,9 @@ const style = (theme: Theme) => css`
         }
 
         &:hover {
+            .imgWrap {
+                opacity: 0.3;
+            }
             .infos {
                 .content {
                     max-height: 4.8rem;
