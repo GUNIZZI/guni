@@ -37,7 +37,7 @@ const MainLoaderProvider = ({ children }: OwnProps) => {
                 {loaderCnt !== 0 && (
                     <TransitionFade className="transitionWrap">
                         <Backdrop
-                            sx={{ position: 'absolute', color: '#ff0000', zIndex: 1 }}
+                            sx={{ position: 'fixed', color: '#ff0000', zIndex: 1 }}
                             open={loaderCnt > 0}
                         >
                             <LoaderCircle color="#000" />
