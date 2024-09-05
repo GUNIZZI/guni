@@ -34,6 +34,40 @@ interface PortfolioItemProps {
 }
 
 const style = (theme: Theme) => css`
+    padding-top: 2em;
+
+    .col {
+        &:nth-of-type(even) {
+            .item {
+                .imgWrap {
+                    border-radius: 0 4em 0 1.5rem;
+                }
+
+                .infos {
+                    flex-direction: column-reverse;
+                    padding: 2em 1em 1em 2em;
+
+                    > .title {
+                        border-radius: 0 2rem 0 0;
+                    }
+
+                    .content {
+                        margin-top: 0;
+                        margin-bottom: auto;
+                    }
+                }
+
+                &:hover {
+                    .infos {
+                        > .title {
+                            border-bottom-left-radius: 0.8em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     .item {
         display: flex;
         align-items: stretch;
@@ -48,21 +82,11 @@ const style = (theme: Theme) => css`
         cursor: pointer;
 
         .imgWrap {
-            flex: 1;
+            flex: 0 0 200px;
             position: relative;
-            // border-right: 1px solid rgb(0, 217, 255);
-            // border-radius: 1.5rem 0 0 1.5rem;
+            border-radius: 1.5rem 0 4em 0;
             background: #000;
-
-            &:before {
-                content: '';
-                position: absolute;
-                top: -1em;
-                left: -1em;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.3);
-            }
+            overflow: hidden;
 
             &:after {
                 content: '';
@@ -80,6 +104,7 @@ const style = (theme: Theme) => css`
                 height: 100%;
                 background-size: cover;
                 background-position: center;
+                transition: all 0.6s ease-in-out;
             }
 
             .isNoneImage {
@@ -89,33 +114,44 @@ const style = (theme: Theme) => css`
                 color: #fff;
                 transform: translateX(-50%) translateY(-20%);
                 opacity: 0.1;
+                transition: all 0.6s ease-in-out;
             }
         }
 
         .infos {
-            flex: 0 0 40%;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 2em 1em;
-            border-radius: 2rem 0 0 0;
+            padding: 1em 1em 2em 2em;
             color: #fff;
 
             > .title {
-                font-size: 1.8em;
+                position: relative;
+                padding: 0.7em 1em;
+                margin-left: -5em;
+                border-radius: 0 0 2rem 0;
+                background: rgba(0, 0, 0, 0.7);
+                overflow: hidden;
+                font-family: 'Noto Sans KR';
+                font-size: 2em;
+                font-weight: 600;
                 line-height: 1.2em;
                 word-break: keep-all;
+                transition: all 0.18s ease-in-out;
+
+                > * {
+                    position: relative;
+                }
 
                 > .type {
                     display: block;
+                    top: 0.5em;
+                    left: 0.5em;
+                    padding-bottom: 8px;
                     font-size: 13px;
                     font-weight: 200;
+                    line-height: 1em;
                     opacity: 0.6;
-                }
-                > .date {
-                    display: block;
-                    font-size: 12px;
-                    font-weight: 200;
-                    opacity: 0.4;
                 }
             }
 
@@ -130,13 +166,17 @@ const style = (theme: Theme) => css`
 
                 > ul {
                     display: flex;
+                    width: 100%;
                     flex-direction: column;
-                    gap: 1em;
+                    flex-wrap: nowrap;
+                    gap: 1.6em;
 
                     li {
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 0.4em 0.8em;
+                        display: grid;
+                        grid-template-columns: auto 1fr;
+                        flex-wrap: nowrap;
+                        position: relative;
+                        gap: 0 1em;
 
                         .title {
                             font-size: 11px;
@@ -149,25 +189,40 @@ const style = (theme: Theme) => css`
                         }
 
                         .text {
-                            margin-left: auto;
+                            text-align: right;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
                         }
 
                         .percentage {
                             flex: none;
                             display: block;
+                            position: absolute;
+                            bottom: -8px;
                             width: 100%;
                             height: 1px;
                             margin-top: 0.3em;
                             background: rgba(255, 255, 255, 0.1);
-                            overflow: hidden;
+                            // overflow: hidden;
 
                             .gage {
                                 display: block;
+                                position: relative;
                                 height: 100%;
                                 text-align: left;
                                 text-indent: -9999px;
-                                background: rgb(0, 217, 255);
-                                background: #fff;
+                                background: rgba(255, 255, 255, 0.4);
+
+                                &:after {
+                                    content: '';
+                                    position: absolute;
+                                    top: 50%;
+                                    right: 0;
+                                    transform: translateY(-50%);
+                                    width: 1px;
+                                    height: 0.5em;
+                                    background: rgba(255, 255, 255, 0.7);
+                                }
                             }
                         }
                     }
@@ -176,6 +231,18 @@ const style = (theme: Theme) => css`
         }
 
         &:hover {
+            .imgWrap {
+                > * {
+                    opacity: 0.3;
+                }
+            }
+            .infos {
+                > .title {
+                    padding: 0.7em 1em;
+                    margin-left: -8em;
+                    border-top-left-radius: 0.8em;
+                }
+            }
         }
 
         ${theme.breakpoints.down('sm')} {
@@ -262,9 +329,9 @@ const PfType = ({ datas }: OwnProps) => {
     if (!parseDatas?.length) return <NoneData />;
 
     return (
-        <Grid container spacing={8} css={style as Interpolation<RenderTheme>}>
+        <Grid container spacing={20} css={style as Interpolation<RenderTheme>}>
             {parseDatas.map(item => (
-                <Grid item xs={24} sm={6} md={6} lg={4} xl={4} key={item.id}>
+                <Grid item className="col" xs={24} sm={6} md={6} lg={4} xl={3} key={item.id}>
                     <button
                         type="button"
                         className="item"
@@ -289,14 +356,16 @@ const PfType = ({ datas }: OwnProps) => {
                                 <span className="type">
                                     [{find(BOARD_CONTENT_TYPES.PF, { code: item.docType })?.name}]
                                 </span>
-                                {item.title}
+                                <span>{item.title}</span>
                             </div>
                             <div className="content">
                                 <ul>
                                     {Object.values(item.info).map(({ title, text, percentage }) => (
                                         <li key={text}>
                                             <span className="title">{title}</span>
-                                            <span className="text">{text}</span>
+                                            <span className="text">
+                                                <span>{text}</span>
+                                            </span>
                                             {percentage && (
                                                 <span className="percentage">
                                                     <span
