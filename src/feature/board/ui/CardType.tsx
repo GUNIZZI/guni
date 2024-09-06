@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { BoardContentProps, getImage } from '@/entitie/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
+import { LazyImage } from '@/shared/ui/image';
 import { stripHtml } from '@/shared/util';
 
 import NoneData from './NoneData';
 
-import { ImageNotSupportedOutlined } from '@mui/icons-material';
 import { Grid, Theme } from '@mui/material';
 
 interface OwnProps {
@@ -47,6 +47,14 @@ const style = (theme: Theme) => css`
             background-size: cover;
             background-position: top center;
             transition: all 0.6s ease-in-out;
+
+            > .wrap {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+                background-position: center;
+            }
 
             .isNoneImage {
                 position: absolute;
@@ -133,18 +141,13 @@ const CardType = ({ datas }: OwnProps) => {
                         className="item"
                         onClick={() => navigate(`seq=${item.id}`)}
                     >
-                        <div
-                            className="imgWrap"
-                            style={{
-                                backgroundImage: `url(${getImage(item.content || '')})`,
-                            }}
-                        >
-                            {item.content && !getImage(item.content) && (
-                                <ImageNotSupportedOutlined
-                                    className="isNoneImage"
-                                    sx={{ fontSize: '6rem' }}
-                                />
-                            )}
+                        <div className="imgWrap">
+                            <LazyImage
+                                className="wrap"
+                                style={{
+                                    backgroundImage: `url(${getImage(item.content || '')})`,
+                                }}
+                            />
                         </div>
                         <div className="infos">
                             <div className="title">
@@ -156,6 +159,7 @@ const CardType = ({ datas }: OwnProps) => {
                             </div>
                             <div
                                 className="content"
+                                // eslint-disable-next-line react/no-danger
                                 dangerouslySetInnerHTML={{
                                     __html: DOMPurify.sanitize(
                                         stripHtml(item.content || '').substring(0, 50),

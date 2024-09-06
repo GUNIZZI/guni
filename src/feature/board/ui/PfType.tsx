@@ -6,11 +6,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { BoardContentProps, getImage } from '@/entitie/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
+import { LazyImage } from '@/shared/ui/image';
 import { stripHtml } from '@/shared/util';
 
 import NoneData from './NoneData';
 
-import { ImageNotSupportedOutlined } from '@mui/icons-material';
 import { Grid, Theme } from '@mui/material';
 
 interface OwnProps {
@@ -127,7 +127,7 @@ const style = (theme: Theme) => css`
 
             > .title {
                 position: relative;
-                padding: 0.7em 1em;
+                padding: 1em 1em 1em 0;
                 margin-left: -5em;
                 border-radius: 0 0 2rem 0;
                 background: rgba(0, 0, 0, 0.7);
@@ -137,10 +137,12 @@ const style = (theme: Theme) => css`
                 font-weight: 600;
                 line-height: 1.2em;
                 word-break: keep-all;
-                transition: all 0.18s ease-in-out;
+                transition: all 0.3s ease-in-out;
 
                 > * {
                     position: relative;
+                    margin-left: 2rem;
+                    transition: all 0.4s ease-in-out;
                 }
 
                 > .type {
@@ -152,6 +154,7 @@ const style = (theme: Theme) => css`
                     font-weight: 200;
                     line-height: 1em;
                     opacity: 0.6;
+                    transition: all 0.5s ease-in-out;
                 }
             }
 
@@ -238,9 +241,12 @@ const style = (theme: Theme) => css`
             }
             .infos {
                 > .title {
-                    padding: 0.7em 1em;
                     margin-left: -8em;
                     border-top-left-radius: 0.8em;
+
+                    > * {
+                        margin-left: 1rem;
+                    }
                 }
             }
         }
@@ -318,7 +324,6 @@ const PfType = ({ datas }: OwnProps) => {
     const navigate = useNavigate();
     const parseDatas = useMemo(() => {
         return datas?.map(item => {
-            console.log(stripHtml(item.content || ''));
             return {
                 ...item,
                 info: extractInfo(stripHtml(item.content || '')),
@@ -338,18 +343,12 @@ const PfType = ({ datas }: OwnProps) => {
                         onClick={() => navigate(`seq=${item.id}`)}
                     >
                         <div className="imgWrap">
-                            <div
+                            <LazyImage
                                 className="wrap"
                                 style={{
                                     backgroundImage: `url(${getImage(item.content || '')})`,
                                 }}
                             />
-                            {item.content && !getImage(item.content) && (
-                                <ImageNotSupportedOutlined
-                                    className="isNoneImage"
-                                    sx={{ fontSize: '6rem' }}
-                                />
-                            )}
                         </div>
                         <div className="infos">
                             <div className="title">
@@ -360,24 +359,27 @@ const PfType = ({ datas }: OwnProps) => {
                             </div>
                             <div className="content">
                                 <ul>
-                                    {Object.values(item.info).map(({ title, text, percentage }) => (
-                                        <li key={text}>
-                                            <span className="title">{title}</span>
-                                            <span className="text">
-                                                <span>{text}</span>
-                                            </span>
-                                            {percentage && (
-                                                <span className="percentage">
-                                                    <span
-                                                        className="gage"
-                                                        style={{ width: percentage }}
-                                                    >
-                                                        {percentage}
+                                    {item.info &&
+                                        Object.values(item.info).map(
+                                            ({ title, text, percentage }) => (
+                                                <li key={text}>
+                                                    <span className="title">{title}</span>
+                                                    <span className="text">
+                                                        <span>{text}</span>
                                                     </span>
-                                                </span>
-                                            )}
-                                        </li>
-                                    ))}
+                                                    {percentage && (
+                                                        <span className="percentage">
+                                                            <span
+                                                                className="gage"
+                                                                style={{ width: percentage }}
+                                                            >
+                                                                {percentage}
+                                                            </span>
+                                                        </span>
+                                                    )}
+                                                </li>
+                                            ),
+                                        )}
                                 </ul>
                             </div>
                         </div>
