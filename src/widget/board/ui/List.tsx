@@ -47,7 +47,7 @@ const CurrentHeader = ({ boardType }: Omit<BoardListType, 'posts'>) => {
                     <h2>
                         <strong style={{ color: NAV_PATH[3].color }}>L</strong>ife.
                     </h2>
-                    <p>일상...</p>
+                    <p>내꺼 하나하나 남기다 보면, 볼때마다 웃음 지을수 있을거야!</p>
                 </>
             );
         case BOARD_QUERY_KEY.PF:
@@ -56,7 +56,7 @@ const CurrentHeader = ({ boardType }: Omit<BoardListType, 'posts'>) => {
                     <h2>
                         <strong style={{ color: NAV_PATH[4].color }}>P</strong>ortfolio.
                     </h2>
-                    <p>만든거 이것 저것</p>
+                    <p>지금까지 만든 것들 하나씩 정리해</p>
                 </>
             );
         default:

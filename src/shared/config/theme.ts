@@ -255,5 +255,22 @@ export const theme = createTheme({
                 },
             },
         },
+        // MuiTabs: {
+        //     styleOverrides: {
+        //         indicator: {
+        //             backgroundColor: '#ff0000', // 선택된 탭 아래의 indicator 색상
+        //         },
+        //     },
+        // },
+        // MuiTab: {
+        //     styleOverrides: {
+        //         root: {
+        //             color: '#000', // 기본 탭 텍스트 색상
+        //             '&.Mui-selected': {
+        //                 color: '#ff0000', // 선택된 탭 텍스트 색상
+        //             },
+        //         },
+        //     },
+        // },
     },
 });

@@ -11,7 +11,7 @@ import { stripHtml } from '@/shared/util';
 
 import NoneData from './NoneData';
 
-import { Grid, Theme } from '@mui/material';
+import { Grid, Theme, useMediaQuery, useTheme } from '@mui/material';
 
 interface OwnProps {
     datas: BoardContentProps[] | undefined;
@@ -141,8 +141,8 @@ const style = (theme: Theme) => css`
 
                 > * {
                     position: relative;
-                    margin-left: 2rem;
-                    transition: all 0.4s ease-in-out;
+                    margin-left: 2.4rem;
+                    transition: all 0.6s ease-in-out;
                 }
 
                 > .type {
@@ -234,18 +234,20 @@ const style = (theme: Theme) => css`
         }
 
         &:hover {
-            .imgWrap {
-                > * {
-                    opacity: 0.3;
-                }
-            }
-            .infos {
-                > .title {
-                    margin-left: -8em;
-                    border-top-left-radius: 0.8em;
-
+            ${theme.breakpoints.up('sm')} {
+                .imgWrap {
                     > * {
-                        margin-left: 1rem;
+                        opacity: 0.3;
+                    }
+                }
+                .infos {
+                    > .title {
+                        margin-left: -8em;
+                        border-top-left-radius: 0.8em;
+
+                        > * {
+                            margin-left: 1rem;
+                        }
                     }
                 }
             }
@@ -254,26 +256,52 @@ const style = (theme: Theme) => css`
         ${theme.breakpoints.down('sm')} {
             flex-wrap: wrap;
             gap: 1em;
-            height: auto;
+            height: 30vh;
 
             .imgWrap {
                 flex: none;
+                position: absolute;
+                top: 0;
+                left: 0;
                 width: 100%;
-                height: 20vh;
+                height: 100%;
+                border-radius: 0.5em !important;
                 min-height: 160px;
             }
 
             .infos {
-                flex: none;
-                width: 100%;
-                padding: 0 0.5em;
+                flex-direction: column !important;
+                justify-content: flex-end !important;
+                padding: 0.5em !important;
                 text-align: center;
 
+                > .title {
+                    padding: 0.5em;
+                    margin: 0 !important;
+                    border-radius: 0.5em !important;
+                    background: rgba(0, 0, 0, 0.7);
+                    overflow: hidden;
+                    font-family: 'Noto Sans KR';
+                    font-size: 2em;
+                    font-weight: 600;
+                    line-height: 1.2em;
+                    word-break: keep-all;
+                    transition: all 0.3s ease-in-out;
+
+                    > * {
+                        margin: 0 !important;
+                    }
+                }
+
                 .content {
-                    margin: 0 3em;
+                    display: none;
                 }
             }
         }
+    }
+
+    ${theme.breakpoints.down('sm')} {
+        padding-top: 1.5em;
     }
 `;
 
@@ -331,10 +359,17 @@ const PfType = ({ datas }: OwnProps) => {
         });
     }, [datas]);
 
+    const theme = useTheme();
+    const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    let spacing = 15;
+    if (isTablet) spacing = 11;
+    if (isMobile) spacing = 7;
+
     if (!parseDatas?.length) return <NoneData />;
 
     return (
-        <Grid container spacing={20} css={style as Interpolation<RenderTheme>}>
+        <Grid container spacing={spacing} css={style as Interpolation<RenderTheme>}>
             {parseDatas.map(item => (
                 <Grid item className="col" xs={24} sm={6} md={6} lg={4} xl={3} key={item.id}>
                     <button
