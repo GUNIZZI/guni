@@ -15,13 +15,13 @@ const SuspensePage = ({ children }: OwnProps) => {
     useEffect(() => {
         startTransition(() => {
             setIsAniStart(true);
-            loaderOn();
+            loaderOn('suspensePage');
         });
     }, []);
 
     useEffect(() => {
         if (isAniStart && !isPending) {
-            loaderOff();
+            loaderOff('suspensePage');
         }
     }, [isPending, isAniStart]);
 

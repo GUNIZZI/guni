@@ -15,9 +15,18 @@ const List = () => {
     const { loaderOn, loaderOff } = useContext(MainLoaderContext);
 
     useEffect(() => {
-        if (isLoading) loaderOn();
-        else loaderOff();
+        if (boardType && postId) {
+            if (isLoading) loaderOn(`${boardType}-Comment-${postId}`);
+            else loaderOff(`${boardType}-Comment-${postId}`);
+        }
     }, [isLoading]);
+
+    // 모듈 제거
+    useEffect(() => {
+        return () => {
+            loaderOff(`${boardType}-Comment-${postId}`);
+        };
+    }, []);
 
     if (!comments || !comments.length)
         return (

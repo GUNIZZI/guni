@@ -90,12 +90,18 @@ const List = ({ boardType }: OwnProps) => {
     const filterData = useMemo(() => getFilterData({ posts, tab }), [posts, tab]);
 
     useEffect(() => {
-        if (isLoading) {
-            loaderOn();
-        } else {
-            loaderOff();
+        if (boardType) {
+            if (isLoading) loaderOn(`${boardType}-List`);
+            else loaderOff(`${boardType}-List`);
         }
     }, [isLoading]);
+
+    // 모듈 제거
+    useEffect(() => {
+        return () => {
+            loaderOff(`${boardType}-List`);
+        };
+    }, []);
 
     return (
         <>

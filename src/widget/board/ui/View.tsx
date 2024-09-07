@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useRef } from 'react';
 
 import { Interpolation, Theme } from '@emotion/react';
 import DOMPurify from 'isomorphic-dompurify';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { useBoardFetchDocQuery } from '@/entitie/board';
 import { BoardQueryKey } from '@/entitie/board/model/type';
@@ -23,6 +23,8 @@ const NotContent = () => {
 const View = ({ boardType }: OwnProps) => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { seq } = useParams() as { seq: string };
+    const postId = seq.split('seq=')[1];
     const { data: posts, isLoading, error } = useBoardFetchDocQuery(boardType);
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -32,10 +34,9 @@ const View = ({ boardType }: OwnProps) => {
 
     const { loaderOn, loaderOff } = useContext(MainLoaderContext);
     useEffect(() => {
-        if (isLoading) {
-            loaderOn();
-        } else {
-            loaderOff();
+        if (boardType && postId) {
+            if (isLoading) loaderOn(`${boardType}-View-${postId}`);
+            else loaderOff(`${boardType}-View-${postId}`);
         }
     }, [isLoading]);
 
@@ -48,6 +49,13 @@ const View = ({ boardType }: OwnProps) => {
             });
         }
     }, [posts?.content]);
+
+    // 모듈 제거
+    useEffect(() => {
+        return () => {
+            loaderOff(`${boardType}-View-${postId}`);
+        };
+    }, []);
 
     if (error) return <div>없는 컨텐츠 입니다.</div>;
 

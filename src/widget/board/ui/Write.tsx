@@ -80,23 +80,38 @@ const Write = ({ boardType }: OwnProps) => {
     const { loaderOn, loaderOff } = useContext(MainLoaderContext);
     useEffect(() => {
         if (isLoading) {
-            loaderOn();
+            loaderOn(`${boardType}-Write`);
         } else {
-            loaderOff();
+            loaderOff(`${boardType}-Write`);
         }
     }, [isLoading]);
 
     const handleSave = async (data: BoardAddPostProps) => {
-        loaderOn();
+        loaderOn(`${boardType}-Save`);
         const newContent = await getImageSrcTransfer(data);
 
-        addDocQuery({
-            docData: {
-                ...data,
-                content: newContent,
+        addDocQuery(
+            {
+                docData: {
+                    ...data,
+                    content: newContent,
+                },
             },
-        });
+            {
+                onSuccess: () => {
+                    loaderOff(`${boardType}-Save`);
+                },
+            },
+        );
     };
+
+    // 모듈 제거
+    useEffect(() => {
+        return () => {
+            loaderOff(`${boardType}-Write`);
+            loaderOff(`${boardType}-Save`);
+        };
+    }, []);
 
     return (
         <>
