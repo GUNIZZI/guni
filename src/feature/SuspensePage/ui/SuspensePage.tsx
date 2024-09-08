@@ -27,7 +27,9 @@ const SuspensePage = ({ children }: OwnProps) => {
 
     return (
         <Suspense>
-            <TransitionFade className="transitionWrap">{children}</TransitionFade>
+            <TransitionFade className="transitionWrap boardTransitionWrap">
+                {children}
+            </TransitionFade>
         </Suspense>
     );
 };

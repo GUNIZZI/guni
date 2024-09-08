@@ -70,25 +70,26 @@ export const theme = createTheme({
                     '.wrap': {
                         position: 'relative',
                         maxWidth: '1890px',
+                        height: '100%',
                         margin: '0 auto',
                     },
 
                     [theme.breakpoints.up('xs')]: {
                         minHeight: `calc(100% - 8rem)`,
-                        padding: `0 ${theme.spacing(3)} 0`,
+                        padding: `0 ${theme.spacing(3)} 0 0`,
                     },
                     [theme.breakpoints.up('sm')]: {
                         minHeight: `calc(100% - 8rem)`,
-                        padding: `0 ${theme.spacing(5)} 0`,
+                        padding: `0 ${theme.spacing(5)} 0 0`,
                     },
                     [theme.breakpoints.up('md')]: {
-                        padding: `${theme.spacing(5)} ${theme.spacing(25)}`,
+                        padding: `${theme.spacing(5)} ${theme.spacing(25)} 0`,
                     },
                     [theme.breakpoints.up('lg')]: {
-                        padding: `${theme.spacing(5)} ${theme.spacing(35)}`,
+                        padding: `${theme.spacing(5)} ${theme.spacing(35)} 0`,
                     },
                     [theme.breakpoints.up('xl')]: {
-                        padding: `${theme.spacing(5)} ${theme.spacing(40)}`,
+                        padding: `${theme.spacing(5)} ${theme.spacing(40)} 0`,
                     },
                 },
             }),

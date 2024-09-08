@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { useAuth } from '@/entitie/auth';
 import { BoardCommentProps, useCommentAddDocMutation } from '@/entitie/comment';
+import { AuthUser } from '@/entitie/user/model/type';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
 import { CommentContext } from '@/widget/comment/provider/Comment';
 
@@ -16,6 +17,19 @@ import { Button } from '@mui/material';
 interface CommentInputType {
     comment: string;
 }
+
+const getAuthorName = (user: AuthUser) => {
+    switch (user.uid) {
+        case import.meta.env.VITE_FB_ADMIN_UID:
+            return 'ADMIN';
+        case import.meta.env.VITE_FB_EVE_UID:
+            return 'EVE';
+        case import.meta.env.VITE_FB_GUEST_UID:
+            return 'GUEST';
+        default:
+            return user.name || '-';
+    }
+};
 
 const Add = () => {
     const { boardType, postId } = useContext(CommentContext);
@@ -37,12 +51,7 @@ const Add = () => {
             addDocQuery({
                 content: comment,
                 authorId: user.email,
-                authorName:
-                    // user.uid === import.meta.env.VITE_FB_ADMIN_UID ? 'ADMIN' : user.name || '-',
-                    user.uid === import.meta.env.VITE_FB_ADMIN_UID
-                        ? 'ADMIN'
-                        : (user.uid === import.meta.env.VITE_FB_GUEST_UID ? 'GUEST' : user.name) ||
-                          '-',
+                authorName: getAuthorName(user),
             } as BoardCommentProps);
             reset();
         } catch (error) {

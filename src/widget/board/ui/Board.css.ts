@@ -79,6 +79,12 @@ const boardStyle = (theme: Theme) => css`
         }
     }
 
+    .boardTransitionWrap {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
     .btnConfirm {
         ${theme.breakpoints.down('sm')} {
             right: 1rem !important;
