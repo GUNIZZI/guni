@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 
 import { Interpolation, Theme } from '@emotion/react';
+import imageCompression from 'browser-image-compression';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -44,17 +45,25 @@ const getImageSrcTransfer = async (data: BoardAddPostProps) => {
     const imgBlocks = Array.from(tmpDiv.querySelectorAll('img'));
     const uploadPromises: Promise<UploadPromise>[] = imgBlocks.map(
         async (imgBlock): Promise<UploadPromise> => {
-            if (imgBlock.src.startsWith('data:image/png;base64')) {
+            if (imgBlock.src.startsWith('data:image/')) {
+                const options = {
+                    maxSizeMB: 1, // 최대 파일 크기를 1MB로 설정
+                    maxWidthOrHeight: 2048, // 최대 너비 또는 높이를 1024px로 설정
+                    useWebWorker: true, // 웹 워커 사용
+                };
+
                 try {
                     const imgFile = base64ToFile(
                         imgBlock.src,
                         `img_${new Date().getTime()}_${Math.round(Math.random() * 99999999999)}`,
                     );
-                    const result = await uploadFile(imgFile);
+                    const compressedFile = await imageCompression(imgFile, options);
+                    const result = await uploadFile(compressedFile);
                     if (result) imgBlock.setAttribute('src', result.downloadURL);
                     return { success: true, imgBlock, result };
                 } catch (e) {
                     // 에러
+                    console.log(e);
                     return { success: false, imgBlock, e };
                 }
             }
@@ -89,7 +98,6 @@ const Write = ({ boardType }: OwnProps) => {
     const handleSave = async (data: BoardAddPostProps) => {
         loaderOn(`${boardType}-Save`);
         const newContent = await getImageSrcTransfer(data);
-
         addDocQuery(
             {
                 docData: {

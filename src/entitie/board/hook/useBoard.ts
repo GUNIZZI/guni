@@ -49,6 +49,7 @@ const useBoardAddDocMutation = (boardType: string) => {
             return res;
         },
         onError: error => {
+            console.log(error);
             throw error;
         },
     });

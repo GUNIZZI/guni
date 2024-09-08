@@ -25,7 +25,7 @@ const style = (theme: Theme) => css`
         align-items: flex-end;
         position: relative;
         height: 28rem;
-        // padding: ${theme.spacing(0)};
+        padding: ${theme.spacing(0)};
         border: none;
         border-radius: 1.5rem;
         background: #000;
