@@ -1,4 +1,4 @@
-import{a as m,u as p,r as e,d,b as i,S as g,P as l}from"./index-DnqcilCe.js";const c=t=>m`
+import{a as m,u as p,r as e,d,b as i,S as l,P as g}from"./index-CekzV5ze.js";const c=t=>m`
     .header {
         display: flex;
         align-items: flex-end;
@@ -75,6 +75,12 @@ import{a as m,u as p,r as e,d,b as i,S as g,P as l}from"./index-DnqcilCe.js";con
         }
     }
 
+    .boardTransitionWrap {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
     .btnConfirm {
         ${t.breakpoints.down("sm")} {
             right: 1rem !important;
@@ -131,4 +137,4 @@ import{a as m,u as p,r as e,d,b as i,S as g,P as l}from"./index-DnqcilCe.js";con
             }
         }
     }
-`,h=t=>t==="tech"?"isList":t==="blog"?"isCard":t==="pf"?"isPf":"",u=()=>{const t=p(),n=e.useMemo(()=>t.pathname.split("/")[1]||"tech",[t.pathname]),r=e.useMemo(()=>t.pathname.split("/")[2]||"list",[t.pathname]),o=d(0),[a,s]=e.useState("");return e.useEffect(()=>{s(h(n))},[]),i(l,{className:`page ${a} ${r!=="list"&&r!=="write"?"isView":""}`,css:[c],children:i("div",{className:"wrap",children:i(g,{children:o})})})};export{u as LayoutBoard};
+`,h=t=>t==="tech"?"isList":t==="blog"?"isCard":t==="pf"?"isPf":"",u=()=>{const t=p(),n=e.useMemo(()=>t.pathname.split("/")[1]||"tech",[t.pathname]),r=e.useMemo(()=>t.pathname.split("/")[2]||"list",[t.pathname]),o=d(0),[a,s]=e.useState("");return e.useEffect(()=>{s(h(n))},[]),i(g,{className:`page ${a} ${r!=="list"&&r!=="write"?"isView":""}`,css:[c],children:i("div",{className:"wrap",children:i(l,{children:o})})})};export{u as LayoutBoard};
