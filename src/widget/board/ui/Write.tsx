@@ -48,7 +48,7 @@ const getImageSrcTransfer = async (data: BoardAddPostProps) => {
             if (imgBlock.src.startsWith('data:image/')) {
                 const options = {
                     maxSizeMB: 1, // 최대 파일 크기를 1MB로 설정
-                    maxWidthOrHeight: 2048, // 최대 너비 또는 높이를 1024px로 설정
+                    maxWidthOrHeight: 1440, // 최대 너비 또는 높이를 1024px로 설정
                     useWebWorker: true, // 웹 워커 사용
                 };
 
