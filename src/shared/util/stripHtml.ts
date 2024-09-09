@@ -4,9 +4,9 @@
  * @returns
  */
 const stripHtml = (html: string): string => {
-    const tmp = document.createElement('DIV');
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || '';
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    return doc.body.textContent || '';
 };
 
 export { stripHtml };
