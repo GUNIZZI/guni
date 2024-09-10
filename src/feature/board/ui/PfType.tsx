@@ -4,33 +4,17 @@ import { css, Interpolation, Theme as RenderTheme } from '@emotion/react';
 import { find } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
-import { BoardContentProps, getImage } from '@/entitie/board';
+import { getImage } from '@/entitie/board';
+import { BoardContentPfProps } from '@/entitie/board/model/type';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
 import { LazyImage } from '@/shared/ui/image';
-import { stripHtml } from '@/shared/util';
 
 import NoneData from './NoneData';
 
 import { Grid, Theme, useMediaQuery, useTheme } from '@mui/material';
 
 interface OwnProps {
-    datas: BoardContentProps[] | undefined;
-}
-
-interface PortfolioItemType {
-    title?: string;
-    text?: string;
-    percentage?: string; // value를 객체 형태로 구조화
-}
-
-interface PortfolioItemProps {
-    Pl?: PortfolioItemType;
-    Des?: PortfolioItemType;
-    Dev?: PortfolioItemType;
-    Pub?: PortfolioItemType;
-    Pd?: PortfolioItemType;
-    Range?: PortfolioItemType;
-    URL?: PortfolioItemType;
+    datas: BoardContentPfProps[] | undefined;
 }
 
 const style = (theme: Theme) => css`
@@ -305,56 +289,21 @@ const style = (theme: Theme) => css`
     }
 `;
 
-const getKeyTitle = (key: string) => {
-    const map: Record<string, string> = {
-        pl: 'PL',
-        des: 'Design',
-        dev: 'Dev',
-        pub: 'Publish',
-        pd: 'Date',
-        range: 'Range',
-        url: 'URL',
-    };
-    return map[key] || '';
-};
-
-const extractInfo = (text: string): PortfolioItemProps => {
-    const regex =
-        /(Pl\.|Des\.|Dev\.|Pub\.|Pd\.|Range\.|URL\.)\s*(.*?)(?=(Pl\.|Des\.|Dev\.|Pub\.|Pd\.|Range\.|URL\.)|$)/g;
-
-    const result: PortfolioItemProps = {};
-    let match: RegExpExecArray | null = regex.exec(text);
-
-    while (match !== null) {
-        const rawKey = match[1].replace('.', '').toLowerCase(); // 소문자로 변환
-        const key = (rawKey.charAt(0).toUpperCase() + rawKey.slice(1)) as keyof PortfolioItemProps; // 대문자로 시작하는 형식으로 변환
-        const value = match[2].trim();
-
-        // 퍼센트 값을 추출하는 정규식 (괄호 제외)
-        const percentageMatch = value.match(/(\d+)%/g) || []; // 퍼센트 값들만 추출
-        const cleanedPercentages = percentageMatch.map(p => p.replace(/[()]/g, '').trim())[0] || ''; // 괄호 제거 및 트림
-        const cleanedText = value.replace(/\(\d+%\)/g, '').trim(); // 텍스트에서 "(숫자%)" 형태 제거 후 추출
-
-        // 객체 형태로 저장
-        result[key] = {
-            title: getKeyTitle(rawKey),
-            text: cleanedText, // 퍼센트 값을 제거한 텍스트
-            percentage: cleanedPercentages, // 괄호가 제거된 퍼센트 값
-        };
-
-        match = regex.exec(text);
-    }
-
-    return result;
-};
-
 const PfType = ({ datas }: OwnProps) => {
     const navigate = useNavigate();
     const parseDatas = useMemo(() => {
         return datas?.map(item => {
             return {
                 ...item,
-                info: extractInfo(stripHtml(item.content || '')),
+                info: {
+                    pl: item.pl || null,
+                    design: item.design || null,
+                    dev: item.dev || null,
+                    publish: item.publish || null,
+                    prjDate: item.prjDate || null,
+                    prjRange: item.prjRange || null,
+                    url: item.url || null,
+                },
             };
         });
     }, [datas]);
@@ -394,27 +343,29 @@ const PfType = ({ datas }: OwnProps) => {
                             </div>
                             <div className="content">
                                 <ul>
-                                    {item.info &&
-                                        Object.values(item.info).map(
-                                            ({ title, text, percentage }) => (
-                                                <li key={text}>
-                                                    <span className="title">{title}</span>
-                                                    <span className="text">
-                                                        <span>{text}</span>
-                                                    </span>
-                                                    {percentage && (
+                                    {Object.entries(item.info).map(([title, text]) => {
+                                        if (text === null) return null;
+                                        return (
+                                            <li key={text}>
+                                                <span className="title">{title}</span>
+                                                <span className="text">
+                                                    <span>{text}</span>
+                                                </span>
+                                                {title !== 'prjDate' &&
+                                                    title !== 'prjRange' &&
+                                                    title !== 'url' && (
                                                         <span className="percentage">
                                                             <span
                                                                 className="gage"
-                                                                style={{ width: percentage }}
+                                                                style={{ width: `${text}%` }}
                                                             >
-                                                                {percentage}
+                                                                {`${text}%`}
                                                             </span>
                                                         </span>
                                                     )}
-                                                </li>
-                                            ),
-                                        )}
+                                            </li>
+                                        );
+                                    })}
                                 </ul>
                             </div>
                         </div>

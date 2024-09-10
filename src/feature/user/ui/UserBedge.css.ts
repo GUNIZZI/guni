@@ -20,7 +20,7 @@ const style = (theme: Theme) => css`
         font-size: 11px;
     }
 
-    ${theme.breakpoints.down('sm')} {
+    ${theme.breakpoints.down('md')} {
         position: relative;
         top: 0;
         right: auto;

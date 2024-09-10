@@ -1,3 +1,5 @@
+export { getImageSrcTransfer, extractInfo } from './util/util';
+
 export { ListType as FeatureBoardListType } from './ui/ListType';
 export { CardType as FeatureBoardCardType } from './ui/CardType';
 export { PfType as FeatureBoardPfType } from './ui/PfType';

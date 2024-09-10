@@ -18,6 +18,10 @@ const style = (theme: Theme) => css`
                 }
             }
 
+            a {
+                word-break: break-all;
+            }
+
             ${theme.breakpoints.down('md')} {
                 padding: 0;
             }

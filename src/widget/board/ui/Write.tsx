@@ -1,20 +1,18 @@
 import { useContext, useEffect } from 'react';
 
 import { Interpolation, Theme } from '@emotion/react';
-import imageCompression from 'browser-image-compression';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import { uploadFile, useBoardAddDocMutation } from '@/entitie/board';
+import { useBoardAddDocMutation } from '@/entitie/board';
 import { BoardQueryKey, BoardAddPostProps } from '@/entitie/board/model/type';
-import { FeatureBoardBackButton } from '@/feature/board';
+import { FeatureBoardBackButton, getImageSrcTransfer } from '@/feature/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
 import { MainLoaderContext } from '@/shared/ui/loader';
 import { QuillEditor } from '@/shared/ui/quillEditor';
 import { CustomSelect } from '@/shared/ui/select/CustomSelect';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
-import { base64ToFile } from '@/shared/util';
 
 import { writeStyle } from './Write.css';
 
@@ -24,55 +22,6 @@ import { Box, Button, useMediaQuery, useTheme } from '@mui/material';
 interface OwnProps {
     boardType: BoardQueryKey['type'];
 }
-interface UploadPromise {
-    success: boolean;
-    imgBlock: HTMLImageElement;
-    result?: {
-        fileName: string;
-        downloadURL: string;
-    } | null;
-    e?: unknown;
-}
-
-/**
- * 에디터 데이터에서 img태그를 찾아 blob으로 되어 잇으면 firebase에 업로드 후 path로 변경 후 전달
- * @param data 태그 문자열 데이터
- * @returns 태그 문자열 데이터
- */
-const getImageSrcTransfer = async (data: BoardAddPostProps) => {
-    const tmpDiv = document.createElement('div');
-    tmpDiv.innerHTML = data.content.trim();
-    const imgBlocks = Array.from(tmpDiv.querySelectorAll('img'));
-    const uploadPromises: Promise<UploadPromise>[] = imgBlocks.map(
-        async (imgBlock): Promise<UploadPromise> => {
-            if (imgBlock.src.startsWith('data:image/')) {
-                const options = {
-                    maxSizeMB: 1, // 최대 파일 크기를 1MB로 설정
-                    maxWidthOrHeight: 1440, // 최대 너비 또는 높이를 1024px로 설정
-                    useWebWorker: true, // 웹 워커 사용
-                };
-
-                try {
-                    const imgFile = base64ToFile(
-                        imgBlock.src,
-                        `img_${new Date().getTime()}_${Math.round(Math.random() * 99999999999)}`,
-                    );
-                    const compressedFile = await imageCompression(imgFile, options);
-                    const result = await uploadFile(compressedFile);
-                    if (result) imgBlock.setAttribute('src', result.downloadURL);
-                    return { success: true, imgBlock, result };
-                } catch (e) {
-                    // 에러
-                    console.log(e);
-                    return { success: false, imgBlock, e };
-                }
-            }
-            return { success: true, imgBlock };
-        },
-    );
-    await Promise.all(uploadPromises);
-    return tmpDiv.innerHTML;
-};
 
 const Write = ({ boardType }: OwnProps) => {
     const navigate = useNavigate();
@@ -179,6 +128,73 @@ const Write = ({ boardType }: OwnProps) => {
                             size={isSmallScreen ? 'small' : 'medium'}
                         />
                     </Box>
+                    {boardType === 'PF' && (
+                        <Box className="inputHeader">
+                            <CustomTextField<BoardAddPostProps>
+                                type="number"
+                                id="pl"
+                                label="프로젝트 리딩"
+                                register={register}
+                                inputProps={{ min: 0, max: 100 }}
+                                size="small"
+                                sx={{ width: '140px' }}
+                            />
+                            <CustomTextField<BoardAddPostProps>
+                                type="number"
+                                id="design"
+                                label="디자인"
+                                register={register}
+                                inputProps={{ min: 0, max: 100 }}
+                                size="small"
+                                sx={{ width: '140px' }}
+                            />
+                            <CustomTextField<BoardAddPostProps>
+                                type="number"
+                                id="dev"
+                                label="개발"
+                                register={register}
+                                inputProps={{ min: 0, max: 100 }}
+                                size="small"
+                                sx={{ width: '140px' }}
+                            />
+                            <CustomTextField<BoardAddPostProps>
+                                type="number"
+                                id="publish"
+                                label="퍼블리싱"
+                                register={register}
+                                inputProps={{ min: 0, max: 100 }}
+                                size="small"
+                                sx={{ width: '140px' }}
+                            />
+                            <CustomTextField<BoardAddPostProps>
+                                type="string"
+                                id="prjDate"
+                                label="시작일"
+                                register={register}
+                                inputProps={{ min: 0, max: 100 }}
+                                size="small"
+                                sx={{ width: '140px' }}
+                            />
+                            <CustomTextField<BoardAddPostProps>
+                                type="number"
+                                id="prjRange"
+                                label="작업기간(일)"
+                                register={register}
+                                inputProps={{ min: 0, max: 100 }}
+                                size="small"
+                                sx={{ width: '140px' }}
+                            />
+                            <CustomTextField<BoardAddPostProps>
+                                type="string"
+                                id="url"
+                                label="링크"
+                                register={register}
+                                inputProps={{ min: 0, max: 100 }}
+                                size="small"
+                                sx={{ width: '140px' }}
+                            />
+                        </Box>
+                    )}
                     <Controller
                         name="content"
                         control={control}

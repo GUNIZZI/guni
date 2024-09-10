@@ -14,6 +14,17 @@ const style = (theme: Theme) => css`
                 width: 3em;
             }
         }
+
+        ${theme.breakpoints.down('sm')} {
+            bottom: 1rem;
+            right: 1rem;
+
+            > * {
+                width: 3rem !important;
+                height: 3rem !important;
+                min-width: 0;
+            }
+        }
     }
 
     .inputHeader {

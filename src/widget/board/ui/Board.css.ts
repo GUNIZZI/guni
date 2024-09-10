@@ -28,10 +28,18 @@ const boardStyle = (theme: Theme) => css`
             font-size: 12px;
         }
 
-        ${theme.breakpoints.down('sm')} {
-            align-items: flex-start;
+        ${theme.breakpoints.down('md')} {
             flex-direction: column;
+            align-items: center;
             gap: 0;
+            padding: 1rem 0 0.5rem 0;
+
+            h2 {
+                line-height: 1;
+            }
+        }
+
+        ${theme.breakpoints.down('sm')} {
             padding: 0 0 0.5rem 0;
 
             > h2 {
@@ -52,6 +60,10 @@ const boardStyle = (theme: Theme) => css`
                     margin-right: -0.15em;
                 }
             }
+        }
+
+        .MuiDivider-root {
+            margin-left: 0;
         }
     }
 

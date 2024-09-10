@@ -65,7 +65,6 @@ export const theme = createTheme({
                     minHeight: '100%',
                     padding: `${theme.spacing(0)} ${theme.spacing(16)}`,
                     boxSizing: 'border-box',
-                    zIndex: 1,
 
                     '.wrap': {
                         position: 'relative',
@@ -76,11 +75,11 @@ export const theme = createTheme({
 
                     [theme.breakpoints.up('xs')]: {
                         minHeight: `calc(100% - 8rem)`,
-                        padding: `0 ${theme.spacing(3)} 0 0`,
+                        padding: `0 ${theme.spacing(3)} 0`,
                     },
                     [theme.breakpoints.up('sm')]: {
                         minHeight: `calc(100% - 8rem)`,
-                        padding: `0 ${theme.spacing(5)} 0 0`,
+                        padding: `0 ${theme.spacing(5)} 0`,
                     },
                     [theme.breakpoints.up('md')]: {
                         padding: `${theme.spacing(5)} ${theme.spacing(25)} 0`,

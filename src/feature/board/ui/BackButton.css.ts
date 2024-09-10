@@ -10,6 +10,7 @@ const style = (theme: Theme) => css`
     z-index: 20;
 
     ${theme.breakpoints.down('lg')} {
+        top: 0;
         left: 0;
     }
 
