@@ -1,4 +1,4 @@
-import{a as m,u as p,r as e,d,b as i,S as l,P as g}from"./index-CekzV5ze.js";const c=t=>m`
+import{a as m,u as d,r as t,d as p,b as i,S as g,P as l}from"./index-WAx86IL6.js";const c=e=>m`
     .header {
         display: flex;
         align-items: flex-end;
@@ -24,10 +24,18 @@ import{a as m,u as p,r as e,d,b as i,S as l,P as g}from"./index-CekzV5ze.js";con
             font-size: 12px;
         }
 
-        ${t.breakpoints.down("sm")} {
-            align-items: flex-start;
+        ${e.breakpoints.down("md")} {
             flex-direction: column;
+            align-items: center;
             gap: 0;
+            padding: 1rem 0 0.5rem 0;
+
+            h2 {
+                line-height: 1;
+            }
+        }
+
+        ${e.breakpoints.down("sm")} {
             padding: 0 0 0.5rem 0;
 
             > h2 {
@@ -48,6 +56,10 @@ import{a as m,u as p,r as e,d,b as i,S as l,P as g}from"./index-CekzV5ze.js";con
                     margin-right: -0.15em;
                 }
             }
+        }
+
+        .MuiDivider-root {
+            margin-left: 0;
         }
     }
 
@@ -82,7 +94,7 @@ import{a as m,u as p,r as e,d,b as i,S as l,P as g}from"./index-CekzV5ze.js";con
     }
 
     .btnConfirm {
-        ${t.breakpoints.down("sm")} {
+        ${e.breakpoints.down("sm")} {
             right: 1rem !important;
             bottom: 1rem !important;
             width: 3rem !important;
@@ -97,7 +109,7 @@ import{a as m,u as p,r as e,d,b as i,S as l,P as g}from"./index-CekzV5ze.js";con
             font-size: 3.5rem;
             font-weight: 500;
 
-            ${t.breakpoints.down("sm")} {
+            ${e.breakpoints.down("sm")} {
                 padding: 0.5rem 0.5rem;
                 font-size: 2em;
             }
@@ -117,7 +129,7 @@ import{a as m,u as p,r as e,d,b as i,S as l,P as g}from"./index-CekzV5ze.js";con
                 margin-right: auto;
             }
 
-            ${t.breakpoints.down("sm")} {
+            ${e.breakpoints.down("sm")} {
                 padding: 0.5em 1em;
             }
         }
@@ -128,7 +140,7 @@ import{a as m,u as p,r as e,d,b as i,S as l,P as g}from"./index-CekzV5ze.js";con
         }
 
         .btnDelete {
-            ${t.breakpoints.down("sm")} {
+            ${e.breakpoints.down("sm")} {
                 right: 1rem !important;
                 bottom: 1rem !important;
                 width: 3rem !important;
@@ -137,4 +149,4 @@ import{a as m,u as p,r as e,d,b as i,S as l,P as g}from"./index-CekzV5ze.js";con
             }
         }
     }
-`,h=t=>t==="tech"?"isList":t==="blog"?"isCard":t==="pf"?"isPf":"",u=()=>{const t=p(),n=e.useMemo(()=>t.pathname.split("/")[1]||"tech",[t.pathname]),r=e.useMemo(()=>t.pathname.split("/")[2]||"list",[t.pathname]),o=d(0),[a,s]=e.useState("");return e.useEffect(()=>{s(h(n))},[]),i(g,{className:`page ${a} ${r!=="list"&&r!=="write"?"isView":""}`,css:[c],children:i("div",{className:"wrap",children:i(l,{children:o})})})};export{u as LayoutBoard};
+`,h=e=>e==="tech"?"isList":e==="blog"?"isCard":e==="pf"?"isPf":"",u=()=>{const e=d(),n=t.useMemo(()=>e.pathname.split("/")[1]||"tech",[e.pathname]),r=t.useMemo(()=>e.pathname.split("/")[2]||"list",[e.pathname]),o=p(0),[a,s]=t.useState("");return t.useEffect(()=>{s(h(n))},[]),i(l,{className:`page ${a} ${r!=="list"&&r!=="write"?"isView":""}`,css:[c],children:i("div",{className:"wrap",children:i(g,{children:o})})})};export{u as LayoutBoard};
