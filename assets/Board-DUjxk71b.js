@@ -1,4 +1,4 @@
-import{a as m,u as d,r as t,d as p,b as i,S as g,P as l}from"./index-WAx86IL6.js";const c=e=>m`
+import{a as m,u as p,r as t,d as l,b as i,S as d,P as g}from"./index-Dl_p7cId.js";const f=e=>m`
     .header {
         display: flex;
         align-items: flex-end;
@@ -134,6 +134,66 @@ import{a as m,u as d,r as t,d as p,b as i,S as g,P as l}from"./index-WAx86IL6.js
             }
         }
 
+        > .pfWrap {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            padding: 2em 3em 0;
+
+            > * {
+                align-items: center;
+            }
+
+            > .title {
+                flex: 1 1 60%;
+                font-size: 5rem;
+                font-style: italic;
+                text-align: center;
+            }
+            > .info {
+                flex: 1 1 40%;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1.5em;
+
+                > .item {
+                    flex: 0 0 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    .title {
+                        flex: 0 0 100px;
+                        font-weight: 100;
+                    }
+                    .percentage {
+                        flex: 1 1;
+                        position: relative;
+
+                        .gage {
+                            position: absolute;
+                            top: 50%;
+                            left: 0;
+                            width: 100%;
+                            height: 4px;
+                            border-radius: 100px;
+                            background: linear-gradient(to right, #00d9ff, #007eff);
+                        }
+
+                        & + .text {
+                            flex: none;
+                            width: 100%;
+                            padding: 0 0 0 100px;
+                            box-sizing: border-box;
+                        }
+                    }
+                    .text {
+                        font-weight: 300;
+                    }
+                }
+            }
+        }
+
         > .content {
             padding: 3rem 0 0;
             margin-bottom: 4rem;
@@ -149,4 +209,4 @@ import{a as m,u as d,r as t,d as p,b as i,S as g,P as l}from"./index-WAx86IL6.js
             }
         }
     }
-`,h=e=>e==="tech"?"isList":e==="blog"?"isCard":e==="pf"?"isPf":"",u=()=>{const e=d(),n=t.useMemo(()=>e.pathname.split("/")[1]||"tech",[e.pathname]),r=t.useMemo(()=>e.pathname.split("/")[2]||"list",[e.pathname]),o=p(0),[a,s]=t.useState("");return t.useEffect(()=>{s(h(n))},[]),i(l,{className:`page ${a} ${r!=="list"&&r!=="write"?"isView":""}`,css:[c],children:i("div",{className:"wrap",children:i(g,{children:o})})})};export{u as LayoutBoard};
+`,c=e=>e==="tech"?"isList":e==="blog"?"isCard":e==="pf"?"isPf":"",x=()=>{const e=p(),n=t.useMemo(()=>e.pathname.split("/")[1]||"tech",[e.pathname]),r=t.useMemo(()=>e.pathname.split("/")[2]||"list",[e.pathname]),a=l(0),[o,s]=t.useState("");return t.useEffect(()=>{s(c(n))},[]),i(g,{className:`page ${o} ${r!=="list"&&r!=="write"?"isView":""}`,css:[f],children:i("div",{className:"wrap",children:i(d,{children:a})})})};export{x as LayoutBoard};
