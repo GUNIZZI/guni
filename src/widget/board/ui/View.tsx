@@ -7,10 +7,12 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useBoardFetchDocQuery } from '@/entitie/board';
 import { BoardQueryKey } from '@/entitie/board/model/type';
 import { FeatureBoardDeleteButton, FeatureBoardBackButton } from '@/feature/board';
+import { PF_INFO_NAME, PF_INFO_ORDER } from '@/shared/config/constants';
 import { MainLoaderContext } from '@/shared/ui/loader';
 import { QuillEditorStyle } from '@/shared/ui/quillEditor';
 
 import 'quill/dist/quill.snow.css';
+import { style } from './View.css';
 
 interface OwnProps {
     boardType: BoardQueryKey['type'];
@@ -57,10 +59,10 @@ const View = ({ boardType }: OwnProps) => {
         };
     }, []);
 
-    if (error) return <div>없는 컨텐츠 입니다.</div>;
+    if (!posts || error) return <div>없는 컨텐츠 입니다.</div>;
 
     return (
-        <div className="viewWrap">
+        <div className="viewWrap" css={style as Interpolation<Theme>}>
             {/* 뒤로가기 */}
             <FeatureBoardBackButton onClick={handleBack} />
 
@@ -68,11 +70,60 @@ const View = ({ boardType }: OwnProps) => {
             <FeatureBoardDeleteButton boardType={boardType} />
             {posts ? (
                 <>
-                    <h2>{posts.title}</h2>
-                    <div className="infos">
-                        <span>{posts.date}</span>
-                        <span>{posts.commentCount || 0}개의 댓글</span>
-                    </div>
+                    {boardType !== 'PF' && (
+                        <>
+                            <h2>{posts.title}</h2>
+                            <div className="infos">
+                                <span>{posts.date}</span>
+                                <span>{posts.commentCount || 0}개의 댓글</span>
+                            </div>
+                        </>
+                    )}
+                    {posts.info && (
+                        <div className="pfWrap">
+                            <div className="title">{posts.title}</div>
+                            <div className="info">
+                                {Object.entries(posts.info)
+                                    .sort(
+                                        ([key1], [key2]) =>
+                                            PF_INFO_ORDER.indexOf(key1) -
+                                            PF_INFO_ORDER.indexOf(key2),
+                                    )
+                                    .map(([text, { text: infoText, percent }], idx) => {
+                                        if (infoText === '' && percent === 0) return null;
+                                        return (
+                                            <div key={text} className="item">
+                                                <span className="title">{PF_INFO_NAME[idx]}</span>
+                                                {text.toUpperCase() === 'URL' ? (
+                                                    <a href={infoText} target="blank">
+                                                        <strong className="text">{infoText}</strong>
+                                                    </a>
+                                                ) : (
+                                                    infoText.split(',').map((keyword: string) => (
+                                                        <strong
+                                                            key={keyword}
+                                                            className={`text ${text !== 'prjDate' && text !== 'prjRange' ? 'isTag' : ''}`}
+                                                        >
+                                                            {keyword}
+                                                        </strong>
+                                                    ))
+                                                )}
+                                                {percent && (
+                                                    <span className="percentage">
+                                                        <span
+                                                            className="gage"
+                                                            style={{
+                                                                width: `${percent}%`,
+                                                            }}
+                                                        />
+                                                    </span>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                            </div>
+                        </div>
+                    )}
                     <div
                         ref={contentRef}
                         className="ql-snow isView"

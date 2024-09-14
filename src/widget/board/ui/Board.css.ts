@@ -106,53 +106,6 @@ const boardStyle = (theme: Theme) => css`
             min-width: 0;
         }
     }
-
-    .viewWrap {
-        > h2 {
-            padding: 0.5rem 1.5rem;
-            font-size: 3.5rem;
-            font-weight: 500;
-
-            ${theme.breakpoints.down('sm')} {
-                padding: 0.5rem 0.5rem;
-                font-size: 2em;
-            }
-        }
-
-        > .infos {
-            display: flex;
-            gap: 1.8em;
-            padding: 1em 2em;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9em;
-            font-weight: 200;
-
-            > *:first-of-type {
-                margin-right: auto;
-            }
-
-            ${theme.breakpoints.down('sm')} {
-                padding: 0.5em 1em;
-            }
-        }
-
-        > .content {
-            padding: 3rem 0 0;
-            margin-bottom: 4rem;
-        }
-
-        .btnDelete {
-            ${theme.breakpoints.down('sm')} {
-                right: 1rem !important;
-                bottom: 1rem !important;
-                width: 3rem !important;
-                height: 3rem !important;
-                min-width: 0;
-            }
-        }
-    }
 `;
 
 export { boardStyle };

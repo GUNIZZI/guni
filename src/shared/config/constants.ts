@@ -34,4 +34,15 @@ const BOARD_CONTENT_TYPES: Record<BoardQueryKey['type'], Opt[]> = {
     ],
 };
 
-export { BOARD_QUERY_KEY, BOARD_CONTENT_TYPES };
+const PF_INFO_ORDER = ['pl', 'design', 'dev', 'publish', 'prjDate', 'prjRange', 'url'];
+const PF_INFO_NAME = [
+    'Project Leading',
+    'Design',
+    'Development',
+    'Markup',
+    'Date',
+    'Date Worked ',
+    'URL',
+];
+
+export { BOARD_QUERY_KEY, BOARD_CONTENT_TYPES, PF_INFO_ORDER, PF_INFO_NAME };

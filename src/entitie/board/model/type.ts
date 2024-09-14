@@ -6,6 +6,19 @@ export type BoardQueryKey = {
     type: 'TECH' | 'LIFE' | 'PF';
 };
 
+interface PfTextfieldProps {
+    text: string;
+    percent?: number;
+}
+interface PfProps {
+    pl?: PfTextfieldProps;
+    design?: PfTextfieldProps;
+    dev?: PfTextfieldProps;
+    publish?: PfTextfieldProps;
+    prjDate?: PfTextfieldProps;
+    prjRange?: PfTextfieldProps;
+    url?: PfTextfieldProps;
+}
 export interface BoardContentProps {
     id: string;
     date: string;
@@ -15,27 +28,12 @@ export interface BoardContentProps {
     docType?: string;
     image?: string | null;
     commentCount?: number;
+    info?: PfProps;
 }
-
-export interface BoardContentPfProps extends BoardContentProps {
-    pl?: number | null;
-    design?: number | null;
-    dev?: number | null;
-    publish?: number | null;
-    prjDate?: string | null;
-    prjRange?: number | null;
-    url?: string | null;
-}
-
+// export interface BoardContentPfProps extends BoardContentProps {}
 export interface BoardAddPostProps {
     title: string;
     content: string;
     docType: string;
-    pl?: number;
-    design?: number;
-    dev?: number;
-    publish?: number;
-    prjDate?: string;
-    prjRange?: number;
-    url?: string;
+    info?: PfProps;
 }

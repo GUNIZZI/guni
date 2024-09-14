@@ -1,12 +1,10 @@
-import { useMemo } from 'react';
-
 import { css, Interpolation, Theme as RenderTheme } from '@emotion/react';
 import { find } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
 import { getImage } from '@/entitie/board';
-import { BoardContentPfProps } from '@/entitie/board/model/type';
-import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
+import { BoardContentProps } from '@/entitie/board/model/type';
+import { BOARD_CONTENT_TYPES, PF_INFO_ORDER } from '@/shared/config/constants';
 import { LazyImage } from '@/shared/ui/image';
 
 import NoneData from './NoneData';
@@ -14,7 +12,7 @@ import NoneData from './NoneData';
 import { Grid, Theme, useMediaQuery, useTheme } from '@mui/material';
 
 interface OwnProps {
-    datas: BoardContentPfProps[] | undefined;
+    datas: BoardContentProps[] | undefined;
 }
 
 const style = (theme: Theme) => css`
@@ -164,6 +162,7 @@ const style = (theme: Theme) => css`
                         flex-wrap: nowrap;
                         position: relative;
                         gap: 0 1em;
+                        line-height: 1.6em;
 
                         .title {
                             font-size: 11px;
@@ -178,6 +177,7 @@ const style = (theme: Theme) => css`
                         .text {
                             text-align: right;
                             overflow: hidden;
+                            white-space: nowrap;
                             text-overflow: ellipsis;
                         }
 
@@ -291,23 +291,6 @@ const style = (theme: Theme) => css`
 
 const PfType = ({ datas }: OwnProps) => {
     const navigate = useNavigate();
-    const parseDatas = useMemo(() => {
-        return datas?.map(item => {
-            return {
-                ...item,
-                info: {
-                    pl: item.pl || null,
-                    design: item.design || null,
-                    dev: item.dev || null,
-                    publish: item.publish || null,
-                    prjDate: item.prjDate || null,
-                    prjRange: item.prjRange || null,
-                    url: item.url || null,
-                },
-            };
-        });
-    }, [datas]);
-
     const theme = useTheme();
     const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -315,11 +298,11 @@ const PfType = ({ datas }: OwnProps) => {
     if (isTablet) spacing = 11;
     if (isMobile) spacing = 7;
 
-    if (!parseDatas?.length) return <NoneData />;
+    if (!datas?.length) return <NoneData />;
 
     return (
         <Grid container spacing={spacing} css={style as Interpolation<RenderTheme>}>
-            {parseDatas.map(item => (
+            {datas.map(item => (
                 <Grid item className="col" xs={24} sm={6} md={6} lg={4} xl={3} key={item.id}>
                     <button
                         type="button"
@@ -343,29 +326,36 @@ const PfType = ({ datas }: OwnProps) => {
                             </div>
                             <div className="content">
                                 <ul>
-                                    {Object.entries(item.info).map(([title, text]) => {
-                                        if (text === null) return null;
-                                        return (
-                                            <li key={text}>
-                                                <span className="title">{title}</span>
-                                                <span className="text">
-                                                    <span>{text}</span>
-                                                </span>
-                                                {title !== 'prjDate' &&
-                                                    title !== 'prjRange' &&
-                                                    title !== 'url' && (
-                                                        <span className="percentage">
-                                                            <span
-                                                                className="gage"
-                                                                style={{ width: `${text}%` }}
-                                                            >
-                                                                {`${text}%`}
-                                                            </span>
+                                    {item.info &&
+                                        Object.entries(item.info)
+                                            .sort(
+                                                ([key1], [key2]) =>
+                                                    PF_INFO_ORDER.indexOf(key1) -
+                                                    PF_INFO_ORDER.indexOf(key2),
+                                            )
+                                            .map(([text, { text: title, percent }]) => {
+                                                if (text === null) return null;
+                                                return (
+                                                    <li key={text}>
+                                                        <span className="title">{text}</span>
+                                                        <span className="text">
+                                                            <span>{title}</span>
                                                         </span>
-                                                    )}
-                                            </li>
-                                        );
-                                    })}
+                                                        {percent && (
+                                                            <span className="percentage">
+                                                                <span
+                                                                    className="gage"
+                                                                    style={{
+                                                                        width: `${percent}%`,
+                                                                    }}
+                                                                >
+                                                                    {`${percent}%`}
+                                                                </span>
+                                                            </span>
+                                                        )}
+                                                    </li>
+                                                );
+                                            })}
                                 </ul>
                             </div>
                         </div>

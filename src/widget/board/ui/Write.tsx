@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { Interpolation, Theme } from '@emotion/react';
 import { Controller, useForm } from 'react-hook-form';
@@ -10,6 +10,7 @@ import { FeatureBoardBackButton, getImageSrcTransfer } from '@/feature/board';
 import { BOARD_CONTENT_TYPES } from '@/shared/config/constants';
 import { GradientButton } from '@/shared/ui/button/GradientButton';
 import { MainLoaderContext } from '@/shared/ui/loader';
+import { PfTextfield } from '@/shared/ui/pfTextfield';
 import { QuillEditor } from '@/shared/ui/quillEditor';
 import { CustomSelect } from '@/shared/ui/select/CustomSelect';
 import { CustomTextField } from '@/shared/ui/textfield/CustomTextField';
@@ -21,6 +22,11 @@ import { Box, Button, useMediaQuery, useTheme } from '@mui/material';
 
 interface OwnProps {
     boardType: BoardQueryKey['type'];
+}
+
+interface PfTextfieldProps {
+    text: string;
+    percent?: number;
 }
 
 const Write = ({ boardType }: OwnProps) => {
@@ -35,6 +41,32 @@ const Write = ({ boardType }: OwnProps) => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
+    const [pl, setPl] = useState<PfTextfieldProps>({
+        text: '',
+        percent: 0,
+    });
+    const [design, setDesign] = useState<PfTextfieldProps>({
+        text: '',
+        percent: 0,
+    });
+    const [dev, setDev] = useState<PfTextfieldProps>({
+        text: '',
+        percent: 0,
+    });
+    const [publish, setPublish] = useState<PfTextfieldProps>({
+        text: '',
+        percent: 0,
+    });
+    const [prjDate, setPrjdate] = useState<PfTextfieldProps>({
+        text: '',
+    });
+    const [prjRange, setRange] = useState<PfTextfieldProps>({
+        text: '',
+    });
+    const [url, setUrl] = useState<PfTextfieldProps>({
+        text: '',
+    });
+
     const { loaderOn, loaderOff } = useContext(MainLoaderContext);
     useEffect(() => {
         if (isLoading) {
@@ -47,12 +79,22 @@ const Write = ({ boardType }: OwnProps) => {
     const handleSave = async (data: BoardAddPostProps) => {
         loaderOn(`${boardType}-Save`);
         const newContent = await getImageSrcTransfer(data);
+        const params = {
+            ...data,
+            content: newContent,
+            info: {
+                pl,
+                design,
+                dev,
+                publish,
+                prjDate,
+                prjRange,
+                url,
+            },
+        };
         addDocQuery(
             {
-                docData: {
-                    ...data,
-                    content: newContent,
-                },
+                docData: params,
             },
             {
                 onSuccess: () => {
@@ -129,70 +171,30 @@ const Write = ({ boardType }: OwnProps) => {
                         />
                     </Box>
                     {boardType === 'PF' && (
-                        <Box className="inputHeader">
-                            <CustomTextField<BoardAddPostProps>
-                                type="number"
-                                id="pl"
-                                label="프로젝트 리딩"
-                                register={register}
-                                inputProps={{ min: 0, max: 100 }}
-                                size="small"
-                                sx={{ width: '140px' }}
-                            />
-                            <CustomTextField<BoardAddPostProps>
-                                type="number"
+                        <Box className="inputHeader inputPrjInfos">
+                            <PfTextfield id="pl" placeholder="프로젝트 리딩" vmodel={[pl, setPl]} />
+                            <PfTextfield
                                 id="design"
-                                label="디자인"
-                                register={register}
-                                inputProps={{ min: 0, max: 100 }}
-                                size="small"
-                                sx={{ width: '140px' }}
+                                placeholder="디자인"
+                                vmodel={[design, setDesign]}
                             />
-                            <CustomTextField<BoardAddPostProps>
-                                type="number"
-                                id="dev"
-                                label="개발"
-                                register={register}
-                                inputProps={{ min: 0, max: 100 }}
-                                size="small"
-                                sx={{ width: '140px' }}
-                            />
-                            <CustomTextField<BoardAddPostProps>
-                                type="number"
+                            <PfTextfield id="dev" placeholder="개발" vmodel={[dev, setDev]} />
+                            <PfTextfield
                                 id="publish"
-                                label="퍼블리싱"
-                                register={register}
-                                inputProps={{ min: 0, max: 100 }}
-                                size="small"
-                                sx={{ width: '140px' }}
+                                placeholder="퍼블리싱"
+                                vmodel={[publish, setPublish]}
                             />
-                            <CustomTextField<BoardAddPostProps>
-                                type="string"
+                            <PfTextfield
                                 id="prjDate"
-                                label="시작일"
-                                register={register}
-                                inputProps={{ min: 0, max: 100 }}
-                                size="small"
-                                sx={{ width: '140px' }}
+                                placeholder="프로젝트날짜"
+                                vmodel={[prjDate, setPrjdate]}
                             />
-                            <CustomTextField<BoardAddPostProps>
-                                type="number"
+                            <PfTextfield
                                 id="prjRange"
-                                label="작업기간(일)"
-                                register={register}
-                                inputProps={{ min: 0, max: 100 }}
-                                size="small"
-                                sx={{ width: '140px' }}
+                                placeholder="작업기간"
+                                vmodel={[prjRange, setRange]}
                             />
-                            <CustomTextField<BoardAddPostProps>
-                                type="string"
-                                id="url"
-                                label="링크"
-                                register={register}
-                                inputProps={{ min: 0, max: 100 }}
-                                size="small"
-                                sx={{ width: '140px' }}
-                            />
+                            <PfTextfield id="url" placeholder="URL" vmodel={[url, setUrl]} />
                         </Box>
                     )}
                     <Controller

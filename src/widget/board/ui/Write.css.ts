@@ -32,6 +32,10 @@ const style = (theme: Theme) => css`
         flex-direction: row;
         gap: 1em;
 
+        &.inputPrjInfos {
+            gap: 0.5em;
+        }
+
         ${theme.breakpoints.down('lg')} {
             flex-direction: column;
             gap: 0.1em;

@@ -135,6 +135,39 @@ const style = (theme: Theme) => css`
         -webkit-text-fill-color: transparent;
         text-fill-color: transparent;
     }
+
+    .postit {
+        width: auto; /* 포스트잇의 너비 */
+        height: 200px; /* 포스트잇의 높이 */
+        background-color: #ffeb3b; /* 포스트잇의 노란색 배경 */
+        padding: 1em 2em;
+        color: #333;
+        font-size: 16px;
+        font-family: 'Arial', sans-serif;
+        border: 1px solid #f0c30f; /* 테두리 색상 */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.8); /* 그림자 효과 */
+        position: relative;
+        transform-origin: top; /* 상단을 기준으로 회전 */
+        animation: flutter 3s infinite ease-in-out; /* 나풀거리는 애니메이션 */
+    }
+
+    @keyframes flutter {
+        0% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(2deg); /* 시계 방향으로 회전 */
+        }
+        50% {
+            transform: rotate(-2deg); /* 반시계 방향으로 회전 */
+        }
+        75% {
+            transform: rotate(1deg); /* 다시 시계 방향으로 회전 */
+        }
+        100% {
+            transform: rotate(0deg); /* 원래 위치로 돌아옴 */
+        }
+    }
 `;
 
 export { style as homeStyle };
