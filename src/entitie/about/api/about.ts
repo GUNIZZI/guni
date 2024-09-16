@@ -1,8 +1,17 @@
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import {
+    collection,
+    getDocs,
+    orderBy,
+    query,
+    doc,
+    setDoc,
+    addDoc,
+    deleteDoc,
+} from 'firebase/firestore';
 
 import { fbDb } from '@/shared/api/firebase';
 
-import { CompModel } from '../model/type';
+import { CompModel, CompUpdateRequestModel } from '../model/type';
 
 export const fetchComps = async (): Promise<CompModel[]> => {
     const postsCollection = collection(fbDb, 'HISTORY');
@@ -18,10 +27,42 @@ export const fetchComps = async (): Promise<CompModel[]> => {
             return {
                 id: parentDoc.id,
                 ...parentDoc.data(),
-                projects: subDocsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })),
+                projects: subDocsSnapshot.docs.map(docItem => ({
+                    id: docItem.id,
+                    ...docItem.data(),
+                })),
             } as CompModel;
         }),
     );
 
     return results;
+};
+
+export const addComp = async (docData: CompUpdateRequestModel) => {
+    const fbCollection = collection(fbDb, 'HISTORY');
+    const datas = await addDoc(fbCollection, docData);
+
+    return datas;
+};
+
+export const updateComps = async (docData: CompUpdateRequestModel) => {
+    if (docData.id === undefined) throw new Error('id is required');
+
+    const docRef = doc(fbDb, 'HISTORY', docData.id);
+    const datas = await setDoc(docRef, {
+        name: docData.name,
+        startYear: docData.startYear,
+        endYear: docData.endYear,
+        inOffice: docData.inOffice,
+    });
+
+    return datas;
+};
+
+export const deleteComp = async (docData: CompUpdateRequestModel) => {
+    if (docData.id === undefined) throw new Error('id is required');
+
+    const docRef = doc(fbDb, 'HISTORY', docData.id);
+    const datas = await deleteDoc(docRef);
+    return datas;
 };

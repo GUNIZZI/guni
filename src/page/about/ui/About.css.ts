@@ -37,7 +37,7 @@ const style = (theme: Theme) => css`
             background-color: ${theme.palette.divider};
         }
 
-        > .item {
+        .item {
             display: flex;
             position: relative;
             padding: 0 0 6rem 3rem;
@@ -64,12 +64,13 @@ const style = (theme: Theme) => css`
             }
 
             > .title {
-                flex: 0 0 10rem;
+                flex: 0 0 13rem;
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
                 font-size: 2.375rem;
                 line-height: 1.4em;
+                transition: all 0.24s;
 
                 .yearFirst {
                     font-size: 1.25rem;
@@ -91,12 +92,27 @@ const style = (theme: Theme) => css`
 
             > .compPrjList {
                 flex: 1 1;
+                transition: all 0.24s;
 
                 > .comp {
+                    display: flex;
+                    align-items: center;
+                    gap: 3rem;
                     padding: 1.2rem 0 2.8rem;
                     font-size: 1.375rem;
                     font-weight: 600;
                     line-height: 1;
+
+                    > .btns {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+
+                        > * {
+                            min-width: 0;
+                            padding: 0.3rem;
+                        }
+                    }
                 }
                 > .prjList {
                     display: flex;
@@ -104,7 +120,7 @@ const style = (theme: Theme) => css`
                     flex-direction: column;
                     gap: 2rem;
 
-                    .item {
+                    .prjItem {
                         display: flex;
                         flex-wrap: wrap;
                         padding: 1rem 2rem;
@@ -151,16 +167,43 @@ const style = (theme: Theme) => css`
                     font-size: 0.75rem;
                     font-weight: 100;
                 }
-
-                // <div className="item">
-                //                     <strong className="prjName">Project Name</strong>
-                //                     <span className="date">2024.04</span>
-                //                     <div className="part">
-                //                         <span>MarkUp</span>
-                //                     </div>
-                //                 </div>
             }
 
+            .isBlur {
+                filter: blur(3px);
+            }
+
+            // Edit Mode
+            > .editItem {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: calc(100% - 4rem);
+
+                .wrap {
+                    display: grid;
+                    grid-template-columns: 50px 90px 10px 90px 1fr 40px 40px;
+                    gap: 4px;
+                    padding: 1rem 1.5rem 1rem 1rem;
+                    margin: -0.3rem 2rem 0;
+                    border-radius: 1rem;
+                    background: #ffa700;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+                    text-align: center;
+
+                    > span {
+                        align-self: center;
+                        color: #000;
+                    }
+
+                    > button {
+                        padding: 0;
+                        min-width: 0;
+                    }
+                }
+            }
+
+            // 소개
             &.analyze {
                 display: block;
 
@@ -235,6 +278,63 @@ const style = (theme: Theme) => css`
                 //     height: 300px;
                 // }
             }
+
+            // 추가 모드일 경우
+            &.isAddMode {
+                // display: inline-flex;
+                width: 0;
+                padding: 3em 0 3rem;
+                transition: all 0.24s;
+
+                &:before {
+                    top: 45px;
+                    height: calc(100% - 48px);
+                }
+
+                &:after {
+                    content: '+';
+                    left: -12px;
+                    width: 30px;
+                    height: 30px;
+                    padding: 0;
+                    background: #ffa700;
+                    color: #000;
+                    font-size: 2rem;
+                    text-align: center;
+                    line-height: 30px;
+                    cursor: pointer;
+                    transition: all 0.24s;
+                }
+
+                > .editItem {
+                    margin-top: -0.5rem;
+                }
+
+                &:hover {
+                    &:after {
+                        background: #000;
+                        color: #ffa700;
+                    }
+                }
+
+                &.isEditMode {
+                    width: 100%;
+
+                    &:after {
+                        background: #000;
+                        color: #ffa700;
+                    }
+                }
+            }
+        }
+    }
+
+    ${theme.breakpoints.down('md')} {
+        .animationWrap {
+            display: none;
+        }
+        .listWrap {
+            flex: 1 1;
         }
     }
 `;

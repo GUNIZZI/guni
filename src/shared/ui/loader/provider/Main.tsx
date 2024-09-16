@@ -7,8 +7,6 @@ import { MainLoaderContext } from './Main.context';
 import { LoaderCircle } from '..';
 import { TransitionFade } from '../../transition';
 
-import { Backdrop } from '@mui/material';
-
 interface OwnProps {
     children: ReactNode;
 }
@@ -39,12 +37,7 @@ const MainLoaderProvider = ({ children }: OwnProps) => {
             <AnimatePresence>
                 {loaderStack.length !== 0 && (
                     <TransitionFade className="transitionWrap">
-                        <Backdrop
-                            sx={{ position: 'fixed', color: '#ff0000', zIndex: 1 }}
-                            open={loaderStack.length > 0}
-                        >
-                            <LoaderCircle color="#000" />
-                        </Backdrop>
+                        <LoaderCircle color="#000" fixed />
                     </TransitionFade>
                 )}
             </AnimatePresence>

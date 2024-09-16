@@ -8,7 +8,7 @@ const Project = ({ projectData }: OwnProps) => {
     if (!projectData) return null;
 
     return (
-        <div className="item">
+        <div className="prjItem">
             <strong className="prjName">{projectData?.name}</strong>
             <span className="date">{projectData?.date || '-'}</span>
             {projectData?.part && (

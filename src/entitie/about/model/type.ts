@@ -8,8 +8,16 @@ export interface ProjectModel {
 export interface CompModel {
     id?: string;
     name: string;
-    startYear: number;
-    endYear: number;
+    startYear: number | string;
+    endYear: number | string;
     inOffice: boolean;
-    projects: ProjectModel[];
+    projects?: ProjectModel[];
+}
+
+export interface CompUpdateRequestModel {
+    id?: string;
+    name: string;
+    startYear: number | string;
+    endYear: number | string;
+    inOffice: boolean;
 }
