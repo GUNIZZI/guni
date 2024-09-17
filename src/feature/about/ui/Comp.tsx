@@ -15,7 +15,7 @@ import { TransitionFadeScale } from '@/shared/ui/transition';
 
 import { ProjectList } from './ProjectList';
 
-import { Add, Check, Close, Delete, Edit } from '@mui/icons-material';
+import { Check, Close, Delete, Edit } from '@mui/icons-material';
 import { Button, Switch, TextField } from '@mui/material';
 
 interface OwnProps {
@@ -144,7 +144,7 @@ const Comp = ({ compData }: OwnProps) => {
                             {isAdmin && (
                                 <div className="btns">
                                     <Button
-                                        variant="outlined"
+                                        variant="contained"
                                         color="primary"
                                         size="small"
                                         title="수정"
@@ -153,15 +153,7 @@ const Comp = ({ compData }: OwnProps) => {
                                         <Edit />
                                     </Button>
                                     <Button
-                                        variant="outlined"
-                                        color="primary"
-                                        size="small"
-                                        title="프로젝트 추가"
-                                    >
-                                        <Add />
-                                    </Button>
-                                    <Button
-                                        variant="outlined"
+                                        variant="contained"
                                         color="error"
                                         size="small"
                                         title="삭제"
@@ -172,11 +164,7 @@ const Comp = ({ compData }: OwnProps) => {
                                 </div>
                             )}
                         </div>
-                        {parseCompData &&
-                            parseCompData.projects &&
-                            parseCompData.projects.length > 0 && (
-                                <ProjectList projectDatas={parseCompData.projects} />
-                            )}
+                        {parseCompData && <ProjectList projectDatas={parseCompData} />}
                     </div>
                 </>
             )}

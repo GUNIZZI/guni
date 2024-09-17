@@ -1,8 +1,9 @@
 export interface ProjectModel {
+    compId: string;
     id?: string;
-    name: string;
-    date: string;
-    part: string;
+    name?: string;
+    date?: string;
+    part?: string;
 }
 
 export interface CompModel {

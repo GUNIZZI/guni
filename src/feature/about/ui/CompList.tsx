@@ -3,13 +3,16 @@ import { useMemo } from 'react';
 import { AnimatePresence } from 'framer-motion';
 
 import { useAboutCompQuery } from '@/entitie/about/hook/useAboutAsync';
+import { useAuth } from '@/entitie/auth';
 import { LoaderCircle } from '@/shared/ui/loader';
 import { TransitionFade } from '@/shared/ui/transition';
 
 import { Comp } from './Comp';
 
 const CompList = () => {
+    const { user } = useAuth();
     const { data, isFetching } = useAboutCompQuery();
+    const isAdmin = useMemo(() => user?.role === 'ADMIN', [user]);
 
     const getTransitionKey = useMemo(() => (isFetching ? 'loader' : 'content'), [isFetching]);
 
@@ -20,7 +23,7 @@ const CompList = () => {
                     <LoaderCircle size="50px" />
                 ) : (
                     <>
-                        <Comp key="compAdd" />
+                        {isAdmin && <Comp key="compAdd" />}
                         {data?.map(comp => <Comp key={comp.id} compData={comp} />)}
                     </>
                 )}
