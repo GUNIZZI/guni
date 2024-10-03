@@ -79,6 +79,7 @@ const ProjectDialog = ({ setOpen, isAddMode = false, addModeCompId, projectData 
                             {...field}
                             size="small"
                             error={!!errors.name}
+                            placeholder="프로젝트명"
                             InputProps={{
                                 style: {
                                     backgroundColor: '#fff',
@@ -97,6 +98,7 @@ const ProjectDialog = ({ setOpen, isAddMode = false, addModeCompId, projectData 
                             {...field}
                             size="small"
                             error={!!errors.date}
+                            placeholder="프로젝트 시작년월"
                             InputProps={{
                                 style: {
                                     width: '90px',
@@ -116,6 +118,7 @@ const ProjectDialog = ({ setOpen, isAddMode = false, addModeCompId, projectData 
                             {...field}
                             size="small"
                             error={!!errors.part}
+                            placeholder="작업파트"
                             InputProps={{
                                 style: {
                                     backgroundColor: '#fff',

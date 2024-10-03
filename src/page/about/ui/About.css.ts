@@ -4,6 +4,7 @@ import { Theme } from '@mui/material';
 
 const style = (theme: Theme) => css`
     display: flex;
+    padding: 1.25rem 8.75rem 0 0;
     z-index: 1;
 
     .animationWrap {
@@ -18,6 +19,15 @@ const style = (theme: Theme) => css`
             height: calc(100vh - 1.25rem);
             max-width: none;
             min-height: 600px;
+            padding: 0 1rem;
+
+            > svg {
+                max-width: 560px;
+                max-height: 560px;
+                min-width: 400px;
+                min-height: 400px;
+                width: 100%;
+            }
         }
     }
 
@@ -135,10 +145,12 @@ const style = (theme: Theme) => css`
                             transition: all 0.12s ease;
 
                             .prjName {
+                                flex: 1 1;
                                 font-weight: 400;
                                 line-height: 1.6em;
                             }
                             .date {
+                                flex: 0 0;
                                 margin-left: auto;
                                 color: rgba(255, 255, 255, 0.5);
                                 font-weight: 200;
@@ -365,7 +377,7 @@ const style = (theme: Theme) => css`
                     text-align: center;
                     line-height: 30px;
                     cursor: pointer;
-                    transition: all 0.24s;
+                    transition: (background, color) 0.24s;
                 }
 
                 > .editItem {
@@ -391,12 +403,403 @@ const style = (theme: Theme) => css`
         }
     }
 
+    ${theme.breakpoints.down('lg')} {
+        .animationWrap {
+            position: relative;
+            // flex: 1 1;
+            overflow: hidden;
+
+            > .wrap {
+                position: absolute;
+                top: 50vh;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                width: 400px;
+                height: 400px;
+            }
+        }
+    }
+
     ${theme.breakpoints.down('md')} {
+        padding: 1.25rem 3rem 0;
+
         .animationWrap {
             display: none;
         }
         .listWrap {
             flex: 1 1;
+        }
+    }
+
+    ${theme.breakpoints.down('sm')} {
+        padding: 0;
+
+        .listWrap {
+            padding-top: 2rem;
+
+            &:before {
+                content: none;
+            }
+
+            > .item,
+            > * > .item {
+                display: block;
+                padding: 0 10% 4rem;
+
+                &:before,
+                &:after {
+                    content: none !important;
+                }
+
+                > .title {
+                    justify-content: center;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    align-items: center;
+
+                    > .yearFirst {
+                        white-space: nowrap;
+                        font-weight: 100;
+                    }
+
+                    > .yearLast {
+                        font-size: 1.3rem;
+                        font-weight: 400;
+                        margin-left: 3px;
+                    }
+
+                    .curComp {
+                        padding: 0.5em 1em;
+                        margin-top: 0;
+                        margin-left: 0.5em;
+                        font-size: 11px;
+                    }
+                }
+
+                > .compPrjList {
+                    > .comp {
+                        justify-content: center;
+                        flex-wrap: wrap;
+                        gap: 0.4rem 1rem;
+                        padding: 0 0 2rem;
+                        font-size: 2.2rem;
+
+                        > .btns {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+
+                            > * {
+                                min-width: 0;
+                                padding: 0.2rem;
+                                border-radius: 50%;
+                            }
+                        }
+                    }
+                    > .prjList {
+                        max-width: none;
+                        flex-direction: column;
+                        gap: 2rem;
+
+                        > li {
+                            position: relative;
+
+                            > .prjItem {
+                                position: relative;
+                                flex-direction: column;
+                                padding: 0;
+                                margin: 0;
+
+                                .date {
+                                    margin-left: 0;
+                                }
+                                .part {
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    gap: 1em;
+                                    font-size: 11px;
+                                    font-weight: 100;
+                                }
+
+                                .btnEdit {
+                                    right: 2.2rem;
+                                    opacity: 1;
+                                }
+                                .btnDelete {
+                                    right: 0;
+                                    opacity: 1;
+                                }
+
+                                &:hover {
+                                    padding: 0;
+                                    margin: 0;
+                                    background: none;
+                                }
+                            }
+
+                            > .editPrjItem {
+                                position: absolute;
+                                top: 50%;
+                                left: -200px;
+                                width: calc(100% + 245px);
+                                z-index: 1;
+
+                                > .wrap {
+                                    display: grid;
+                                    grid-template-columns: 140px 90px 1fr 40px 40px;
+                                    gap: 4px;
+                                    max-width: none;
+                                    height: auto;
+                                    padding: 1rem 1.5rem 1rem 1rem;
+                                    margin-top: -2.3rem;
+                                    border-radius: 1rem;
+                                    background: #ffa700;
+                                    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+                                    text-align: center;
+
+                                    > button {
+                                        padding: 0;
+                                        min-width: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    > .noneProject {
+                        color: rgba(255, 255, 255, 0.5);
+                        font-size: 0.75rem;
+                        font-weight: 100;
+                    }
+                }
+
+                // 추가 모드일 경우
+                &.isAddMode {
+                    width: auto;
+                    padding: 4rem 0;
+                    margin: 0 !important;
+                    transition: all 0.24s;
+
+                    &:before {
+                        top: 45px;
+                        height: calc(100% - 48px);
+                    }
+
+                    &:after {
+                        content: '+' !important;
+                        top: 50%;
+                        left: 50%;
+                        transform: translateX(-50%) translateY(-50%);
+                        width: 1em;
+                        height: 1em;
+                        font-size: 4rem;
+                        line-height: 1;
+                    }
+
+                    > .editItem {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        padding: 0 1rem;
+                        margin-top: 0;
+                        box-sizing: border-box;
+                        z-index: 99999;
+
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(0, 0, 0, 0.5);
+                            z-index: -1;
+                        }
+
+                        > .wrap {
+                            display: flex;
+                            gap: 0.5rem 0;
+                            flex-wrap: wrap;
+                            justify-content: center;
+                            align-items: center;
+                            width: 100%;
+                            height: auto;
+                            margin: 0;
+
+                            > div {
+                                &:nth-of-type(1) {
+                                    flex: none;
+                                    width: 100%;
+                                }
+                                &:nth-of-type(2) {
+                                    width: 45%;
+                                    > * {
+                                        width: 100% !important;
+                                    }
+                                }
+                                &:nth-of-type(3) {
+                                    width: 10%;
+                                }
+                                &:nth-of-type(4) {
+                                    width: 45%;
+                                    > * {
+                                        width: 100% !important;
+                                    }
+                                }
+                                &:nth-of-type(5) {
+                                    flex: none;
+                                    width: 100%;
+                                }
+                            }
+                            > button {
+                                flex: none;
+                                width: 4rem;
+                                height: 3rem;
+                                margin-top: 1rem;
+
+                                &:nth-of-type(1) {
+                                    margin-right: 4px;
+                                }
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        &:after {
+                            background: #000;
+                            color: #ffa700;
+                        }
+                    }
+
+                    &.isEditMode {
+                        width: 100%;
+
+                        &:after {
+                            background: #000;
+                            color: #ffa700;
+                        }
+                    }
+                }
+            }
+            > * > .item {
+                &:first-of-type {
+                    padding-top: 3rem;
+                }
+            }
+
+            // 소개
+            .analyze {
+                padding-bottom: 0;
+
+                > .title {
+                    display: none;
+                }
+
+                .aboutInfo {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 1rem;
+                    text-align: center;
+                }
+            }
+
+            // 회사 관리
+            .editItem {
+                top: 0;
+                left: 0;
+                width: 100% !important;
+
+                > .wrap {
+                    display: flex !important;
+                    flex-wrap: wrap;
+                    gap: 0.5rem 0 !important;
+                    justify-content: center !important;
+                    align-items: center !important;
+
+                    > div {
+                        &:nth-of-type(1) {
+                            flex: none;
+                            width: 100%;
+                        }
+                        &:nth-of-type(2) {
+                            width: 45%;
+                            > * {
+                                width: 100% !important;
+                            }
+                        }
+                        &:nth-of-type(3) {
+                            width: 10%;
+                        }
+                        &:nth-of-type(4) {
+                            width: 45%;
+                            > * {
+                                width: 100% !important;
+                            }
+                        }
+                        &:nth-of-type(5) {
+                            flex: none;
+                            width: 100%;
+                        }
+                    }
+                    > button {
+                        flex: none;
+                        width: 4rem;
+                        height: 3rem;
+                        margin-top: 1rem;
+
+                        &:nth-of-type(1) {
+                            margin-right: 4px;
+                        }
+                    }
+                }
+            }
+
+            // 프로젝트 관리
+            .editPrjItem {
+                left: 0 !important;
+                width: 100% !important;
+
+                > .wrap {
+                    display: flex !important;
+                    flex-wrap: wrap;
+                    gap: 0.5rem 0 !important;
+                    justify-content: center !important;
+                    align-items: center !important;
+                    transform: translateY(-30%);
+
+                    > div {
+                        &:nth-of-type(1) {
+                            flex: none;
+                            width: 100%;
+                        }
+                        &:nth-of-type(2) {
+                            flex: none;
+                            width: 100%;
+                            > * {
+                                width: 100% !important;
+                            }
+                        }
+                        &:nth-of-type(3) {
+                            flex: none;
+                            width: 100%;
+                        }
+                    }
+                    > button {
+                        flex: none;
+                        width: 4rem;
+                        height: 3rem;
+                        margin-top: 1rem;
+
+                        &:nth-of-type(1) {
+                            margin-right: 4px;
+                        }
+                    }
+                }
+            }
         }
     }
 `;

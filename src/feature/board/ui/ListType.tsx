@@ -42,8 +42,8 @@ const style = (theme: Theme) => css`
             padding: ${theme.spacing(2)} 0 0;
             font-size: 2em;
             font-weight: 200;
-            white-space: nowrap;
             overflow: hidden;
+            line-height: 1.2em;
             text-overflow: ellipsis;
 
             &:first-of-type {

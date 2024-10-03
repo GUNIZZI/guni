@@ -176,11 +176,13 @@ const Comp = ({ compData }: OwnProps) => {
                                 name="inOffice"
                                 control={control}
                                 render={({ field }) => (
-                                    <Switch
-                                        {...field}
-                                        checked={field.value} // Switch 상태를 React Hook Form과 동기화
-                                        onChange={e => field.onChange(e.target.checked)} // Switch가 변경될 때 값 전달
-                                    />
+                                    <div>
+                                        <Switch
+                                            {...field}
+                                            checked={field.value} // Switch 상태를 React Hook Form과 동기화
+                                            onChange={e => field.onChange(e.target.checked)} // Switch가 변경될 때 값 전달
+                                        />
+                                    </div>
                                 )}
                             />
                             <Controller
@@ -203,7 +205,9 @@ const Comp = ({ compData }: OwnProps) => {
                                     />
                                 )}
                             />
-                            <span>~</span>
+                            <div>
+                                <span>~</span>
+                            </div>
                             <Controller
                                 name="endYear"
                                 control={control}
