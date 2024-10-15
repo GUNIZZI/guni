@@ -1,4 +1,4 @@
-import{c as s,N as t,j as a,a as e,m as i}from"./index-DADlZQoK.js";import{E as r}from"./easeing-BSniFuba.js";const l=n=>s`
+import{c as s,N as t,j as n,a as e,m as i}from"./index-DqrXiUc7.js";import{E as r}from"./easeing-T7Lpw6Uk.js";const l=a=>s`
     .wrap {
         display: flex;
         flex-direction: column;
@@ -6,7 +6,7 @@ import{c as s,N as t,j as a,a as e,m as i}from"./index-DADlZQoK.js";import{E as 
         align-items: center;
         height: calc(100vh - 48px);
 
-        ${n.breakpoints.down("md")} {
+        ${a.breakpoints.down("md")} {
             height: calc(100vh - 8rem);
         }
 
@@ -106,15 +106,15 @@ import{c as s,N as t,j as a,a as e,m as i}from"./index-DADlZQoK.js";import{E as 
 
     > * {
         & div {
-            font-size: ${n.typography.h6.fontSize};
+            font-size: ${a.typography.h6.fontSize};
         }
 
         > strong {
-            font-size: ${n.typography.h2.fontSize};
+            font-size: ${a.typography.h2.fontSize};
         }
 
         > span {
-            font-size: ${n.typography.h3.fontSize};
+            font-size: ${a.typography.h3.fontSize};
         }
     }
 
@@ -162,4 +162,4 @@ import{c as s,N as t,j as a,a as e,m as i}from"./index-DADlZQoK.js";import{E as 
             transform: rotate(0deg); /* 원래 위치로 돌아옴 */
         }
     }
-`,c={visible:{transition:{staggerChildren:.2,when:"beforeChildren"}}},d={hidden:{opacity:0,y:"1em"},visible:{opacity:1,y:0,transition:{duration:1,ease:r.EASE_OUT_QUART}}},f={hidden:{opacity:0,transform:"scale(1.2)"},visible:{opacity:1,transform:"scale(1)",transition:{duration:3,ease:r.EASE_OUT_QUART}}},o={hidden:{opacity:0,x:"0.4em"},visible:()=>({opacity:1,x:0,transition:{duration:1.2,ease:r.EASE_OUT_QUART}})},h=()=>a("div",{className:"page",css:l,children:[e("span",{className:"bg"}),a(i.div,{className:"wrap",variants:c,initial:"hidden",animate:"visible",children:[a(i.div,{className:"subtitle",variants:d,children:["Publisher ",e("span",{children:"&"})," Front End Developer."]}),a("div",{className:"grpG",children:[e(i.div,{className:"g",variants:f,children:"G"}),a("div",{className:"uni",children:[e(i.div,{variants:o,children:"U"}),e(i.div,{variants:o,children:"N"}),e(i.div,{variants:o,children:"I"})]})]}),e("div",{className:"postit",children:"메시지1"}),e("div",{className:"postit",children:"메시지2 "})]})]});export{h as PageHome};
+`,c={visible:{transition:{staggerChildren:.2,when:"beforeChildren"}}},d={hidden:{opacity:0,y:"1em"},visible:{opacity:1,y:0,transition:{duration:1,ease:r.EASE_OUT_QUART}}},f={hidden:{opacity:0,transform:"scale(1.2)"},visible:{opacity:1,transform:"scale(1)",transition:{duration:3,ease:r.EASE_OUT_QUART}}},o={hidden:{opacity:0,x:"0.4em"},visible:()=>({opacity:1,x:0,transition:{duration:1.2,ease:r.EASE_OUT_QUART}})},h=()=>n("div",{className:"page",css:l,children:[e("span",{className:"bg"}),n(i.div,{className:"wrap",variants:c,initial:"hidden",animate:"visible",children:[n(i.div,{className:"subtitle",variants:d,children:["Publisher ",e("span",{children:"&"})," Front End Developer."]}),n("div",{className:"grpG",children:[e(i.div,{className:"g",variants:f,children:"G"}),n("div",{className:"uni",children:[e(i.div,{variants:o,children:"U"}),e(i.div,{variants:o,children:"N"}),e(i.div,{variants:o,children:"I"})]})]})]})]});export{h as PageHome};
