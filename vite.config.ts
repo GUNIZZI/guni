@@ -1,13 +1,24 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig, UserConfig } from 'vite';
 import mkcert from 'vite-plugin-mkcert';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig(async ({ mode }): Promise<UserConfig> => {
     const isProduction = mode === 'production';
 
     return {
         base: '/guni',
-        plugins: [react(), mkcert()],
+        plugins: [
+            react(),
+            mkcert(),
+            svgr({
+                svgrOptions: {
+                    icon: true,
+                    // svgr 옵션
+                },
+                include: '**/*.svg',
+            }),
+        ],
         optimizeDeps: {
             include: ['highlight.js'],
         },

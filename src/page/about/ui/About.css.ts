@@ -4,35 +4,89 @@ import { Theme } from '@mui/material';
 
 const style = (theme: Theme) => css`
     display: flex;
-    padding: 1.25rem 8.75rem 0 0;
+    padding: 1.25rem 8.75rem 0 calc(50% - 60px);
     z-index: 1;
 
     .animationWrap {
-        flex: 1 1 50%;
+        position: fixed !important;
+        top: 1.25rem;
+        left: 0;
+        width: calc(50% - 60px);
+        overflow: hidden;
+        // flex: 1 1 50%;
+        // overflow: hidden;
 
         > .wrap {
             display: flex;
             justify-content: center;
             align-items: center;
-            position: sticky;
-            top: 1.25rem;
             height: calc(100vh - 1.25rem);
-            max-width: none;
-            min-height: 600px;
-            padding: 0 1rem;
+            padding: 0 2em;
 
-            > svg {
-                max-width: 560px;
-                max-height: 560px;
-                min-width: 400px;
-                min-height: 400px;
-                width: 100%;
+            > .innerWrap {
+                position: relative;
+                width: 560px;
+                height: 560px;
+                margin: 0 auto;
+
+                > iframe {
+                    width: 100%;
+                }
+
+                > .txtWrap {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+
+                    > * {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        font-size: 16px;
+                        font-weight: 400;
+                    }
+
+                    > .txt1 {
+                        margin: -46% 0 0 -42%;
+                    }
+                    > .txt2 {
+                        margin: -35.6% 0 0 -31.5%;
+                    }
+                    > .txt3 {
+                        margin: -18% 0 0 -13.5%;
+                    }
+                    > .txt4 {
+                        margin: 13.5% 0 0 18%;
+                    }
+                    > .txt5 {
+                        margin: 31.7% 0 0 35.5%;
+                    }
+                    > .txt6 {
+                        margin: 41.4% 0 0 45.6%;
+                    }
+                    > .main {
+                        transform: translateX(-50%) translateY(-50%);
+                        font-size: 48px;
+                        font-weight: 700;
+                        line-height: 1;
+
+                        > div {
+                            white-space: nowrap;
+
+                            > * {
+                                display: inline-block;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 
     .listWrap {
-        flex: 1 1 50%;
+        min-width: 500px;
         display: flex;
         flex-direction: column;
         position: relative;
@@ -403,21 +457,29 @@ const style = (theme: Theme) => css`
         }
     }
 
-    ${theme.breakpoints.down('lg')} {
-        .animationWrap {
-            position: relative;
-            // flex: 1 1;
-            overflow: hidden;
+    .glow {
+        text-shadow:
+            0 0 5px #fff,
+            0 0 10px #fff,
+            0 0 15px #fff,
+            0 0 20px #ff00de,
+            0 0 35px #ff00de,
+            0 0 40px #ff00de,
+            0 0 50px #ff00de,
+            0 0 75px #ff00de;
+    }
 
-            > .wrap {
-                position: absolute;
-                top: 50vh;
-                left: 50%;
-                transform: translateX(-50%) translateY(-50%);
-                width: 400px;
-                height: 400px;
-            }
-        }
+    ${theme.breakpoints.down('lg')} {
+        // .animationWrap {
+        //     flex: 1 1 40%;
+
+        //     .innerWrap {
+        //         transform: scale(0.8);
+        //     }
+        // }
+        // .listWrap {
+        //     flex: 1 1 60%;
+        // }
     }
 
     ${theme.breakpoints.down('md')} {

@@ -74,8 +74,8 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className="postit">메시지1</div>
-                <div className="postit">메시지2 </div>
+                {/* <div className="postit">메시지1</div>
+                <div className="postit">메시지2 </div> */}
             </motion.div>
         </div>
     );
