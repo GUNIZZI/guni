@@ -3,7 +3,6 @@
     "private": true,
     "version": "0.0.1",
     "type": "module",
-    "homepage": "https://gunizzi.github.io/guni/",
     "scripts": {
         "dev": "vite",
         "dev:prod": "vite --mode production",
