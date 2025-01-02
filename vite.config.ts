@@ -6,7 +6,7 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
     const isProduction = mode === 'production';
 
     return {
-        base: '/guni',
+        base: '/',
         plugins: [react(), mkcert()],
         optimizeDeps: {
             include: ['highlight.js'],
