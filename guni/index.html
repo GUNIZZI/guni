@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <!-- Montserrat 폰트 파일 프리로드 (자주 사용하는 가중치만) -->
+        <link
+            rel="preload"
+            href="https://fonts.gstatic.com/s/montserrat/v26/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
+
+        <!-- Noto Sans KR 폰트 파일 프리로드 (자주 사용하는 가중치만) -->
+        <link
+            rel="preload"
+            href="https://fonts.gstatic.com/s/notosanskr/v27/PbykFmXiEBPT4ITbgNA5Cgm203Tq4JJWq209pU0DPdWuqxJFA4GNDCBYtw.0.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
+
+        <!-- 폰트 스타일시트 로드 -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans+KR:wght@100..900&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- highlight.js 스타일 로드 -->
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+            rel="stylesheet"
+        />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <title>GUNI</title>
+        <!-- highlight.js 로드 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script type="text/javascript">
+            window.global ||= window;
+            (function (l) {
+                if (l.search) {
+                    var q = {};
+                    l.search
+                        .slice(1)
+                        .split('&')
+                        .forEach(function (v) {
+                            var a = v.split('=');
+                            q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+                        });
+                    if (q.p !== undefined) {
+                        window.history.replaceState(
+                            null,
+                            null,
+                            l.pathname.slice(0, -1) + (q.p || '') + (q.q ? '?' + q.q : '') + l.hash,
+                        );
+                    }
+                }
+            })(window.location);
+        </script>
+      <script type="module" crossorigin src="/guni/assets/index-C3H4IjIc.js"></script>
+      <link rel="stylesheet" crossorigin href="/guni/assets/index-DGqe2EbN.css">
+    </head>
+    <body>
+        <div id="root"></div>
+        <noscript>JavaScript를 활성화해야 서비스가 가능 합니다.</noscript>
+    </body>
+</html>
